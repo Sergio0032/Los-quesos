@@ -1,2 +1,8 @@
-# Los-quesos
-Soy David. Mi madre es puta
+## Los-quesos
+
+#INTEGRANTES DEL GRUPO
+
+- Sergio González Moya
+- Juan Bravo García
+- David Castaños Pérez
+- Nicolas Pino Urtubia
