@@ -48,6 +48,7 @@ with open(filename, mode='w', newline='', encoding='utf-8') as file:
 
         for estadisticas_equipo in clasificacion:
             writer.writerow([
+                nombre_liga,
                 estadisticas_equipo['rank'],
                 estadisticas_equipo['team']['name'],
                 estadisticas_equipo['points'],
