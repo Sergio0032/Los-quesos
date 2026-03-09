@@ -1,19 +1,19 @@
-Posicion,Equipo,Puntos,Partidos_Jugados,Ganados,Empatados,Perdidos
-1,Bayern München,82,34,25,7,2
-2,Bayer Leverkusen,69,34,19,12,3
-3,Eintracht Frankfurt,60,34,17,9,8
-4,Borussia Dortmund,57,34,17,6,11
-5,SC Freiburg,55,34,16,7,11
-6,FSV Mainz 05,52,34,14,10,10
-7,RB Leipzig,51,34,13,12,9
-8,Werder Bremen,51,34,14,9,11
-9,VfB Stuttgart,50,34,14,8,12
-10,Borussia Mönchengladbach,45,34,13,6,15
-11,VfL Wolfsburg,43,34,11,10,13
-12,FC Augsburg,43,34,11,10,13
-13,Union Berlin,40,34,10,10,14
-14,FC St. Pauli,32,34,8,8,18
-15,1899 Hoffenheim,32,34,7,11,16
-16,1. FC Heidenheim,29,34,8,5,21
-17,Holstein Kiel,25,34,6,7,21
-18,VfL Bochum,25,34,6,7,21
+Posicion,Equipo,Puntos,Partidos_Jugados,Ganados,Empatados,Perdidos,Goles a favor,Goles en contra,Diferencia de goles
+1,Bayern München,82,34,25,7,2,99,32,67
+2,Bayer Leverkusen,69,34,19,12,3,72,43,29
+3,Eintracht Frankfurt,60,34,17,9,8,68,46,22
+4,Borussia Dortmund,57,34,17,6,11,71,51,20
+5,SC Freiburg,55,34,16,7,11,49,53,-4
+6,FSV Mainz 05,52,34,14,10,10,55,43,12
+7,RB Leipzig,51,34,13,12,9,53,48,5
+8,Werder Bremen,51,34,14,9,11,54,57,-3
+9,VfB Stuttgart,50,34,14,8,12,64,53,11
+10,Borussia Mönchengladbach,45,34,13,6,15,55,57,-2
+11,VfL Wolfsburg,43,34,11,10,13,56,54,2
+12,FC Augsburg,43,34,11,10,13,35,51,-16
+13,Union Berlin,40,34,10,10,14,35,51,-16
+14,FC St. Pauli,32,34,8,8,18,28,41,-13
+15,1899 Hoffenheim,32,34,7,11,16,46,68,-22
+16,1. FC Heidenheim,29,34,8,5,21,37,64,-27
+17,Holstein Kiel,25,34,6,7,21,49,80,-31
+18,VfL Bochum,25,34,6,7,21,33,67,-34
