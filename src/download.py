@@ -1,8 +1,9 @@
 import requests
 import csv
 import os
+from config import API_KEY
 
-api_key = '25b023596490219c840af2bd1a48b7ac'
+api_key = API_KEY
 temporada = 2024 
 
 ligas = {
@@ -42,7 +43,7 @@ for nombre_liga, liga_id in ligas.items():
                 
             writer.writerow([
                 'Posicion', 'Equipo', 'Puntos', 'Partidos_Jugados', 
-                'Ganados', 'Empatados', 'Perdidos'
+                'Ganados', 'Empatados', 'Perdidos', 'Goles a favor', 'Goles en contra', 'Diferencia de goles'
             ])
                 
             for estadisticas_equipo in clasificacion:
@@ -54,7 +55,11 @@ for nombre_liga, liga_id in ligas.items():
                     estadisticas_equipo['all']['win'],
                     estadisticas_equipo['all']['draw'],
                     estadisticas_equipo['all']['lose'],
+                    estadisticas_equipo['all']['goals']['for'],
+                    estadisticas_equipo['all']['goals']['against'],
+                    estadisticas_equipo['goalsDiff']
                 ])
+
         print(f"Archivo guardado correctamente: {filename}")
     else:
         print(f" La API no devolvió datos para {nombre_liga} en el año {temporada}.")
