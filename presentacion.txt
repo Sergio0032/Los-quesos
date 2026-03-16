@@ -1,0 +1,14 @@
+Se llamara Futbol Champagne hecha por los quesos
+Podremos hacer:
+- Clasificacion de los ultimos años de las grandes 5 ligas, los años que mos permita la api
+- Resultados de las jornadas del ultimo año de las grandes 5 ligas
+- Hacer notebooks de las clasificaiones en los que se vea la tabla
+- Tambien graficas de los ganmadores de ligas 
+- Poder ver las plantillas de los equipos al final del año
+- Datos de maximos goleadores de cada liga junto a sus graficas de maximos goleadores
+- Poder hacer maximos goleadores de las ligas juntadas y maximos ganadores de ligas 
+de los ultimos años
+- Hacer graficas de quesos de datos de los equipos generales, como goles a favor, en contra...
+- Crear una interfaz de usuario que permita navegar por los, datos registrados, en la que 
+se pueda seleccionar la liga q buscar,  la clasificacion, los resultados o goleadores...
+
