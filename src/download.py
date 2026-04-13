@@ -1,69 +1,67 @@
-
-import asyncio
-import aiohttp
+import requests
 import csv
 import os
-from understat import Understat
+from config import API_KEY
 
-async def descargar_temporada(understat, temporada):
-    ligas = {
-        'EPL': 'Premier League',
-        'La_Liga': 'La Liga',
-        'Serie_A': 'Serie A',
-        'Bundesliga': 'Bundesliga',
-        'Ligue_1': 'Ligue 1',
+api_key = API_KEY
+temporada = 2024 
+
+ligas = {
+    'Premier_League': 39,
+    'La_Liga': 140,
+    'Serie_A': 135,
+    'Bundesliga': 78,
+    'Ligue_1': 61
+}
+
+headers = {
+    'x-apisports-key': api_key
+}
+
+url = "https://v3.football.api-sports.io/standings"
+
+os.makedirs('data', exist_ok=True)
+
+for nombre_liga, liga_id in ligas.items():
+    datos = {
+        'league': liga_id,
+        'season': temporada
     }
 
-    filename = f"data/clasificacion_{temporada}.csv"
+    response = requests.get(url, headers=headers, params=datos)
+    
 
-    if os.path.exists(filename):
-        print(f"Saltando {temporada}: El archivo ya existe.")
-        return
-    try:
+    data = response.json()
+        
+    if data['response']:
+        clasificacion = data['response'][0]['league']['standings'][0]
+            
+        f444ilename = f"data/clasificacion_{nombre_liga}_{temporada}.csv"            
+        44
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
+                
             writer.writerow([
-                'Temporada', 'Liga', 'Posicion', 'Equipo', 'Partidos_Jugados', 
-                'Ganados', 'Empatados', 'Perdidos', 'Goles_a_favor', 
-                'Goles_en_contra', 'Puntos', 'xG_Esperado'
+                'Posicion', 'Equipo', 'Puntos', 'Partidos_Jugados', 
+                'Ganados', 'Empatados', 'Perdidos', 'Goles a favor', 'Goles en contra', 'Diferencia de goles'
             ])
+                
+            for estadisticas_equipo in clasificacion:
+                writer.writerow([
+                    estadisticas_equipo['rank'],
+                    estadisticas_equipo['team']['name'],
+                    estadisticas_equipo['points'],
+                    estadisticas_equipo['all']['played'],
+                    estadisticas_equipo['all']['win'],
+                    estadisticas_equipo['all']['draw'],
+                    estadisticas_equipo['all']['lose'],
+                    estadisticas_equipo['all']['goals']['for'],
+                    estadisticas_equipo['all']['goals']['against'],
+                    estadisticas_equipo['goalsDiff']
+                ])
 
-            for id_liga, nombre_liga in ligas.items():
-                data = await understat.get_league_table(id_liga, str(temporada))
-                equipos = data[1:]
+        print(f"Archivo guardado correctamente: {filename}")
+    else:
+        print(f" La API no devolvió datos para {nombre_liga} en el año {temporada}.")
 
-                for pos, stats in enumerate(equipos, start=1):
-                    writer.writerow([
-                        f"{temporada}/{int(temporada)+1}",
-                        nombre_liga,
-                        pos,
-                        stats[0], 
-                        stats[1], 
-                        stats[2], 
-                        stats[3], 
-                        stats[4], 
-                        stats[5], 
-                        stats[6], 
-                        stats[7], 
-                        stats[8]  
-                    ])
-        print(f"Temporada {temporada} guardada.")
-    except Exception as e:
-        print(f"Error en temporada {temporada}: {e}")
 
-async def main():
-    os.makedirs('data', exist_ok=True)
-    
-    temporadas = range(2014, 2026) 
-
-    async with aiohttp.ClientSession() as session:
-        understat = Understat(session)
-        
-        for año in temporadas:
-            await descargar_temporada(understat, año)
-            await asyncio.sleep(1)
-
-    print("\n--- Descarga finalizada ---")
-
-if __name__ == "__main__":
-    asyncio.run(main())
