@@ -1,3 +1,4 @@
+
 import streamlit as st
 
 st.set_page_config(page_title="Control de Apuestas", layout="wide")
@@ -5,7 +6,6 @@ st.set_page_config(page_title="Control de Apuestas", layout="wide")
 st.title("Seguimiento de Jornada y Cuotas")
 st.write("---")
 
-# Seccion de portales con cajas de colores
 st.subheader("Plataformas Recomendadas")
 col_1, col_2, col_3 = st.columns(3)
 
@@ -18,7 +18,6 @@ with col_3:
 
 st.write("---")
 
-# Diccionario de datos
 datos_ligas = {
     "LaLiga": {
         "cuotas": {"FC Barcelona": 1.30, "Real Madrid CF": 5.20, "At. Madrid": 16.00, "Otros": 500.0},
@@ -54,23 +53,19 @@ datos_ligas = {
 
 liga_activa = st.selectbox("Seleccionar competicion:", list(datos_ligas.keys()))
 
-# --- BLOQUE DESTACADO CON RECUADRO DE COLOR ---
 st.write(f"Analisis de jornada: {liga_activa}")
 
-# Usamos un expander o una caja de texto resaltada para el partido
 with st.expander("Ver detalle del partido destacado", expanded=True):
     col_a, col_b = st.columns(2)
     with col_a:
         st.write("**Evento principal:**")
         st.code(datos_ligas[liga_activa]['evento_dia'])
     with col_b:
-        st.write("**Sugerencia de apuesta:**")
-        # Aquí usamos la caja de color para que resalte
+        st.write("**Sugerencia de apuesta:**")--
         st.error(datos_ligas[liga_activa]['pista'])
 
 st.write("---")
 
-# Calculos y simulacion
 col_1, col_2 = st.columns(2)
 
 with col_1:
@@ -89,4 +84,5 @@ with col_2:
     st.write(f"Ganancia neta estimada: {neto:.2f} €")
     
     st.write("Listado de cuotas:")
-    st.dataframe(opciones, use_container_width=True)
+    st.dataframe(opciones, use_container_width=True) #asi evitamos que no se vean los espacios y se ocupe todo el ancho de la tabla.
+
