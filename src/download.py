@@ -16,7 +16,9 @@ async def descargar_temporada(understat, temporada):
 
     filename = f"data/clasificacion_{temporada}.csv"
 
-    
+    if os.path.exists(filename):
+        print(f"Saltando {temporada}: El archivo ya existe.")
+        return
     try:
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
@@ -52,7 +54,7 @@ async def descargar_temporada(understat, temporada):
 async def main():
     os.makedirs('data', exist_ok=True)
     
-    temporadas = range(2014, 2025) 
+    temporadas = range(2014, 2026) 
 
     async with aiohttp.ClientSession() as session:
         understat = Understat(session)

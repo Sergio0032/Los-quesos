@@ -1,3 +1,6 @@
 Utilizar libreria understat para los datos.
 - Instalación: pip install understat
 - para utilizar la libreria, utilizar funciones asíncronas con librerias ya instaladas por understat "asyncio" y "aiohttp"
+
+Libreria para partidos próximos/recientes
+-Instalación: pip install soccerdata
