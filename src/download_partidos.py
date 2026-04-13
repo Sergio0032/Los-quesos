@@ -22,7 +22,7 @@ for liga in ligas:
             resultados = fbref.read_schedule()
             
             resultados.to_csv(nombre_archivo, encoding='utf-8-sig')
-            print(f"💾 Guardado correctamente: {nombre_archivo}")
+            print(f"Guardado correctamente: {nombre_archivo}")
             
         except Exception as e:
             print(f"Error en {liga} {temporada}: {e}")

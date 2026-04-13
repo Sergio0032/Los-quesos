@@ -15,10 +15,9 @@ directorio_actual = os.path.dirname(os.path.abspath(__file__))
 
 nombre_archivo = f"clasificacion_{temporada_elegida}.csv"
 
-ruta_csv = os.path.join(directorio_actual, "..", "..",  "data", nombre_archivo)
+ruta_csv = os.path.join(directorio_actual, "..", "..",  "data_clasificaciones", nombre_archivo)
 
 df = pd.read_csv(ruta_csv)
-
 
 if liga_elegida != "Todas":
     df = df[df['Liga'] == liga_elegida]
