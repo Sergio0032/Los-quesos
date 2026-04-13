@@ -5,22 +5,50 @@ import os
 st.title("CLASIFICACIONES")
 
 
-opciones_temporadas = ["2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"]
-temporada_elegida = st.selectbox("Selecciona la temporada que quieres ver:", opciones_temporadas)
 
-opciones_ligas = ["Premier League", "La Liga", "Serie A", "Bundesliga", "Ligue 1"]
-liga_elegida = st.selectbox("Selecciona la liga:", opciones_ligas)
+opciones_temporadas = ["2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025" ] 
+opciones_ligas = [ "Premier League", "La Liga", "Serie A", "Bundesliga", "Ligue 1"] 
+
+
+col1, col2 = st.columns(2)
+
+
+with col1:
+    temporada_elegida = st.selectbox("Selecciona la temporada que quieres ver:", opciones_temporadas)
+
+
+with col2:
+    liga_elegida = st.selectbox("Selecciona la liga:", opciones_ligas)
 
 directorio_actual = os.path.dirname(os.path.abspath(__file__))
 
 nombre_archivo = f"clasificacion_{temporada_elegida}.csv"
 
+<<<<<<< Updated upstream
 ruta_csv = os.path.join(directorio_actual, "..", "..",  "data_clasificaciones", nombre_archivo)
+=======
+ruta_csv = os.path.join(directorio_actual, "..", "..", "data_clasificaciones", nombre_archivo)
+>>>>>>> Stashed changes
 
 df = pd.read_csv(ruta_csv)
 
 if liga_elegida != "Todas":
     df = df[df['Liga'] == liga_elegida]
+
+
+    
+st.markdown("### 🏆 Resumen de la Temporada")
+
+
+if not df.empty:
+    campeon = df.iloc[0]['Equipo']
+  
+    puntos_campeon = df.iloc[0]['Puntos'] 
+    
+   
+    st.metric(label=f"👑 Campeón ({liga_elegida})", value=campeon, delta=f"{puntos_campeon} Puntos")
+
+st.markdown("---") 
 
 
    
@@ -58,12 +86,24 @@ df = df.reset_index(drop=True)
 
 
 tabla_estilada = df.style.apply(colorear_posiciones, axis=None)
-st.dataframe(tabla_estilada)
+
+st.dataframe(
+    tabla_estilada,
+    hide_index=True,           # Oculta los números grises de la izquierda
+    use_container_width=True,  # Hace que la tabla ocupe todo el ancho de la pantalla
+    column_config={
+        # OJO: "Puntos" debe ser el nombre exacto de la columna en tu CSV
+        "Puntos": st.column_config.ProgressColumn(
+            "Puntos Obtenidos",  # Nombre que se mostrará en la cabecera
+            help="Total de puntos conseguidos en la temporada",
+            format="%d",         # %d significa que mostrará números enteros
+            min_value=0,
+            max_value=114,       # 114 es el máximo de puntos (38 partidos x 3)
+        ),
+    }
+)
 
 
-
-st.markdown("---") 
-st.write("### Leyenda de Clasificación")
 
 
 col1, col2, col3, col4 = st.columns(4)
