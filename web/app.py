@@ -23,3 +23,4 @@ if liga_elegida != "Todas":
     df = df[df['Liga'] == liga_elegida]
 
 st.dataframe(df)
+
