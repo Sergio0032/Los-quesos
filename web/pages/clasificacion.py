@@ -24,11 +24,7 @@ directorio_actual = os.path.dirname(os.path.abspath(__file__))
 
 nombre_archivo = f"clasificacion_{temporada_elegida}.csv"
 
-<<<<<<< Updated upstream
-ruta_csv = os.path.join(directorio_actual, "..", "..",  "data_clasificaciones", nombre_archivo)
-=======
 ruta_csv = os.path.join(directorio_actual, "..", "..", "data_clasificaciones", nombre_archivo)
->>>>>>> Stashed changes
 
 df = pd.read_csv(ruta_csv)
 
