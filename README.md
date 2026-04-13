@@ -18,5 +18,13 @@ desde 2010 hasta la actualidad.
 ### Instrucciones
 
 - Virtual env: python -m venv .venv
-- Activarlo: .venv\Scripts\activate
-- Librerías: pip install -r requirements.txt
+    -  Activarlo: .venv\Scripts\activate
+- Librerías:
+    - Datos fútbol: pip install understat
+        - Obligatorias para el funcionamiento:
+            - pip install aiohttp
+            - pip install asyncio
+    - Datos partidos recientes/próximos: pip install soccerdata 
+    - Web: pip install streamlit
+    - Gráficas: pip install pandas
+
