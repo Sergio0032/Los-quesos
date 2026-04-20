@@ -4,7 +4,7 @@ import os
 import streamlit.components.v1 as components
 
 st.title("Partidos")
-st.subheader("Partidos anteriores")
+
 
 opciones_temporadas = ["2025/2026", "2024/2025","2023/2024", "2022/2023", "2021/2022"]
 temporada_elegida = st.selectbox("Selecciona la temporada:", opciones_temporadas)
@@ -93,7 +93,7 @@ try:
             ), 
             "attendance": st.column_config.NumberColumn(
                 "Asistencia",
-                format="%d"  # El %d fuerza a que se vea como un número entero sin decimales
+                format="%d"  
             )
         },
         hide_index=True  
