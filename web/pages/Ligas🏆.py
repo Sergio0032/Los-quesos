@@ -2,21 +2,15 @@ import streamlit as st
 import pandas as pd
 import os
 
-st.title("LIGAS")
+st.title("Ligas")
 
-
+st.sidebar.header("⚙️ Configuración")
 
 opciones_temporadas = ["2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014"] 
 opciones_ligas = [ "Premier League", "La Liga", "Serie A", "Bundesliga", "Ligue 1"] 
 
-col1, col2 = st.columns(2)
-
-with col1:
-    temporada_elegida = st.selectbox("Selecciona la temporada que quieres ver:", opciones_temporadas)
-
-with col2:
-    liga_elegida = st.selectbox("Selecciona la liga:", opciones_ligas)
-
+temporada_elegida = st.sidebar.selectbox("Selecciona la temporada:", opciones_temporadas)
+liga_elegida = st.sidebar.selectbox("Selecciona la liga:", opciones_ligas)
 
 tab_clasificacion, tab_goleadores = st.tabs(["📊 Clasificación", "⚽ Goleadores"])
 

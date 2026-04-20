@@ -11,6 +11,8 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
+
+
 @st.cache_data
 def load_all_data():
     directorio_actual = os.path.dirname(os.path.abspath(__file__))
@@ -31,41 +33,47 @@ def load_all_data():
     
     return pd.concat(df_list, axis=0, ignore_index=True)
 
+def mostrar_formato_temporada(valor_raw):
+    v = str(valor_raw)
+    if len(v) == 4:
+        return f"20{v[:2]}-20{v[2:]}"
+    return v
+
+
 df = load_all_data()
 
 if df.empty:
-    st.warning("No hay datos disponibles en 'data_jugadores'.")
+    st.warning("No hay datos en la carpeta 'data_jugadores'.")
 else:
-    st.title("Estadísticas Completas de Jugadores")
-
+    st.title("Estadísticas de jugadores")
     st.divider()
 
-    c1, c2, c3 = st.columns(3)
+    st.sidebar.header("⚙️ Configuración")
 
-    with c1:
-        temporadas = sorted(df['Temporada'].unique().tolist(), reverse=True)
-        sel_temporada = st.selectbox("Temporada", temporadas)
+    temporadas = sorted(df['Temporada'].unique().tolist(), reverse=True)
+    sel_temporada = st.sidebar.selectbox(
+        "📅 Temporada", 
+        temporadas, 
+        format_func=mostrar_formato_temporada
+    )
 
     df_temp = df[df['Temporada'] == sel_temporada]
 
-    with c2:
-        ligas = sorted(df_temp['Liga'].unique().tolist())
-        sel_liga = st.selectbox("Liga", ligas)
+    ligas = sorted(df_temp['Liga'].unique().tolist())
+    sel_liga = st.sidebar.selectbox("🏆 Liga", ligas)
 
     df_liga = df_temp[df_temp['Liga'] == sel_liga]
 
-    with c3:
-        equipos = ["Ver toda la Liga"] + sorted(df_liga['Equipo'].unique().tolist())
-        sel_equipo = st.selectbox("Equipo", equipos)
+    equipos = ["Ver toda la Liga"] + sorted(df_liga['Equipo'].unique().tolist())
+    sel_equipo = st.sidebar.selectbox("⚽ Equipo", equipos)
 
     if sel_equipo == "Ver toda la Liga":
         df_final = df_liga
     else:
         df_final = df_liga[df_liga['Equipo'] == sel_equipo]
-
-    st.divider()
     
     if not df_final.empty:
+        
         m1, m2, m3 = st.columns(3)
         m1.metric("Total Jugadores", len(df_final))
         
@@ -73,25 +81,28 @@ else:
             m2.metric("Goles Totales", df_final['Goles'].sum())
             max_gol_idx = df_final['Goles'].idxmax()
             m3.metric("Máximo Goleador", f"{df_final.loc[max_gol_idx, 'Jugador']}")
-        else:
-            m2.metric("Goles Totales", "No hay col. 'Goles'")
-            m3.metric("Máximo Goleador", "No hay col. 'Goles'")
 
         if 'Goles' in df_final.columns:
             df_mostrar = df_final.sort_values(by="Goles", ascending=False)
         else:
             df_mostrar = df_final
 
-      
-        df_mostrar = df_mostrar.drop(columns=['Liga', 'Temporada'], errors='ignore')
+        columnas_ok = [
+            'Jugador', 'Equipo', 'Posicion', 'Partidos_Jugados', 
+            'Goles', 'Asistencias', 'Tarjetas_Amarillas', 'Tarjetas_Rojas'
+        ]
+        
+        cols_finales = [c for c in columnas_ok if c in df_mostrar.columns]
+        df_mostrar = df_mostrar[cols_finales]
+
+        df_mostrar = df_mostrar.rename(columns={
+            'Partidos_Jugados': 'PJ',
+            'Tarjetas_Amarillas': 'Amarillas',
+            'Tarjetas_Rojas': 'Rojas'
+        })
 
         st.dataframe(
             df_mostrar.astype(str),
             use_container_width=True,
             hide_index=True
         )
-
-        csv = df_final.to_csv(index=False).encode('utf-8')
-        st.download_button("Descargar Estadísticas (CSV)", csv, "estadisticas_jugadores.csv", "text/csv")
-    else:
-        st.error("No se encontraron datos para la selección actual.")

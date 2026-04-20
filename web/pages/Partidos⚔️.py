@@ -5,12 +5,13 @@ import streamlit.components.v1 as components
 
 st.title("Partidos")
 
+st.sidebar.header("⚙️ Configuración")
 
 opciones_temporadas = ["2025/2026", "2024/2025","2023/2024", "2022/2023", "2021/2022"]
-temporada_elegida = st.selectbox("Selecciona la temporada:", opciones_temporadas)
+temporada_elegida = st.sidebar.selectbox("Selecciona la temporada:", opciones_temporadas)
 
 ligas = ["ENG-Premier League", "ESP-La Liga", "GER-Bundesliga", "ITA-Serie A", "FRA-Ligue 1"]
-liga_elegida = st.selectbox("Selecciona la liga:", ligas)
+liga_elegida = st.sidebar.selectbox("Selecciona la liga:", ligas)
 traductor_temporadas = {
     "2021/2022": "2122",
     "2022/2023": "2223",
@@ -46,13 +47,11 @@ try:
     
     lista_equipos.insert(0, "Todos los equipos")
     
-    equipo_elegido = st.selectbox("Filtra por equipo:", lista_equipos)
-    
+    equipo_elegido = st.sidebar.selectbox("Filtra por equipo:", lista_equipos)    
+
     if equipo_elegido != "Todos los equipos":
         df = df[(df['home_team'] == equipo_elegido) | (df['away_team'] == equipo_elegido)]
     
-    st.success(f"Archivo cargado: {nombre_archivo}")
-    st.write(f"Mostrando partidos de: **{equipo_elegido}**")
     def resaltar_resultados(row):
         estilo_local = ''
         estilo_visitante = ''
