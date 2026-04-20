@@ -5,7 +5,7 @@ import pandas as pd
 nombre_carpeta = 'datos_resultados'
 
 ligas = ["ENG-Premier League", "ESP-La Liga", "GER-Bundesliga", "ITA-Serie A", "FRA-Ligue 1"]
-temporadas = ["2122", "2223", "2324", "2425"]
+temporadas = ["2122", "2223", "2324", "2425", "2526"]
 
 if not os.path.exists(nombre_carpeta):
     os.makedirs(nombre_carpeta)
@@ -38,24 +38,25 @@ for liga in ligas:
 
             columnas_finales = [c for c in columnas_deseadas if c in resultados.columns]
             resultados_limpios = resultados[columnas_finales].copy()
-            
+            if 'date' in resultados_limpios.columns:
+
+                resultados_limpios['date'] = pd.to_datetime(resultados_limpios['date'], errors='coerce')
+                resultados_limpios['date'] = resultados_limpios['date'].dt.strftime('%d/%m')
+
             if 'match_report' in resultados_limpios.columns:
                 def crear_enlace_directo(url):
-                    # Si está vacío, devolvemos 'Sin reporte'
                     if pd.isna(url) or url == '':
                         return 'Sin reporte'
                     
                     url_str = str(url)
                     
-                    # Si FBref nos da una ruta cortada (ej: /en/matches/123), le pegamos el dominio completo
                     if url_str.startswith('/'):
                         return 'https://fbref.com' + url_str
                         
-                    return url_str # Si ya es completa, la dejamos igual
+                    return url_str 
+                
 
-                # Aplicamos el cambio
                 resultados_limpios['match_report'] = resultados_limpios['match_report'].apply(crear_enlace_directo)
-            # -------------------------------------------
             
             resultados_limpios.to_csv(nombre_archivo, encoding='utf-8-sig', index=False)
             print(f" Guardado correctamente: {nombre_archivo}")

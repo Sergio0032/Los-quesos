@@ -1,11 +1,12 @@
 import streamlit as st
 import pandas as pd
 import os
+import streamlit.components.v1 as components
 
 st.title("Partidos")
 st.subheader("Partidos anteriores")
 
-opciones_temporadas = ["2024/2025","2023/2024", "2022/2023", "2021/2022"]
+opciones_temporadas = ["2025/2026", "2024/2025","2023/2024", "2022/2023", "2021/2022"]
 temporada_elegida = st.selectbox("Selecciona la temporada:", opciones_temporadas)
 
 ligas = ["ENG-Premier League", "ESP-La Liga", "GER-Bundesliga", "ITA-Serie A", "FRA-Ligue 1"]
@@ -14,7 +15,8 @@ traductor_temporadas = {
     "2021/2022": "2122",
     "2022/2023": "2223",
     "2023/2024": "2324",
-    "2024/2025": "2425"
+    "2024/2025": "2425",
+    "2025/2026": "2526"
 }
 codigo_temp = traductor_temporadas[temporada_elegida]
 
@@ -88,6 +90,10 @@ try:
             "match_report": st.column_config.LinkColumn(
                 "Reporte",          
                 display_text="Ver" 
+            ), 
+            "attendance": st.column_config.NumberColumn(
+                "Asistencia",
+                format="%d"  # El %d fuerza a que se vea como un número entero sin decimales
             )
         },
         hide_index=True  
