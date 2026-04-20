@@ -12,3 +12,4 @@ de los ultimos años
 - Crear una interfaz de usuario que permita navegar por los, datos registrados, en la que 
 se pueda seleccionar la liga q buscar,  la clasificacion, los resultados o goleadores...
 
+- formula liga, iframes, limpieza general, graficas.

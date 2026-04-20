@@ -37,7 +37,7 @@ COLUMNAS = {
 
 def descargar_estadisticas_jugadores():
     ligas = ["ENG-Premier League", "ESP-La Liga", "ITA-Serie A", "GER-Bundesliga", "FRA-Ligue 1"]
-    temporadas = [2021, 2022, 2023, 2024]
+    temporadas = [2021, 2022, 2023, 2024, 2025]
     
     os.makedirs("data_jugadores", exist_ok=True)
     

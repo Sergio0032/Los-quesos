@@ -2,7 +2,7 @@ import soccerdata as sd
 import os
 
 ligas = ["ENG-Premier League", "ESP-La Liga", "GER-Bundesliga", "ITA-Serie A", "FRA-Ligue 1"]
-temporadas = ["2122", "2223", "2324", "2425"]
+temporadas = ["2122", "2223", "2324", "2425", "2526"]
 
 if not os.path.exists('datos_ligas'):
     os.makedirs('datos_ligas')
