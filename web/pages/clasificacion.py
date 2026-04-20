@@ -85,16 +85,16 @@ tabla_estilada = df.style.apply(colorear_posiciones, axis=None)
 
 st.dataframe(
     tabla_estilada,
-    hide_index=True,           # Oculta los números grises de la izquierda
-    use_container_width=True,  # Hace que la tabla ocupe todo el ancho de la pantalla
+    hide_index=True,          
+    use_container_width=True,  
     column_config={
-        # OJO: "Puntos" debe ser el nombre exacto de la columna en tu CSV
+        
         "Puntos": st.column_config.ProgressColumn(
-            "Puntos Obtenidos",  # Nombre que se mostrará en la cabecera
+            "Puntos Obtenidos",  
             help="Total de puntos conseguidos en la temporada",
-            format="%d",         # %d significa que mostrará números enteros
+            format="%d",        
             min_value=0,
-            max_value=114,       # 114 es el máximo de puntos (38 partidos x 3)
+            max_value=114,       
         ),
     }
 )

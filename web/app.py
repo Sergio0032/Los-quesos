@@ -5,7 +5,7 @@ import os
 st.title("Futbol champagne")
 st.subheader("Clasificaciones")
 
-opciones_temporadas = ["2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"]
+opciones_temporadas = ["2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"]
 temporada_elegida = st.selectbox("Selecciona la temporada que quieres ver:", opciones_temporadas)
 
 opciones_ligas = ["Todas", "Premier League", "La Liga", "Serie A", "Bundesliga", "Ligue 1"]
