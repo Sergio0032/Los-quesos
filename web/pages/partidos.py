@@ -11,10 +11,10 @@ temporada_elegida = st.selectbox("Selecciona la temporada:", opciones_temporadas
 ligas = ["ENG-Premier League", "ESP-La Liga", "GER-Bundesliga", "ITA-Serie A", "FRA-Ligue 1"]
 liga_elegida = st.selectbox("Selecciona la liga:", ligas)
 traductor_temporadas = {
-    "2021/2022": "21-22",
-    "2022/2023": "22-23",
-    "2023/2024": "23-24",
-    "2024/2025": "24-25"
+    "2021/2022": "2122",
+    "2022/2023": "2223",
+    "2023/2024": "2324",
+    "2024/2025": "2425"
 }
 codigo_temp = traductor_temporadas[temporada_elegida]
 
