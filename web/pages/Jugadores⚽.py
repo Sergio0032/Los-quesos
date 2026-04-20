@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
+import plotly.graph_objects as go  # <-- Añadido para el gráfico de araña
 
 st.set_page_config(page_title="Rendimiento de Jugadores", layout="wide")
 
@@ -10,8 +11,6 @@ st.markdown("""
     .stDataFrame { border: 1px solid #e6e9ef; border-radius: 10px; }
     </style>
     """, unsafe_allow_html=True)
-
-
 
 @st.cache_data
 def load_all_data():
@@ -39,7 +38,6 @@ def mostrar_formato_temporada(valor_raw):
         return f"20{v[:2]}-20{v[2:]}"
     return v
 
-
 df = load_all_data()
 
 if df.empty:
@@ -48,7 +46,7 @@ else:
     st.title("Estadísticas de jugadores")
     st.divider()
 
-    st.sidebar.header("⚙️ Configuración")
+    st.sidebar.header("Configuración")
 
     temporadas = sorted(df['Temporada'].unique().tolist(), reverse=True)
     sel_temporada = st.sidebar.selectbox(
@@ -106,3 +104,55 @@ else:
             use_container_width=True,
             hide_index=True
         )
+
+       
+        st.divider()
+        st.subheader("🕸️ Perfil del Jugador")
+
+        jugadores_disponibles = df_mostrar['Jugador'].tolist()
+        jugador_seleccionado = st.selectbox("Elige un jugador para ver su gráfico:", jugadores_disponibles)
+
+        if jugador_seleccionado:
+            datos_jugador = df_mostrar[df_mostrar['Jugador'] == jugador_seleccionado].iloc[0]
+
+            categorias = ['Goles', 'Asistencias', 'Amarillas', 'Rojas']
+            
+            valores = []
+            for cat in categorias:
+                try:
+                    val = float(datos_jugador.get(cat, 0.0))
+                    if pd.isna(val):
+                        val = 0.0
+                    valores.append(val)
+                except (ValueError, TypeError):
+                    valores.append(0.0)
+
+            categorias.append(categorias[0])
+            valores.append(valores[0])
+
+            fig = go.Figure()
+
+            fig.add_trace(go.Scatterpolar(
+                r=valores,
+                theta=categorias,
+                fill='toself',
+                name=jugador_seleccionado,
+                line_color='#1f77b4',
+                fillcolor='rgba(31, 119, 180, 0.4)'
+            ))
+
+            max_val = max(valores) if valores else 10
+            rango_max = max_val + 2 if max_val > 0 else 10
+
+            fig.update_layout(
+                polar=dict(
+                    radialaxis=dict(
+                        visible=True,
+                        range=[0, rango_max]
+                    )
+                ),
+                showlegend=False,
+                height=500
+            )
+
+            st.plotly_chart(fig, use_container_width=True)
