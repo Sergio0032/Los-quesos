@@ -26,5 +26,6 @@ desde 2010 hasta la actualidad.
             - pip install asyncio
     - Datos partidos recientes/próximos: pip install soccerdata 
     - Web: pip install streamlit
-    - Gráficas: pip install pandas
-
+    - Gráficas:
+            - pip install pandas
+            - pip install plotly
