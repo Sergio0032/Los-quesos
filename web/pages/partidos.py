@@ -21,8 +21,8 @@ codigo_temp = traductor_temporadas[temporada_elegida]
 directorio_actual = os.path.dirname(os.path.abspath(__file__))
 
 nombre_limpio = liga_elegida.replace(" ", "_")
-nombre_archivo = f"datos_resultados_{nombre_limpio}_{codigo_temp}.csv"
-ruta_csv = os.path.join(directorio_actual, "..", "..", "data_resultados", nombre_archivo)
+nombre_archivo = f"resultados_{nombre_limpio}_{codigo_temp}.csv"
+ruta_csv = os.path.join(directorio_actual, "..", "..", "datos_resultados", nombre_archivo)
 
 try:
     df = pd.read_csv(ruta_csv)
