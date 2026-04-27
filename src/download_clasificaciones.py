@@ -1,11 +1,10 @@
-
 import asyncio
 import aiohttp
 import csv
 import os
 from understat import Understat
 
-async def descargar_temporada(understat, temporada):
+async def descargar_temporada(understat, temporada, es_ultima_temporada):
     ligas = {
         'EPL': 'Premier League',
         'La_Liga': 'La Liga',
@@ -16,9 +15,10 @@ async def descargar_temporada(understat, temporada):
 
     filename = f"data/clasificacion_{temporada}.csv"
 
-    if os.path.exists(filename):
+    if not es_ultima_temporada and os.path.exists(filename):
         print(f"Saltando {temporada}: El archivo ya existe.")
         return
+        
     try:
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
@@ -47,7 +47,12 @@ async def descargar_temporada(understat, temporada):
                         stats[7], 
                         stats[8]  
                     ])
-        print(f"Temporada {temporada} guardada.")
+                    
+        if es_ultima_temporada:
+            print(f"Temporada {temporada} actualizada con los últimos datos.")
+        else:
+            print(f"Temporada {temporada} guardada por primera vez.")
+            
     except Exception as e:
         print(f"Error en temporada {temporada}: {e}")
 
@@ -55,12 +60,16 @@ async def main():
     os.makedirs('data', exist_ok=True)
     
     temporadas = range(2014, 2026) 
+    
+    ultima_temporada_del_rango = max(temporadas)
 
     async with aiohttp.ClientSession() as session:
         understat = Understat(session)
         
         for año in temporadas:
-            await descargar_temporada(understat, año)
+            es_ultima = (año == ultima_temporada_del_rango)
+            
+            await descargar_temporada(understat, año, es_ultima)
             await asyncio.sleep(1)
 
     print("\n--- Descarga finalizada ---")

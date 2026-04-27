@@ -7,7 +7,7 @@ st.title("Ligas")
 st.sidebar.header("⚙️ Configuración")
 
 opciones_temporadas = ["2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014"] 
-opciones_ligas = [ "Premier League", "La Liga", "Serie A", "Bundesliga", "Ligue 1"] 
+opciones_ligas = ["Premier League", "La Liga", "Serie A", "Bundesliga", "Ligue 1"] 
 
 temporada_elegida = st.sidebar.selectbox("Selecciona la temporada:", opciones_temporadas)
 liga_elegida = st.sidebar.selectbox("Selecciona la liga:", opciones_ligas)
@@ -16,16 +16,14 @@ tab_clasificacion, tab_goleadores = st.tabs(["📊 Clasificación", "⚽ Goleado
 
 
 with tab_clasificacion:
-    
-    
     directorio_actual = os.path.dirname(os.path.abspath(__file__))
     nombre_archivo = f"clasificacion_{temporada_elegida}.csv"
     ruta_csv = os.path.join(directorio_actual, "..", "..", "data_clasificaciones", nombre_archivo)
     
-    
     try:
         df = pd.read_csv(ruta_csv)
         
+        # 1. Filtramos primero usando la columna 'Liga'
         if liga_elegida != "Todas":
             df = df[df['Liga'] == liga_elegida]
 
@@ -37,6 +35,9 @@ with tab_clasificacion:
             st.metric(label=f"👑 Campeón ({liga_elegida})", value=campeon, delta=f"{puntos_campeon} Puntos")
 
         st.markdown("---") 
+
+        # 2. Eliminamos las columnas 'Temporada' y 'Liga' ANTES de dar color y mostrar
+        df = df.drop(columns=['Temporada', 'Liga'], errors='ignore')
 
         def colorear_posiciones(df_a_colorear):
             colores = pd.DataFrame('', index=df_a_colorear.index, columns=df_a_colorear.columns)
@@ -90,23 +91,16 @@ with tab_clasificacion:
         st.warning(f"No se encontró el archivo de clasificación para la temporada {temporada_elegida}.")
 
 
-
-
-
 with tab_goleadores:
-    
-
     nombre_archivo_goles = f"goleadores_{temporada_elegida}.csv"
     ruta_goles = os.path.join(directorio_actual, "..", "..", "data_clasificaciones", nombre_archivo_goles)
     
     try:
         df_goles = pd.read_csv(ruta_goles)
         
-     
         st.markdown(f"### 🇪🇺 BOTA DE ORO EUROPEA ({temporada_elegida})")
         st.caption("Máximos goleadores de todas las competiciones")
         
-       
         df_bota_oro = df_goles.sort_values(by='Goles', ascending=False).reset_index(drop=True)
         
         col_oro, col_plata, col_bronce = st.columns(3)
@@ -126,24 +120,25 @@ with tab_goleadores:
             
         st.markdown("---")
         
-      
+        # 1. Filtramos los datos
         if liga_elegida == "Todas":
             st.markdown("### 📊 Top Goleadores Generales")
-            df_goles_filtrado = df_bota_oro # Mostramos todos
+            df_goles_filtrado = df_bota_oro 
         else:
             st.markdown(f"### 🎯 Top Goleadores - {liga_elegida}")
-          
             df_goles_filtrado = df_goles[df_goles['Liga'] == liga_elegida].sort_values(by='Goles', ascending=False)
         
+        # 2. Eliminamos las columnas 'Temporada' y 'Liga' de la copia que vamos a mostrar
+        df_goles_mostrar = df_goles_filtrado.drop(columns=['Temporada', 'Liga'], errors='ignore')
+
         subtab_grafico, subtab_tabla = st.tabs(["📊 Gráfico de Barras", "📋 Tabla Detallada"])
         
         with subtab_grafico:
-        
             st.bar_chart(df_goles_filtrado.head(10).set_index("Jugador")["Goles"])
             
         with subtab_tabla:
-       
-            st.dataframe(df_goles_filtrado, hide_index=True, use_container_width=True)
+            # 3. Mostramos el DataFrame limpio
+            st.dataframe(df_goles_mostrar, hide_index=True, use_container_width=True)
 
     except FileNotFoundError:
         st.info(f"⏳ Falta subir el archivo de goleadores para la temporada {temporada_elegida} (ej: goleadores_{temporada_elegida}.csv)")
