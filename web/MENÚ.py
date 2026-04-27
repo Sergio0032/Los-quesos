@@ -5,7 +5,7 @@ import glob
 from datetime import datetime
 
 # 1. CONFIGURACIÓN: PANTALLA COMPLETA Y TÍTULO
-st.set_page_config(page_title="App Fútbol Total", layout="wide", page_icon="⚽")
+st.set_page_config(page_title="Futbol Champagne", layout="wide", page_icon="⚽")
 
 # CSS exclusivo para la estética de las cabeceras de la portada
 st.markdown("""
