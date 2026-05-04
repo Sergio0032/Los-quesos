@@ -13,7 +13,6 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# 2. GESTIÓN DE RUTAS
 directorio_actual = os.path.dirname(os.path.abspath(__file__))
 ruta_base = directorio_actual if os.path.exists(os.path.join(directorio_actual, "data_clasificaciones")) else os.path.join(directorio_actual, "..")
 
@@ -23,25 +22,21 @@ def load_data_2025():
     df_c = pd.DataFrame()
     df_r = pd.DataFrame()
     
-    # 1. Cargar Clasificación (Este sí suele tener cabeceras por tu script de Understat)
     ruta_c = os.path.join(ruta_base, "data_clasificaciones", "clasificacion_2025.csv")
     if os.path.exists(ruta_c):
         try:
             df_c = pd.read_csv(ruta_c)
         except: pass
 
-    # 2. Cargar Resultados (Aquí forzamos los nombres de las columnas)
     archivos = glob.glob(os.path.join(ruta_base, "datos_resultados", "*_2526.csv"))
     archivos = list(set(archivos)) 
     
     if archivos:
-        # Definimos los nombres de las columnas según lo que veo en tus capturas de FBRef
         columnas_nombres = ['date', 'time', 'home_team', 'score', 'away_team', 'attendance', 'stadium', 'referee', 'link']
         
         lista_dfs = []
         for f in archivos:
             try:
-                # Leemos sin cabecera (header=None) y le asignamos los nombres nosotros
                 temp_df = pd.read_csv(f, header=None, names=columnas_nombres, on_bad_lines='skip')
                 lista_dfs.append(temp_df)
             except: continue
@@ -49,7 +44,6 @@ def load_data_2025():
         if lista_dfs:
             df_r = pd.concat(lista_dfs, ignore_index=True)
             
-            # --- Arreglo de fechas (Lógica de temporada 25/26) ---
             def arreglar_fecha(fecha_str):
                 if pd.isna(fecha_str): return pd.NaT 
                 try:
@@ -64,7 +58,6 @@ def load_data_2025():
 
             df_r['date'] = df_r['date'].apply(arreglar_fecha)
             
-            # Limpieza de score: asegurar que sea texto
             if 'score' in df_r.columns:
                 df_r['score'] = df_r['score'].astype(str).str.strip()
         
@@ -105,10 +98,8 @@ for liga in ligas:
             st.markdown(f"<div class='liga-header'>{liga['icon']} {liga['name']}</div>", unsafe_allow_html=True)
             c_rec, c_cla, c_pro = st.columns(3)
 
-            # Fecha actual para comparar
             hoy_solo_fecha = hoy.replace(hour=0, minute=0, second=0, microsecond=0)
 
-            # --- COLUMNA 1: RESULTADOS (Partidos de días anteriores) ---
             with c_rec:
                 if not df_partidos.empty:
                     m_rec = df_partidos[
@@ -120,10 +111,8 @@ for liga in ligas:
                         for _, r in m_rec.head(2).iterrows():
                             fecha_f = r['date'].strftime('%d/%m')
                             
-                            # Obtenemos el valor del score de forma segura
                             val_score = str(r.get('score', '')).strip()
-                            
-                            # Si es un nulo de verdad o está vacío, ponemos vs
+
                             if not val_score or val_score.lower() in ['nan', 'none', 'null', '']:
                                 marcador = "vs"
                             else:
@@ -132,13 +121,11 @@ for liga in ligas:
                             st.markdown(f"<small>{fecha_f}</small> | **{r['home_team']}** <span style='color:red;'>{marcador}</span> **{r['away_team']}**", unsafe_allow_html=True)
                     else: st.caption("Sin resultados anteriores")
 
-            # --- COLUMNA 2: TOP 3 ---
             with c_cla:
                 top3 = df_clasif[df_clasif['Liga'] == liga['id']].head(3)
                 for i, row in enumerate(top3.itertuples(), 1):
                     st.write(f"{i}. {row.Equipo} **{row.Puntos} pts**")
 
-            # --- COLUMNA 3: PRÓXIMOS (Partidos de HOY en adelante) ---
             with c_pro:
                 if not df_partidos.empty:
                     m_prox = df_partidos[
@@ -146,7 +133,6 @@ for liga in ligas:
                         (df_partidos['date'] >= hoy_solo_fecha)
                     ].sort_values(['date', 'time'], ascending=True)
 
-                    # Filtro corregido: Usamos .str.lower() para evitar el AttributeError
                     mask_proximos = (
                         m_prox['score'].isna() | 
                         (m_prox['score'].astype(str).str.strip() == '') | 

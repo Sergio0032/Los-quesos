@@ -27,9 +27,9 @@ for liga in ligas:
         nombre_limpio = liga.replace(" ", "_")
         nombre_archivo = f"{nombre_carpeta}/resultados_{nombre_limpio}_{temporada}.csv"
         
-        if os.path.exists(nombre_archivo):
-            print(f" Saltando {liga} {temporada}: El archivo ya existe.")
-            continue  
+        if os.path.exists(nombre_archivo) and temporada != "2526":
+                    print(f" Saltando {liga} {temporada}: El archivo ya existe.")
+                    continue
             
         try:
             print(f" Descargando: {liga} | Temporada: {temporada}...")
