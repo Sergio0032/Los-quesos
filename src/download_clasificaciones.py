@@ -65,7 +65,7 @@ async def main():
 
     async with aiohttp.ClientSession() as session:
         understat = Understat(session)
-        
+        +
         for año in temporadas:
             es_ultima = (año == ultima_temporada_del_rango)
             
