@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
-import plotly.graph_objects as go  # <-- Añadido para el gráfico de araña
+import plotly.graph_objects as go
 
 st.set_page_config(page_title="Rendimiento de Jugadores", layout="wide")
 
@@ -12,6 +12,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
+# --- CARGA DE DATOS REALES ---
 @st.cache_data
 def load_all_data():
     directorio_actual = os.path.dirname(os.path.abspath(__file__))
@@ -32,13 +33,26 @@ def load_all_data():
     
     return pd.concat(df_list, axis=0, ignore_index=True)
 
+# --- CARGA DE DATOS FIFA ---
+@st.cache_data
+def load_fifa_data():
+    directorio_actual = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(directorio_actual, '..', '..', 'data_fifa', 'fifa_top5_ligas.csv') 
+    path = os.path.abspath(path)
+    
+    if os.path.exists(path):
+        return pd.read_csv(path)
+    return pd.DataFrame()
+
 def mostrar_formato_temporada(valor_raw):
     v = str(valor_raw)
     if len(v) == 4:
         return f"20{v[:2]}-20{v[2:]}"
     return v
 
+# --- INICIO DE LA APLICACIÓN ---
 df = load_all_data()
+df_fifa = load_fifa_data()
 
 if df.empty:
     st.warning("No hay datos en la carpeta 'data_jugadores'.")
@@ -50,7 +64,7 @@ else:
 
     temporadas = sorted(df['Temporada'].unique().tolist(), reverse=True)
     sel_temporada = st.sidebar.selectbox(
-        "📅 Temporada", 
+        "Temporada", 
         temporadas, 
         format_func=mostrar_formato_temporada
     )
@@ -58,12 +72,12 @@ else:
     df_temp = df[df['Temporada'] == sel_temporada]
 
     ligas = sorted(df_temp['Liga'].unique().tolist())
-    sel_liga = st.sidebar.selectbox("🏆 Liga", ligas)
+    sel_liga = st.sidebar.selectbox("Liga", ligas)
 
     df_liga = df_temp[df_temp['Liga'] == sel_liga]
 
     equipos = ["Ver toda la Liga"] + sorted(df_liga['Equipo'].unique().tolist())
-    sel_equipo = st.sidebar.selectbox("⚽ Equipo", equipos)
+    sel_equipo = st.sidebar.selectbox("Equipo", equipos)
 
     if sel_equipo == "Ver toda la Liga":
         df_final = df_liga
@@ -105,54 +119,85 @@ else:
             hide_index=True
         )
 
-       
+        # ==========================================
+        # ZONA NUEVA: GRÁFICO DE ARAÑA (FIFA)
+        # ==========================================
         st.divider()
-        st.subheader("🕸️ Perfil del Jugador")
+        st.subheader("Perfil del Jugador (Atributos FIFA)")
 
+        # Desplegable para elegir jugador
         jugadores_disponibles = df_mostrar['Jugador'].tolist()
         jugador_seleccionado = st.selectbox("Elige un jugador para ver su gráfico:", jugadores_disponibles)
 
         if jugador_seleccionado:
-            datos_jugador = df_mostrar[df_mostrar['Jugador'] == jugador_seleccionado].iloc[0]
+            if not df_fifa.empty:
+                busqueda = jugador_seleccionado.lower().strip()
+                
+                # 1. Quitamos tildes de los nombres del FIFA (Mbappé -> Mbappe, Vinícius -> Vinicius)
+                # Esto iguala el terreno para que la búsqueda sea perfecta
+                nombres_fifa_limpios = df_fifa['short_name'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.lower()
+                busqueda_limpia = pd.Series([busqueda]).str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.lower()[0]
 
-            categorias = ['Goles', 'Asistencias', 'Amarillas', 'Rojas']
-            
-            valores = []
-            for cat in categorias:
-                try:
-                    val = float(datos_jugador.get(cat, 0.0))
-                    if pd.isna(val):
-                        val = 0.0
-                    valores.append(val)
-                except (ValueError, TypeError):
-                    valores.append(0.0)
+                # Búsqueda 1: Nombre completo exacto
+                match = df_fifa[nombres_fifa_limpios.str.contains(busqueda_limpia, na=False)]
 
-            categorias.append(categorias[0])
-            valores.append(valores[0])
+                # Búsqueda 2: Palabras sueltas (de atrás hacia adelante)
+                if match.empty:
+                    # Cambiamos guiones por espacios (ej: Mbappe-Lottin -> Mbappe Lottin)
+                    partes = busqueda_limpia.replace("-", " ").split()
+                    
+                    # Vamos probando palabra por palabra desde la última hasta la primera
+                    for palabra in reversed(partes):
+                        # Ignoramos palabras muy cortas como "jr", "de", "el" para no coger a otros jugadores
+                        if len(palabra) > 3:  
+                            match_temp = df_fifa[nombres_fifa_limpios.str.contains(palabra, na=False)]
+                            if not match_temp.empty:
+                                match = match_temp
+                                break # Si encuentra a alguien, paramos de buscar
 
-            fig = go.Figure()
+                if not match.empty:
+                    datos_fifa = match.iloc[0] # Cogemos el primer resultado que coincida
 
-            fig.add_trace(go.Scatterpolar(
-                r=valores,
-                theta=categorias,
-                fill='toself',
-                name=jugador_seleccionado,
-                line_color='#1f77b4',
-                fillcolor='rgba(31, 119, 180, 0.4)'
-            ))
+                    # Nombres de las categorías y sus valores desde el CSV del FIFA
+                    categorias = ['Ritmo', 'Tiro', 'Pase', 'Regate', 'Defensa', 'Físico']
+                    valores = [
+                        float(datos_fifa.get('pace', 0)),
+                        float(datos_fifa.get('shooting', 0)),
+                        float(datos_fifa.get('passing', 0)),
+                        float(datos_fifa.get('dribbling', 0)),
+                        float(datos_fifa.get('defending', 0)),
+                        float(datos_fifa.get('physic', 0))
+                    ]
 
-            max_val = max(valores) if valores else 10
-            rango_max = max_val + 2 if max_val > 0 else 10
+                    # Cerramos el polígono repitiendo el primer valor al final
+                    categorias.append(categorias[0])
+                    valores.append(valores[0])
 
-            fig.update_layout(
-                polar=dict(
-                    radialaxis=dict(
-                        visible=True,
-                        range=[0, rango_max]
+                    # Construimos el gráfico
+                    fig = go.Figure()
+                    fig.add_trace(go.Scatterpolar(
+                        r=valores,
+                        theta=categorias,
+                        fill='toself',
+                        name=jugador_seleccionado,
+                        line_color='#1f77b4',
+                        fillcolor='rgba(31, 119, 180, 0.4)'
+                    ))
+
+                    # La escala ahora es fija del 0 al 100
+                    fig.update_layout(
+                        polar=dict(
+                            radialaxis=dict(
+                                visible=True,
+                                range=[0, 100]
+                            )
+                        ),
+                        showlegend=False,
+                        height=500
                     )
-                ),
-                showlegend=False,
-                height=500
-            )
 
-            st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, use_container_width=True)
+                else:
+                    st.info(f"No hemos encontrado las estadísticas FIFA para '{jugador_seleccionado}'. A veces los nombres están muy cambiados en el juego.")
+            else:
+                st.error("No se ha podido cargar el archivo 'fifa_top5_ligas.csv'. Comprueba que está en la carpeta 'data_fifa'.")
