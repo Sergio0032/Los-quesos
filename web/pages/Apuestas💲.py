@@ -1,182 +1,196 @@
 import streamlit as st
+import pandas as pd
+import altair as alt
 
-st.set_page_config(page_title="Control de Apuestas", page_icon="⚽", layout="wide")
+st.set_page_config(page_title="Fútbol Champagne Pro", page_icon="⚽", layout="wide")
 
-st.title("⚽ Seguimiento de Jornada y Cuotas Dinámicas")
-st.markdown("Calculadora inteligente y análisis de partidos en tiempo real.")
-st.divider()
+st.markdown("""
+    <style>
+    .main { background-color: #0e1117; }
+    [data-testid="stMetric"] {
+        background-color: #1e2129 !important;
+        border: 1px solid #31333f !important;
+        padding: 20px !important;
+        border-radius: 12px !important;
+    }
+    [data-testid="stMetricValue"] {
+        color: #00ff41 !important;
+        font-size: 1.8rem !important;
+    }
+    [data-testid="stMetricLabel"] {
+        color: #ffffff !important;
+        font-size: 1rem !important;
+        font-weight: bold !important;
+    }
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 10px;
+    }
+    .stTabs [data-baseweb="tab"] {
+        height: 50px;
+        background-color: #1e2129;
+        border-radius: 5px;
+        color: white;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-st.subheader("⭐ Plataformas Recomendadas")
-col_1, col_2, col_3 = st.columns(3)
-
-with col_1:
-    st.info("**bet365** 🟢\n\nBono 200€ bienvenida")
-with col_2:
-    st.success("**bwin** 🟡\n\nHasta 200€ de bono")
-with col_3:
-    st.warning("**Gran Madrid** 🟣\n\n50€ casino online")
-
-st.divider()
-
-def calcular_cuota(posicion, gf, gc, total_equipos=20):
-    gc_seguro = gc if gc > 0 else 1
-    fuerza = (gf / gc_seguro) + ((total_equipos + 1 - posicion) / 2.0)
-    factor_ajuste = 15.0 
-    cuota = factor_ajuste / fuerza
-    return max(1.05, round(cuota, 2))
-
-def generar_sugerencia_dinamica(eq1, eq2, st1, st2, total_equipos):
-    fuerza_eq1 = (st1["gf"] / max(1, st1["gc"])) + (total_equipos - st1["pos"])
-    fuerza_eq2 = (st2["gf"] / max(1, st2["gc"])) + (total_equipos - st2["pos"])
-    
-    recomendaciones = []
-    
-    if fuerza_eq1 > (fuerza_eq2 * 1.2):
-        recomendaciones.append(f"Victoria de {eq1}")
-    elif fuerza_eq2 > (fuerza_eq1 * 1.2):
-        recomendaciones.append(f"Victoria de {eq2}")
-    else:
-        recomendaciones.append("Doble Oportunidad (Partido muy reñido)")
-        
-    total_goles_favor = st1["gf"] + st2["gf"]
-    total_goles_contra = st1["gc"] + st2["gc"]
-    
-    if total_goles_favor > 115:
-        recomendaciones.append("Más de 2.5 goles")
-    elif total_goles_contra < 55:
-        recomendaciones.append("Menos de 2.5 goles")        
-
-    if (st1["gf"] > 45 and st2["gf"] > 45) and (st1["gc"] > 25 and st2["gc"] > 25):
-        recomendaciones.append("Ambos Marcan")
-
-    return " + ".join(recomendaciones)
+if 'user' not in st.session_state:
+    st.session_state.user = "Analista Champagne"
+if 'equipo' not in st.session_state:
+    st.session_state.equipo = "Real Madrid"
 
 datos_ligas = {
-    "LaLiga": {
+    "LaLiga (España)": {
         "equipos": {
-            "FC Barcelona": {"pos": 1, "gf": 80, "gc": 29},
-            "Real Madrid": {"pos": 2, "gf": 64, "gc": 28},
-            "Villarreal": {"pos": 3, "gf": 54, "gc": 34},
-            "At. Madrid": {"pos": 4, "gf": 50, "gc": 30}
+            "Real Madrid": {"pos": 1, "gf": 75, "gc": 22, "valor": "1050M€"},
+            "FC Barcelona": {"pos": 2, "gf": 72, "gc": 25, "valor": "950M€"},
+            "At. Madrid": {"pos": 3, "gf": 60, "gc": 30, "valor": "480M€"},
+            "Valencia": {"pos": 4, "gf": 45, "gc": 38, "valor": "220M€"},
+            "Real Sociedad": {"pos": 5, "gf": 48, "gc": 32, "valor": "410M€"},
+            "Athletic Club": {"pos": 6, "gf": 46, "gc": 34, "valor": "260M€"},
+            "Villarreal": {"pos": 7, "gf": 52, "gc": 40, "valor": "210M€"},
+            "Girona": {"pos": 8, "gf": 58, "gc": 42, "valor": "190M€"}
         },
-        "total_equipos": 20,
-        "evento_dia": "Real Madrid vs FC Barcelona",
-        "equipos_partido": ["Real Madrid", "FC Barcelona"], 
-        "nivel_riesgo": "Medio"
+        "goleadores": [
+            {"Nombre": "K. Mbappé", "Goles": 21, "Precio": "180M€", "Rating": 9.3},
+            {"Nombre": "Robert Lewandowski", "Goles": 19, "Precio": "15M€", "Rating": 8.7},
+            {"Nombre": "Lamine Yamal", "Goles": 12, "Precio": "150M€", "Rating": 9.1}
+        ],
+        "evento": "Real Madrid vs FC Barcelona",
+        "total": 20
     },
-    "Premier League": {
+    "Premier League (Inglaterra)": {
         "equipos": {
-            "Arsenal": {"pos": 1, "gf": 61, "gc": 22},
-            "Manchester City": {"pos": 2, "gf": 60, "gc": 28},
-            "Manchester United": {"pos": 3, "gf": 56, "gc": 43},
-            "Aston Villa": {"pos": 4, "gf": 42, "gc": 37},
-            "Liverpool": {"pos": 5, "gf": 53, "gc": 38}
+            "Manchester City": {"pos": 1, "gf": 82, "gc": 28, "valor": "1250M€"},
+            "Liverpool": {"pos": 2, "gf": 78, "gc": 30, "valor": "920M€"},
+            "Arsenal": {"pos": 3, "gf": 75, "gc": 24, "valor": "1100M€"},
+            "Manchester United": {"pos": 4, "gf": 55, "gc": 45, "valor": "850M€"},
+            "Chelsea": {"pos": 5, "gf": 62, "gc": 50, "valor": "960M€"},
+            "Tottenham": {"pos": 6, "gf": 65, "gc": 48, "valor": "780M€"},
+            "Aston Villa": {"pos": 7, "gf": 60, "gc": 42, "valor": "620M€"},
+            "Newcastle": {"pos": 8, "gf": 58, "gc": 44, "valor": "640M€"}
         },
-        "total_equipos": 20,
-        "evento_dia": "Arsenal vs Manchester City",
-        "equipos_partido": ["Arsenal", "Manchester City"],
-        "nivel_riesgo": "Alto"
+        "goleadores": [
+            {"Nombre": "E. Haaland", "Goles": 28, "Precio": "200M€", "Rating": 9.5},
+            {"Nombre": "Mohamed Salah", "Goles": 20, "Precio": "60M€", "Rating": 8.9},
+            {"Nombre": "Phil Foden", "Goles": 18, "Precio": "150M€", "Rating": 9.2}
+        ],
+        "evento": "Arsenal vs Manchester City",
+        "total": 20
     },
-    "Bundesliga": {
+    "Bundesliga (Alemania)": {
         "equipos": {
-            "Bayern Múnich": {"pos": 1, "gf": 100, "gc": 27},
-            "Borussia Dortmund": {"pos": 2, "gf": 60, "gc": 28},
-            "RB Leipzig": {"pos": 3, "gf": 55, "gc": 36},
-            "VfB Stuttgart": {"pos": 4, "gf": 56, "gc": 38}
+            "Bayern Múnich": {"pos": 1, "gf": 90, "gc": 30, "valor": "980M€"},
+            "Bayer Leverkusen": {"pos": 2, "gf": 85, "gc": 22, "valor": "650M€"},
+            "Borussia Dortmund": {"pos": 3, "gf": 70, "gc": 40, "valor": "460M€"},
+            "RB Leipzig": {"pos": 4, "gf": 68, "gc": 35, "valor": "500M€"},
+            "Stuttgart": {"pos": 5, "gf": 72, "gc": 38, "valor": "280M€"},
+            "Eintracht Frankfurt": {"pos": 6, "gf": 55, "gc": 45, "valor": "240M€"}
         },
-        "total_equipos": 18,
-        "evento_dia": "Bayern Múnich vs Borussia Dortmund",
-        "equipos_partido": ["Bayern Múnich", "Borussia Dortmund"],
-        "nivel_riesgo": "Medio"
+        "goleadores": [
+            {"Nombre": "Harry Kane", "Goles": 32, "Precio": "100M€", "Rating": 9.4},
+            {"Nombre": "Florian Wirtz", "Goles": 15, "Precio": "130M€", "Rating": 9.1}
+        ],
+        "evento": "Bayern Múnich vs Borussia Dortmund",
+        "total": 18
     },
-    "Serie A": {
+    "Serie A (Italia)": {
         "equipos": {
-            "Inter": {"pos": 1, "gf": 71, "gc": 26},
-            "Milan": {"pos": 2, "gf": 47, "gc": 26},
-            "Napoli": {"pos": 3, "gf": 46, "gc": 30},
-            "Como": {"pos": 4, "gf": 53, "gc": 22}
+            "Inter Milan": {"pos": 1, "gf": 78, "gc": 20, "valor": "630M€"},
+            "AC Milan": {"pos": 2, "gf": 65, "gc": 35, "valor": "550M€"},
+            "Juventus": {"pos": 3, "gf": 52, "gc": 25, "valor": "600M€"},
+            "Napoli": {"pos": 4, "gf": 58, "gc": 40, "valor": "520M€"},
+            "AS Roma": {"pos": 5, "gf": 50, "gc": 38, "valor": "340M€"},
+            "Atalanta": {"pos": 6, "gf": 62, "gc": 42, "valor": "430M€"}
         },
-        "total_equipos": 20,
-        "evento_dia": "Inter vs Milan",
-        "equipos_partido": ["Inter", "Milan"],
-        "nivel_riesgo": "Bajo"
+        "goleadores": [
+            {"Nombre": "Lautaro Martínez", "Goles": 24, "Precio": "110M€", "Rating": 9.0},
+            {"Nombre": "Dusan Vlahovic", "Goles": 18, "Precio": "70M€", "Rating": 8.6}
+        ],
+        "evento": "Inter Milan vs AC Milan",
+        "total": 20
     },
-    "Ligue 1": {
+    "Ligue 1 (Francia)": {
         "equipos": {
-            "PSG": {"pos": 1, "gf": 61, "gc": 23},
-            "Lens": {"pos": 2, "gf": 54, "gc": 27},
-            "Lille": {"pos": 3, "gf": 45, "gc": 34},
-            "Marseille": {"pos": 4, "gf": 55, "gc": 37}
+            "PSG": {"pos": 1, "gf": 75, "gc": 28, "valor": "1000M€"},
+            "Marsella": {"pos": 2, "gf": 55, "gc": 35, "valor": "300M€"},
+            "Lyon": {"pos": 3, "gf": 52, "gc": 45, "valor": "280M€"},
+            "Mónaco": {"pos": 4, "gf": 60, "gc": 40, "valor": "350M€"},
+            "Lille": {"pos": 5, "gf": 48, "gc": 32, "valor": "260M€"},
+            "Lens": {"pos": 6, "gf": 42, "gc": 30, "valor": "220M€"}
         },
-        "total_equipos": 18,
-        "evento_dia": "PSG vs Marseille",
-        "equipos_partido": ["PSG", "Marseille"],
-        "nivel_riesgo": "Bajo"
+        "goleadores": [
+            {"Nombre": "Bradley Barcola", "Goles": 14, "Precio": "65M€", "Rating": 8.8},
+            {"Nombre": "Jonathan David", "Goles": 16, "Precio": "50M€", "Rating": 8.5}
+        ],
+        "evento": "PSG vs Marsella",
+        "total": 18
     }
 }
 
+def calcular_probabilidades(f1, f2):
+    total = f1 + f2
+    return round((f1 / total) * 100, 1), round((f2 / total) * 100, 1)
+
+def calcular_fuerza(stats, total_eq):
+    return (stats["gf"] / max(1, stats["gc"])) + ((total_eq + 1 - stats["pos"]) / 2.0)
+
 with st.sidebar:
-    st.header("⚙️ Configuración")
-    liga_activa = st.selectbox("🏆 Seleccionar competición:", list(datos_ligas.keys()))
-    st.markdown("---")
-    st.markdown("💡 *Las cuotas y predicciones se calculan mediante un algoritmo basado en los goles y la posición en la tabla.*")
+    st.title("🍾 Menú Champagne")
+    st.session_state.user = st.text_input("Usuario:", st.session_state.user)
+    st.session_state.equipo = st.selectbox("Hincha de:", ["Real Madrid", "Barça", "Man City", "Arsenal", "Bayern", "Inter"])
+    st.divider()
+    liga_sel = st.selectbox("Elegir Liga:", list(datos_ligas.keys()))
+    st.success(f"Analista: {st.session_state.user}")
 
-st.markdown(f"### 🏟️ Análisis de jornada: **{liga_activa}**")
+st.title(f"⚽ {liga_sel}")
 
-with st.expander("🔍 Ver detalle del partido destacado", expanded=True):
-    col_a, col_b = st.columns(2)
+tab1, tab2, tab3 = st.tabs(["🏠 Match Center", "📈 Datos Avanzados", "🗂️ Mercado"])
+
+with tab1:
+    col_a, col_b = st.columns([2, 1])
     with col_a:
-        st.markdown("**⚔️ Evento principal:**")
-        st.info(f"**{datos_ligas[liga_activa]['evento_dia']}**")
+        st.markdown("#### Simulación Estratégica")
+        st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Soccer_field_empty.svg/1200px-Soccer_field_empty.svg.png", width=420)
+        st.info(f"📍 Evento Destacado: {datos_ligas[liga_sel]['evento']}")
+    
     with col_b:
-        st.markdown("**🎯 Sugerencia de apuesta algorítmica:**")
+        st.markdown("#### % Probabilidad Victoria")
+        partido = datos_ligas[liga_sel]['evento'].split(" vs ")
+        e1, e2 = partido[0], partido[1]
         
-        eq_local, eq_visitante = datos_ligas[liga_activa]["equipos_partido"]
-        stats_local = datos_ligas[liga_activa]["equipos"][eq_local]
-        stats_visitante = datos_ligas[liga_activa]["equipos"][eq_visitante]
-        total_eq = datos_ligas[liga_activa]["total_equipos"]
+        f1 = calcular_fuerza(datos_ligas[liga_sel]['equipos'][e1], datos_ligas[liga_sel]['total'])
+        f2 = calcular_fuerza(datos_ligas[liga_sel]['equipos'][e2], datos_ligas[liga_sel]['total'])
+        p1, p2 = calcular_probabilidades(f1, f2)
         
-        apuesta_recomendada = generar_sugerencia_dinamica(eq_local, eq_visitante, stats_local, stats_visitante, total_eq)
-        
-        st.error(f"🔥 {apuesta_recomendada}")
+        st.metric(e1, f"{p1}%")
+        st.metric(e2, f"{p2}%")
+        st.progress(p1/100)
+
+with tab2:
+    df = pd.DataFrame.from_dict(datos_ligas[liga_sel]["equipos"], orient='index').reset_index()
+    df.columns = ['Equipo', 'Posición', 'GF', 'GC', 'Valor']
+    df['Valor_N'] = df['Valor'].str.replace('M€', '').astype(float)
+    
+    c_off = alt.Chart(df).mark_bar(cornerRadiusTopLeft=10, cornerRadiusTopRight=10).encode(
+        x=alt.X('Equipo', sort='-y'), y='GF', color=alt.Color('GF', scale=alt.Scale(scheme='magma'))
+    ).properties(height=300)
+    st.altair_chart(c_off, use_container_width=True)
+    
+    st.divider()
+    
+    c_val = alt.Chart(df).mark_circle(size=400).encode(
+        x='Posición', y='Valor_N', color='Equipo', tooltip=['Equipo', 'Valor', 'GF']
+    ).interactive()
+    st.altair_chart(c_val, use_container_width=True)
+
+with tab3:
+    for j in datos_ligas[liga_sel]["goleadores"]:
+        with st.container(border=True):
+            f1, f2, f3 = st.columns([1, 2, 2])
+            f1.write("⚽")
+            f2.markdown(f"**{j['Nombre']}**\n\nPrecio: `{j['Precio']}`")
+            f3.metric("Estadística", f"{j['Goles']} Goles", f"⭐ {j['Rating']}")
 
 st.divider()
-
-col_1, col_2 = st.columns([1, 1.5]) 
-
-equipos_stats = datos_ligas[liga_activa]["equipos"]
-total_eq = datos_ligas[liga_activa]["total_equipos"]
-
-cuotas_dinamicas = {}
-for equipo, stats in equipos_stats.items():
-    cuotas_dinamicas[equipo] = calcular_cuota(stats["pos"], stats["gf"], stats["gc"], total_eq)
-
-with col_1:
-    with st.container(border=True):
-        st.markdown("#### 🎟️ Ajustes de apuesta")
-        seleccion = st.selectbox("Elige tu equipo:", list(cuotas_dinamicas.keys()))
-        
-        valor_cuota = cuotas_dinamicas[seleccion]
-        st.markdown(f"**Cuota actual:** `{valor_cuota}`")
-        
-        importe = st.number_input("Euros (€):", min_value=5.0, value=10.0, step=5.0)
-
-with col_2:
-    tab_calc, tab_tabla = st.tabs(["💰 Previsión de Cobro", "📊 Listado Completo de Cuotas"])
-    
-    with tab_calc:
-        total_bruto = importe * valor_cuota
-        neto = total_bruto - importe
-        
-        st.metric(
-            label="Cobro total estimado", 
-            value=f"{total_bruto:.2f} €", 
-            delta=f"+ {neto:.2f} € de beneficio neto"
-        )
-        
-        riesgo = datos_ligas[liga_activa]['nivel_riesgo']
-        st.caption(f"Nivel de riesgo de la liga: **{riesgo}**")
-        
-    with tab_tabla:
-        df_cuotas = [{"Equipo": k, "Cuota Calculada": v} for k, v in cuotas_dinamicas.items()]
-        st.dataframe(df_cuotas, use_container_width=True, hide_index=True)
+st.caption(f"Fútbol Champagne v4.0 | Desarrollado para {st.session_state.user} | 2026")
