@@ -1,381 +1,381 @@
 ﻿date,time,home_team,score,away_team,attendance,venue,referee,match_report
-17/08,20:45,Empoli,0–0,Monza,7746,Stadio Carlo Castellani - Computer Gross...,Michael Fabbri,https://fbref.com/en/matches/e1942888/Empoli-Monza-August-17-2024-Serie-A
-17/08,18:30,Genoa,2–2,Inter,33300,Stadio Comunale Luigi Ferraris,Ermanno Feliciani,https://fbref.com/en/matches/5dd9a8ae/Genoa-Internazionale-August-17-2024-Serie-A
-17/08,20:45,Milan,2–2,Torino,70742,Stadio Giuseppe Meazza,Fabio Maresca,https://fbref.com/en/matches/6321e075/Milan-Torino-August-17-2024-Serie-A
-17/08,18:30,Parma,1–1,Fiorentina,21384,Stadio Ennio Tardini,Giovanni Ayroldi,https://fbref.com/en/matches/99186416/Parma-Fiorentina-August-17-2024-Serie-A
-18/08,18:30,Bologna,1–1,Udinese,26418,Stadio Renato Dall'Ara,Maria Sole Ferrieri Caputi,https://fbref.com/en/matches/a538d1ae/Bologna-Udinese-August-18-2024-Serie-A
-18/08,20:45,Cagliari,0–0,Roma,16261,Unipol Domus,Livio Marinelli,https://fbref.com/en/matches/8314db9d/Cagliari-Roma-August-18-2024-Serie-A
-18/08,18:30,Hellas Verona,3–0,Napoli,20027,Stadio Marc'Antonio Bentegodi,Matteo Marchetti,https://fbref.com/en/matches/6a1d7fbe/Hellas-Verona-Napoli-August-18-2024-Serie-A
-18/08,20:45,Lazio,3–1,Venezia,42000,Stadio Olimpico,Paride Tremolada,https://fbref.com/en/matches/8c25dfec/Lazio-Venezia-August-18-2024-Serie-A
-19/08,20:45,Juventus,3–0,Como,40696,Allianz Stadium,Matteo Marcenaro,https://fbref.com/en/matches/888690a6/Juventus-Como-August-19-2024-Serie-A
-19/08,18:30,Lecce,0–4,Atalanta,28719,Stadio Comunale Ettore Giardiniero,Davide Massa,https://fbref.com/en/matches/5b248995/Lecce-Atalanta-August-19-2024-Serie-A
-24/08,20:45,Inter,2–0,Lecce,70921,Stadio Giuseppe Meazza,Davide Di Marco,https://fbref.com/en/matches/bf16fd3f/Internazionale-Lecce-August-24-2024-Serie-A
-24/08,20:45,Monza,0–1,Genoa,10394,U-Power Stadium,Maurizio Mariani,https://fbref.com/en/matches/d9489d1e/Monza-Genoa-August-24-2024-Serie-A
-24/08,18:30,Parma,2–1,Milan,21808,Stadio Ennio Tardini,Juan Luca Sacchi,https://fbref.com/en/matches/d2885a35/Parma-Milan-August-24-2024-Serie-A
-24/08,18:30,Udinese,2–1,Lazio,21636,Bluenergy Stadium,Daniele Doveri,https://fbref.com/en/matches/b6b8cabd/Udinese-Lazio-August-24-2024-Serie-A
-25/08,18:30,Fiorentina,0–0,Venezia,18915,Stadio Artemio Franchi,Simone Sozza,https://fbref.com/en/matches/cab6fee7/Fiorentina-Venezia-August-25-2024-Serie-A
-25/08,20:45,Napoli,3–0,Bologna,45000,Stadio Diego Armando Maradona,Luca Pairetto,https://fbref.com/en/matches/cd189339/Napoli-Bologna-August-25-2024-Serie-A
-25/08,20:45,Roma,1–2,Empoli,67517,Stadio Olimpico,Luca Zufferli,https://fbref.com/en/matches/31d64d59/Roma-Empoli-August-25-2024-Serie-A
-25/08,18:30,Torino,2–1,Atalanta,20451,Stadio Olimpico Grande Torino,Antonio Rapuano,https://fbref.com/en/matches/324b2f87/Torino-Atalanta-August-25-2024-Serie-A
-26/08,18:30,Cagliari,1–1,Como,16365,Unipol Domus,Marco Di Bello,https://fbref.com/en/matches/0948742e/Cagliari-Como-August-26-2024-Serie-A
-26/08,20:45,Hellas Verona,0–3,Juventus,29575,Stadio Marc'Antonio Bentegodi,Antonio Giua,https://fbref.com/en/matches/22c07009/Hellas-Verona-Juventus-August-26-2024-Serie-A
-30/08,20:45,Inter,4–0,Atalanta,71745,Stadio Giuseppe Meazza,Matteo Marchetti,https://fbref.com/en/matches/adc30b79/Internazionale-Atalanta-August-30-2024-Serie-A
-30/08,18:30,Venezia,0–1,Torino,10652,Stadio Pier Luigi Penzo,Matteo Marcenaro,https://fbref.com/en/matches/55203d33/Venezia-Torino-August-30-2024-Serie-A
-31/08,18:30,Bologna,1–1,Empoli,25960,Stadio Renato Dall'Ara,Livio Marinelli,https://fbref.com/en/matches/bd4cd3af/Bologna-Empoli-August-31-2024-Serie-A
-31/08,20:45,Lazio,2–2,Milan,53000,Stadio Olimpico,Davide Massa,https://fbref.com/en/matches/105b1a82/Lazio-Milan-August-31-2024-Serie-A
-31/08,18:30,Lecce,1–0,Cagliari,26386,Stadio Comunale Ettore Giardiniero,Michael Fabbri,https://fbref.com/en/matches/25367b4b/Lecce-Cagliari-August-31-2024-Serie-A
-31/08,20:45,Napoli,2–1,Parma,50000,Stadio Diego Armando Maradona,Paride Tremolada,https://fbref.com/en/matches/f6ed3bc4/Napoli-Parma-August-31-2024-Serie-A
-01/09,18:30,Fiorentina,2–2,Monza,18376,Stadio Artemio Franchi,Andrea Colombo,https://fbref.com/en/matches/2fc37926/Fiorentina-Monza-September-1-2024-Serie-A
-01/09,18:30,Genoa,0–2,Hellas Verona,30747,Stadio Comunale Luigi Ferraris,Giovanni Ayroldi,https://fbref.com/en/matches/aab74d02/Genoa-Hellas-Verona-September-1-2024-Serie-A
-01/09,20:45,Juventus,0–0,Roma,41375,Allianz Stadium,Marco Guida,https://fbref.com/en/matches/6a978d77/Juventus-Roma-September-1-2024-Serie-A
-01/09,20:45,Udinese,1–0,Como,7020,Bluenergy Stadium,Alessandro Prontera,https://fbref.com/en/matches/24249630/Udinese-Como-September-1-2024-Serie-A
-14/09,15:00,Como,2–2,Bologna,10584,Stadio Giuseppe Sinigaglia,Marco Piccinini,https://fbref.com/en/matches/30c9c7af/Como-Bologna-September-14-2024-Serie-A
-14/09,18:00,Empoli,0–0,Juventus,15715,Stadio Carlo Castellani - Computer Gross...,Marco Di Bello,https://fbref.com/en/matches/5ede3e48/Empoli-Juventus-September-14-2024-Serie-A
-14/09,20:45,Milan,4–0,Venezia,71273,Stadio Giuseppe Meazza,Davide Di Marco,https://fbref.com/en/matches/ec4ceae1/Milan-Venezia-September-14-2024-Serie-A
-15/09,15:00,Atalanta,3–2,Fiorentina,22705,Gewiss Stadium,Juan Luca Sacchi,https://fbref.com/en/matches/c69565c7/Atalanta-Fiorentina-September-15-2024-Serie-A
-15/09,18:00,Cagliari,0–4,Napoli,15733,Unipol Domus,Federico La Penna,https://fbref.com/en/matches/226b0118/Cagliari-Napoli-September-15-2024-Serie-A
-15/09,12:30,Genoa,1–1,Roma,33009,Stadio Comunale Luigi Ferraris,Antonio Giua,https://fbref.com/en/matches/ad2de1d0/Genoa-Roma-September-15-2024-Serie-A
-15/09,20:45,Monza,1–1,Inter,14541,U-Power Stadium,Luca Pairetto,https://fbref.com/en/matches/cb14ff92/Monza-Internazionale-September-15-2024-Serie-A
-15/09,15:00,Torino,0–0,Lecce,24277,Stadio Olimpico Grande Torino,Andrea Colombo,https://fbref.com/en/matches/dab3859c/Torino-Lecce-September-15-2024-Serie-A
-16/09,20:45,Lazio,2–1,Hellas Verona,,Stadio Olimpico,Luca Zufferli,https://fbref.com/en/matches/45f09f95/Lazio-Hellas-Verona-September-16-2024-Serie-A
-16/09,18:30,Parma,2–3,Udinese,17586,Stadio Ennio Tardini,Rosario Abisso,https://fbref.com/en/matches/580f27c1/Parma-Udinese-September-16-2024-Serie-A
-20/09,18:30,Cagliari,0–2,Empoli,15225,Unipol Domus,Simone Sozza,https://fbref.com/en/matches/89a8e948/Cagliari-Empoli-September-20-2024-Serie-A
-20/09,20:45,Hellas Verona,2–3,Torino,23000,Stadio Marc'Antonio Bentegodi,Livio Marinelli,https://fbref.com/en/matches/2e904a65/Hellas-Verona-Torino-September-20-2024-Serie-A
-21/09,18:00,Juventus,0–0,Napoli,40295,Allianz Stadium,Daniele Doveri,https://fbref.com/en/matches/87a4e1ae/Juventus-Napoli-September-21-2024-Serie-A
-21/09,20:45,Lecce,2–2,Parma,25503,Stadio Comunale Ettore Giardiniero,Marco Guida,https://fbref.com/en/matches/8aed6358/Lecce-Parma-September-21-2024-Serie-A
-21/09,15:00,Venezia,2–0,Genoa,10502,Stadio Pier Luigi Penzo,Matteo Marchetti,https://fbref.com/en/matches/2cd93038/Venezia-Genoa-September-21-2024-Serie-A
-22/09,12:30,Fiorentina,2–1,Lazio,19624,Stadio Artemio Franchi,Matteo Marcenaro,https://fbref.com/en/matches/ad104788/Fiorentina-Lazio-September-22-2024-Serie-A
-22/09,20:45,Inter,1–2,Milan,75366,Stadio Giuseppe Meazza,Maurizio Mariani,https://fbref.com/en/matches/5ceec90c/Derby-della-Madonnina-Internazionale-Milan-September-22-2024-Serie-A
-22/09,15:00,Monza,1–2,Bologna,9991,U-Power Stadium,Davide Massa,https://fbref.com/en/matches/9c510611/Monza-Bologna-September-22-2024-Serie-A
-22/09,18:00,Roma,3–0,Udinese,63499,Stadio Olimpico,Ermanno Feliciani,https://fbref.com/en/matches/2c1f7af3/Roma-Udinese-September-22-2024-Serie-A
-24/09,20:45,Atalanta,2–3,Como,22977,Gewiss Stadium,Paride Tremolada,https://fbref.com/en/matches/3e592227/Atalanta-Como-September-24-2024-Serie-A
-27/09,20:45,Milan,3–0,Lecce,71103,Stadio Giuseppe Meazza,Luca Zufferli,https://fbref.com/en/matches/6d6624e2/Milan-Lecce-September-27-2024-Serie-A
-28/09,20:45,Bologna,1–1,Atalanta,27126,Stadio Renato Dall'Ara,Antonio Rapuano,https://fbref.com/en/matches/5ebd3c92/Bologna-Atalanta-September-28-2024-Serie-A
-28/09,18:00,Genoa,0–3,Juventus,26599,Stadio Comunale Luigi Ferraris,Andrea Colombo,https://fbref.com/en/matches/b21bad0d/Genoa-Juventus-September-28-2024-Serie-A
-28/09,15:00,Udinese,2–3,Inter,24611,Bluenergy Stadium,Juan Luca Sacchi,https://fbref.com/en/matches/a87c6b35/Udinese-Internazionale-September-28-2024-Serie-A
-29/09,15:00,Como,3–2,Hellas Verona,9000,Stadio Giuseppe Sinigaglia,Antonio Giua,https://fbref.com/en/matches/1b4d793e/Como-Hellas-Verona-September-29-2024-Serie-A
-29/09,18:00,Empoli,0–0,Fiorentina,13053,Stadio Carlo Castellani - Computer Gross...,Gianluca Aureliano,https://fbref.com/en/matches/11c1605f/Empoli-Fiorentina-September-29-2024-Serie-A
-29/09,20:45,Napoli,2–0,Monza,50000,Stadio Diego Armando Maradona,Gianluca Manganiello,https://fbref.com/en/matches/54f6fa48/Napoli-Monza-September-29-2024-Serie-A
-29/09,15:00,Roma,2–1,Venezia,62165,Stadio Olimpico,Rosario Abisso,https://fbref.com/en/matches/ec69829c/Roma-Venezia-September-29-2024-Serie-A
-29/09,12:30,Torino,2–3,Lazio,23130,Stadio Olimpico Grande Torino,Simone Sozza,https://fbref.com/en/matches/caf6a7d2/Torino-Lazio-September-29-2024-Serie-A
-30/09,20:45,Parma,2–3,Cagliari,17718,Stadio Ennio Tardini,Francesco Fourneau,https://fbref.com/en/matches/df2ec112/Parma-Cagliari-September-30-2024-Serie-A
-04/10,20:45,Hellas Verona,2–1,Venezia,25979,Stadio Marc'Antonio Bentegodi,Marco Guida,https://fbref.com/en/matches/f8385042/Hellas-Verona-Venezia-October-4-2024-Serie-A
-04/10,18:30,Napoli,3–1,Como,50000,Stadio Diego Armando Maradona,Ermanno Feliciani,https://fbref.com/en/matches/e474c2fe/Napoli-Como-October-4-2024-Serie-A
-05/10,18:00,Atalanta,5–1,Genoa,23138,Gewiss Stadium,Daniele Chiffi,https://fbref.com/en/matches/b1035fb5/Atalanta-Genoa-October-5-2024-Serie-A
-05/10,20:45,Inter,3–2,Torino,73348,Stadio Giuseppe Meazza,Matteo Marcenaro,https://fbref.com/en/matches/282abdf2/Internazionale-Torino-October-5-2024-Serie-A
-05/10,15:00,Udinese,1–0,Lecce,21441,Bluenergy Stadium,Maurizio Mariani,https://fbref.com/en/matches/e86c2b7c/Udinese-Lecce-October-5-2024-Serie-A
-06/10,15:00,Bologna,0–0,Parma,28400,Stadio Renato Dall'Ara,Marco Di Bello,https://fbref.com/en/matches/0ca23022/Bologna-Parma-October-6-2024-Serie-A
-06/10,20:45,Fiorentina,2–1,Milan,21923,Stadio Artemio Franchi,Luca Pairetto,https://fbref.com/en/matches/7b49f33b/Fiorentina-Milan-October-6-2024-Serie-A
-06/10,12:30,Juventus,1–1,Cagliari,40557,Allianz Stadium,Livio Marinelli,https://fbref.com/en/matches/3f957426/Juventus-Cagliari-October-6-2024-Serie-A
-06/10,15:00,Lazio,2–1,Empoli,38000,Stadio Olimpico,Giovanni Ayroldi,https://fbref.com/en/matches/6b642876/Lazio-Empoli-October-6-2024-Serie-A
-06/10,18:00,Monza,1–1,Roma,12021,U-Power Stadium,Federico La Penna,https://fbref.com/en/matches/d19770cf/Monza-Roma-October-6-2024-Serie-A
-19/10,15:00,Como,1–1,Parma,7000,Stadio Giuseppe Sinigaglia,Michael Fabbri,https://fbref.com/en/matches/0e383c84/Como-Parma-October-19-2024-Serie-A
-19/10,15:00,Genoa,2–2,Bologna,30000,Stadio Comunale Luigi Ferraris,Daniele Doveri,https://fbref.com/en/matches/b69fbc8e/Genoa-Bologna-October-19-2024-Serie-A
-19/10,20:45,Juventus,1–0,Lazio,40800,Allianz Stadium,Juan Luca Sacchi,https://fbref.com/en/matches/2a7043fd/Juventus-Lazio-October-19-2024-Serie-A
-19/10,18:00,Milan,1–0,Udinese,71214,Stadio Giuseppe Meazza,Daniele Chiffi,https://fbref.com/en/matches/c9b4f966/Milan-Udinese-October-19-2024-Serie-A
-20/10,18:00,Cagliari,3–2,Torino,16000,Unipol Domus,Gianluca Aureliano,https://fbref.com/en/matches/1d1a4e0d/Cagliari-Torino-October-20-2024-Serie-A
-20/10,12:30,Empoli,0–1,Napoli,12000,Stadio Carlo Castellani - Computer Gross...,Rosario Abisso,https://fbref.com/en/matches/e486a986/Empoli-Napoli-October-20-2024-Serie-A
-20/10,15:00,Lecce,0–6,Fiorentina,25124,Stadio Comunale Ettore Giardiniero,Francesco Fourneau,https://fbref.com/en/matches/015e4919/Lecce-Fiorentina-October-20-2024-Serie-A
-20/10,20:45,Roma,0–1,Inter,64119,Stadio Olimpico,Davide Massa,https://fbref.com/en/matches/f65c16b7/Roma-Internazionale-October-20-2024-Serie-A
-20/10,15:00,Venezia,0–2,Atalanta,11979,Stadio Pier Luigi Penzo,Luca Zufferli,https://fbref.com/en/matches/2ec189f4/Venezia-Atalanta-October-20-2024-Serie-A
-21/10,20:45,Hellas Verona,0–3,Monza,24854,Stadio Marc'Antonio Bentegodi,Federico Dionisi,https://fbref.com/en/matches/1bf8a854/Hellas-Verona-Monza-October-21-2024-Serie-A
-25/10,20:45,Torino,1–0,Como,23571,Stadio Olimpico Grande Torino,Giovanni Ayroldi,https://fbref.com/en/matches/05c25e1e/Torino-Como-October-25-2024-Serie-A
-25/10,18:30,Udinese,2–0,Cagliari,21095,Bluenergy Stadium,Gianluca Manganiello,https://fbref.com/en/matches/8bd5bba7/Udinese-Cagliari-October-25-2024-Serie-A
-26/10,20:45,Atalanta,6–1,Hellas Verona,23015,Gewiss Stadium,Ermanno Feliciani,https://fbref.com/en/matches/8e432430/Atalanta-Hellas-Verona-October-26-2024-Serie-A
-26/10,15:00,Napoli,1–0,Lecce,51103,Stadio Diego Armando Maradona,Paride Tremolada,https://fbref.com/en/matches/69ffe801/Napoli-Lecce-October-26-2024-Serie-A
-27/10,20:45,Fiorentina,5–1,Roma,20440,Stadio Artemio Franchi,Simone Sozza,https://fbref.com/en/matches/54bfe5ba/Fiorentina-Roma-October-27-2024-Serie-A
-27/10,18:00,Inter,4–4,Juventus,75000,Stadio Giuseppe Meazza,Marco Guida,https://fbref.com/en/matches/1e164a6c/Derby-dItalia-Internazionale-Juventus-October-27-2024-Serie-A
-27/10,15:00,Lazio,3–0,Genoa,40000,Stadio Olimpico,Marco Piccinini,https://fbref.com/en/matches/67b8955a/Lazio-Genoa-October-27-2024-Serie-A
-27/10,15:00,Monza,2–2,Venezia,10141,U-Power Stadium,Antonio Rapuano,https://fbref.com/en/matches/ee055cc8/Monza-Venezia-October-27-2024-Serie-A
-27/10,12:30,Parma,1–1,Empoli,17802,Stadio Ennio Tardini,Federico La Penna,https://fbref.com/en/matches/edec012f/Parma-Empoli-October-27-2024-Serie-A
-29/10,18:30,Cagliari,0–2,Bologna,15977,Unipol Domus,Francesco Fourneau,https://fbref.com/en/matches/cbe119cc/Cagliari-Bologna-October-29-2024-Serie-A
-29/10,18:30,Lecce,1–0,Hellas Verona,23698,Stadio Comunale Ettore Giardiniero,Maurizio Mariani,https://fbref.com/en/matches/1affd587/Lecce-Hellas-Verona-October-29-2024-Serie-A
-29/10,20:45,Milan,0–2,Napoli,73507,Stadio Giuseppe Meazza,Andrea Colombo,https://fbref.com/en/matches/da11c409/Milan-Napoli-October-29-2024-Serie-A
-30/10,20:45,Atalanta,2–0,Monza,22142,Gewiss Stadium,Marco Piccinini,https://fbref.com/en/matches/75f96018/Atalanta-Monza-October-30-2024-Serie-A
-30/10,18:30,Empoli,0–3,Inter,15706,Stadio Carlo Castellani - Computer Gross...,Matteo Marchetti,https://fbref.com/en/matches/a2a61f01/Empoli-Internazionale-October-30-2024-Serie-A
-30/10,20:45,Juventus,2–2,Parma,40809,Allianz Stadium,Luca Zufferli,https://fbref.com/en/matches/bc7ed4c6/Juventus-Parma-October-30-2024-Serie-A
-30/10,18:30,Venezia,3–2,Udinese,10000,Stadio Pier Luigi Penzo,Davide Massa,https://fbref.com/en/matches/50efe60a/Venezia-Udinese-October-30-2024-Serie-A
-31/10,20:45,Como,1–5,Lazio,10750,Stadio Giuseppe Sinigaglia,Luca Pairetto,https://fbref.com/en/matches/128ece0d/Como-Lazio-October-31-2024-Serie-A
-31/10,18:30,Genoa,0–1,Fiorentina,30254,Stadio Comunale Luigi Ferraris,Daniele Chiffi,https://fbref.com/en/matches/463a6b71/Genoa-Fiorentina-October-31-2024-Serie-A
-31/10,20:45,Roma,1–0,Torino,60920,Stadio Olimpico,Michael Fabbri,https://fbref.com/en/matches/2d7f07e3/Roma-Torino-October-31-2024-Serie-A
-02/11,15:00,Bologna,1–0,Lecce,25000,Stadio Renato Dall'Ara,Giuseppe Collu,https://fbref.com/en/matches/131fb996/Bologna-Lecce-November-2-2024-Serie-A
-02/11,20:45,Monza,0–1,Milan,17000,U-Power Stadium,Ermanno Feliciani,https://fbref.com/en/matches/6e2f5ec6/Monza-Milan-November-2-2024-Serie-A
-02/11,18:00,Udinese,0–2,Juventus,24990,Bluenergy Stadium,Rosario Abisso,https://fbref.com/en/matches/2680b604/Udinese-Juventus-November-2-2024-Serie-A
-03/11,18:00,Hellas Verona,3–2,Roma,28185,Stadio Marc'Antonio Bentegodi,Matteo Marcenaro,https://fbref.com/en/matches/0c67c952/Hellas-Verona-Roma-November-3-2024-Serie-A
-03/11,20:45,Inter,1–0,Venezia,66326,Stadio Giuseppe Meazza,Maria Sole Ferrieri Caputi,https://fbref.com/en/matches/f6ba9194/Internazionale-Venezia-November-3-2024-Serie-A
-03/11,12:30,Napoli,0–3,Atalanta,50873,Stadio Diego Armando Maradona,Daniele Doveri,https://fbref.com/en/matches/31d4ab7d/Napoli-Atalanta-November-3-2024-Serie-A
-03/11,15:00,Torino,0–1,Fiorentina,23326,Stadio Olimpico Grande Torino,Federico La Penna,https://fbref.com/en/matches/7c298383/Torino-Fiorentina-November-3-2024-Serie-A
-04/11,18:30,Empoli,1–0,Como,8102,Stadio Carlo Castellani - Computer Gross...,Marco Di Bello,https://fbref.com/en/matches/cf8ba91a/Empoli-Como-November-4-2024-Serie-A
-04/11,20:45,Lazio,2–1,Cagliari,35000,Stadio Olimpico,Giovanni Ayroldi,https://fbref.com/en/matches/b3fa2e3c/Lazio-Cagliari-November-4-2024-Serie-A
-04/11,18:30,Parma,0–1,Genoa,16151,Stadio Ennio Tardini,Marco Guida,https://fbref.com/en/matches/d8a1b693/Parma-Genoa-November-4-2024-Serie-A
-07/11,20:45,Genoa,1–1,Como,30708,Stadio Comunale Luigi Ferraris,Antonio Rapuano,https://fbref.com/en/matches/ee077ae1/Genoa-Como-November-7-2024-Serie-A
-08/11,20:45,Lecce,1–1,Empoli,23907,Stadio Comunale Ettore Giardiniero,Juan Luca Sacchi,https://fbref.com/en/matches/dac22768/Lecce-Empoli-November-8-2024-Serie-A
-09/11,18:00,Cagliari,3–3,Milan,16271,Unipol Domus,Michael Fabbri,https://fbref.com/en/matches/23026b6f/Cagliari-Milan-November-9-2024-Serie-A
-09/11,20:45,Juventus,2–0,Torino,41066,Allianz Stadium,Simone Sozza,https://fbref.com/en/matches/51962386/Juventus-Torino-November-9-2024-Serie-A
-09/11,15:00,Venezia,1–2,Parma,10866,Stadio Pier Luigi Penzo,Daniele Chiffi,https://fbref.com/en/matches/8b0cfe1d/Venezia-Parma-November-9-2024-Serie-A
-10/11,12:30,Atalanta,2–1,Udinese,22884,Gewiss Stadium,Marco Di Bello,https://fbref.com/en/matches/fcc555f9/Atalanta-Udinese-November-10-2024-Serie-A
-10/11,15:00,Fiorentina,3–1,Hellas Verona,22495,Stadio Artemio Franchi,Luca Zufferli,https://fbref.com/en/matches/c9d4e593/Fiorentina-Hellas-Verona-November-10-2024-Serie-A
-10/11,20:45,Inter,1–1,Napoli,72951,Stadio Giuseppe Meazza,Maurizio Mariani,https://fbref.com/en/matches/8a3f7f87/Internazionale-Napoli-November-10-2024-Serie-A
-10/11,18:00,Monza,0–1,Lazio,11706,U-Power Stadium,Andrea Colombo,https://fbref.com/en/matches/90116cdb/Monza-Lazio-November-10-2024-Serie-A
-10/11,15:00,Roma,2–3,Bologna,50500,Stadio Olimpico,Gianluca Manganiello,https://fbref.com/en/matches/b93d514f/Roma-Bologna-November-10-2024-Serie-A
-23/11,15:00,Hellas Verona,0–5,Inter,27000,Stadio Marc'Antonio Bentegodi,Andrea Colombo,https://fbref.com/en/matches/f40e8673/Hellas-Verona-Internazionale-November-23-2024-Serie-A
-23/11,18:00,Milan,0–0,Juventus,75502,Stadio Giuseppe Meazza,Daniele Chiffi,https://fbref.com/en/matches/3d6d1119/Milan-Juventus-November-23-2024-Serie-A
-23/11,20:45,Parma,1–3,Atalanta,18790,Stadio Ennio Tardini,Gianluca Manganiello,https://fbref.com/en/matches/b0abcd14/Parma-Atalanta-November-23-2024-Serie-A
-24/11,15:00,Como,0–2,Fiorentina,8500,Stadio Giuseppe Sinigaglia,Matteo Marchetti,https://fbref.com/en/matches/8ad4e7bb/Como-Fiorentina-November-24-2024-Serie-A
-24/11,12:30,Genoa,2–2,Cagliari,31070,Stadio Comunale Luigi Ferraris,Simone Sozza,https://fbref.com/en/matches/6a1e4119/Genoa-Cagliari-November-24-2024-Serie-A
-24/11,20:45,Lazio,3–0,Bologna,40000,Stadio Olimpico,Antonio Rapuano,https://fbref.com/en/matches/b823aa0b/Lazio-Bologna-November-24-2024-Serie-A
-24/11,18:00,Napoli,1–0,Roma,51164,Stadio Diego Armando Maradona,Davide Massa,https://fbref.com/en/matches/5993c0f0/Derby-del-Sole-Napoli-Roma-November-24-2024-Serie-A
-24/11,15:00,Torino,1–1,Monza,22000,Stadio Olimpico Grande Torino,Rosario Abisso,https://fbref.com/en/matches/a9bc6012/Torino-Monza-November-24-2024-Serie-A
-25/11,18:30,Empoli,1–1,Udinese,1449,Stadio Carlo Castellani - Computer Gross...,Livio Marinelli,https://fbref.com/en/matches/249de3fa/Empoli-Udinese-November-25-2024-Serie-A
-25/11,20:45,Venezia,0–1,Lecce,9448,Stadio Pier Luigi Penzo,Luca Pairetto,https://fbref.com/en/matches/616c48a5/Venezia-Lecce-November-25-2024-Serie-A
-29/11,20:45,Cagliari,1–0,Hellas Verona,16162,Unipol Domus,Maurizio Mariani,https://fbref.com/en/matches/b2adb745/Cagliari-Hellas-Verona-November-29-2024-Serie-A
-30/11,20:45,Bologna,3–0,Venezia,24866,Stadio Renato Dall'Ara,Luca Massimi,https://fbref.com/en/matches/75f6e865/Bologna-Venezia-November-30-2024-Serie-A
-30/11,15:00,Como,1–1,Monza,9749,Stadio Giuseppe Sinigaglia,Juan Luca Sacchi,https://fbref.com/en/matches/54be0ee5/Como-Monza-November-30-2024-Serie-A
-30/11,18:00,Milan,3–0,Empoli,68725,Stadio Giuseppe Meazza,Federico Dionisi,https://fbref.com/en/matches/1d6a6ac7/Milan-Empoli-November-30-2024-Serie-A
-01/12,20:45,Lecce,1–1,Juventus,27080,Stadio Comunale Ettore Giardiniero,Antonio Rapuano,https://fbref.com/en/matches/6663ff8b/Lecce-Juventus-December-1-2024-Serie-A
-01/12,15:00,Parma,3–1,Lazio,22885,Stadio Ennio Tardini,Luca Zufferli,https://fbref.com/en/matches/655f8c05/Parma-Lazio-December-1-2024-Serie-A
-01/12,15:00,Torino,0–1,Napoli,25060,Stadio Olimpico Grande Torino,Michael Fabbri,https://fbref.com/en/matches/148db1a0/Torino-Napoli-December-1-2024-Serie-A
-01/12,12:30,Udinese,0–2,Genoa,21995,Bluenergy Stadium,Gianluca Aureliano,https://fbref.com/en/matches/bb7b34e8/Udinese-Genoa-December-1-2024-Serie-A
-02/12,20:45,Roma,0–2,Atalanta,55772,Stadio Olimpico,Marco Guida,https://fbref.com/en/matches/74396b38/Roma-Atalanta-December-2-2024-Serie-A
-06/12,20:45,Atalanta,2–1,Milan,22606,Gewiss Stadium,Federico La Penna,https://fbref.com/en/matches/3c291cde/Atalanta-Milan-December-6-2024-Serie-A
-06/12,18:30,Inter,3–1,Parma,71879,Stadio Giuseppe Meazza,Rosario Abisso,https://fbref.com/en/matches/36a8e6c1/Internazionale-Parma-December-6-2024-Serie-A
-07/12,15:00,Genoa,0–0,Torino,32363,Stadio Comunale Luigi Ferraris,Livio Marinelli,https://fbref.com/en/matches/5209f745/Genoa-Torino-December-7-2024-Serie-A
-07/12,18:00,Juventus,2–2,Bologna,40748,Allianz Stadium,Matteo Marchetti,https://fbref.com/en/matches/f335a456/Juventus-Bologna-December-7-2024-Serie-A
-07/12,20:45,Roma,4–1,Lecce,58213,Stadio Olimpico,Daniele Chiffi,https://fbref.com/en/matches/2f4aac74/Roma-Lecce-December-7-2024-Serie-A
-08/12,12:30,Fiorentina,1–0,Cagliari,19851,Stadio Artemio Franchi,Marco Piccinini,https://fbref.com/en/matches/a3f7f065/Fiorentina-Cagliari-December-8-2024-Serie-A
-08/12,15:00,Hellas Verona,1–4,Empoli,23949,Stadio Marc'Antonio Bentegodi,Marco Di Bello,https://fbref.com/en/matches/52d351e8/Hellas-Verona-Empoli-December-8-2024-Serie-A
-08/12,20:45,Napoli,0–1,Lazio,50000,Stadio Diego Armando Maradona,Andrea Colombo,https://fbref.com/en/matches/aea55efb/Napoli-Lazio-December-8-2024-Serie-A
-08/12,18:00,Venezia,2–2,Como,8026,Stadio Pier Luigi Penzo,Daniele Doveri,https://fbref.com/en/matches/4171bb56/Venezia-Como-December-8-2024-Serie-A
-09/12,20:45,Monza,1–2,Udinese,9317,U-Power Stadium,Gianluca Manganiello,https://fbref.com/en/matches/fbe80ac9/Monza-Udinese-December-9-2024-Serie-A
-13/12,20:45,Empoli,0–1,Torino,7832,Stadio Carlo Castellani - Computer Gross...,Kevin Bonacina,https://fbref.com/en/matches/33b426d2/Empoli-Torino-December-13-2024-Serie-A
-14/12,15:00,Cagliari,0–1,Atalanta,15985,Unipol Domus,Luca Pairetto,https://fbref.com/en/matches/69244b8a/Cagliari-Atalanta-December-14-2024-Serie-A
-14/12,20:45,Juventus,2–2,Venezia,38425,Allianz Stadium,Antonio Giua,https://fbref.com/en/matches/6eb424b7/Juventus-Venezia-December-14-2024-Serie-A
-14/12,18:00,Udinese,1–3,Napoli,19981,Bluenergy Stadium,Daniele Doveri,https://fbref.com/en/matches/700e4d44/Udinese-Napoli-December-14-2024-Serie-A
-15/12,15:00,Bologna,1–0,Fiorentina,26000,Stadio Renato Dall'Ara,Michael Fabbri,https://fbref.com/en/matches/a4be7984/Derby-dellAppennino-Bologna-Fiorentina-December-15-2024-Serie-A
-15/12,18:00,Como,2–0,Roma,13602,Stadio Giuseppe Sinigaglia,Antonio Rapuano,https://fbref.com/en/matches/27c53562/Como-Roma-December-15-2024-Serie-A
-15/12,12:30,Lecce,2–1,Monza,23663,Stadio Comunale Ettore Giardiniero,Maurizio Mariani,https://fbref.com/en/matches/4bd3b181/Lecce-Monza-December-15-2024-Serie-A
-15/12,20:45,Milan,0–0,Genoa,70078,Stadio Giuseppe Meazza,Marco Guida,https://fbref.com/en/matches/715aa683/Milan-Genoa-December-15-2024-Serie-A
-15/12,15:00,Parma,2–3,Hellas Verona,17003,Stadio Ennio Tardini,Simone Sozza,https://fbref.com/en/matches/c31235f0/Parma-Hellas-Verona-December-15-2024-Serie-A
-16/12,20:45,Lazio,0–6,Inter,59000,Stadio Olimpico,Daniele Chiffi,https://fbref.com/en/matches/180750a4/Lazio-Internazionale-December-16-2024-Serie-A
-20/12,20:45,Hellas Verona,0–1,Milan,24000,Stadio Marc'Antonio Bentegodi,Livio Marinelli,https://fbref.com/en/matches/95273d30/Hellas-Verona-Milan-December-20-2024-Serie-A
-21/12,18:00,Genoa,1–2,Napoli,33435,Stadio Comunale Luigi Ferraris,Federico La Penna,https://fbref.com/en/matches/f40ec8ec/Genoa-Napoli-December-21-2024-Serie-A
-21/12,20:45,Lecce,1–2,Lazio,30000,Stadio Comunale Ettore Giardiniero,Gianluca Manganiello,https://fbref.com/en/matches/e9e5a4d3/Lecce-Lazio-December-21-2024-Serie-A
-21/12,15:00,Torino,0–2,Bologna,19860,Stadio Olimpico Grande Torino,Marco Piccinini,https://fbref.com/en/matches/b6364093/Torino-Bologna-December-21-2024-Serie-A
-22/12,18:00,Atalanta,3–2,Empoli,22163,Gewiss Stadium,Ermanno Feliciani,https://fbref.com/en/matches/8ea96d1a/Atalanta-Empoli-December-22-2024-Serie-A
-22/12,20:45,Monza,1–2,Juventus,15479,U-Power Stadium,Davide Massa,https://fbref.com/en/matches/d259dc6c/Monza-Juventus-December-22-2024-Serie-A
-22/12,12:30,Roma,5–0,Parma,62968,Stadio Olimpico,Marco Di Bello,https://fbref.com/en/matches/ee646ed8/Roma-Parma-December-22-2024-Serie-A
-22/12,15:00,Venezia,2–1,Cagliari,9713,Stadio Pier Luigi Penzo,Marco Guida,https://fbref.com/en/matches/e97ff3c8/Venezia-Cagliari-December-22-2024-Serie-A
-23/12,18:30,Fiorentina,1–2,Udinese,20505,Stadio Artemio Franchi,Matteo Marcenaro,https://fbref.com/en/matches/bc6b88d2/Fiorentina-Udinese-December-23-2024-Serie-A
-23/12,20:45,Inter,2–0,Como,73204,Stadio Giuseppe Meazza,Antonio Giua,https://fbref.com/en/matches/815f82e8/Internazionale-Como-December-23-2024-Serie-A
-28/12,18:00,Cagliari,0–3,Inter,16412,Unipol Domus,Daniele Doveri,https://fbref.com/en/matches/a4004016/Cagliari-Internazionale-December-28-2024-Serie-A
-28/12,15:00,Empoli,1–2,Genoa,12657,Stadio Carlo Castellani - Computer Gross...,Antonio Rapuano,https://fbref.com/en/matches/6d5e84f9/Empoli-Genoa-December-28-2024-Serie-A
-28/12,20:45,Lazio,1–1,Atalanta,48000,Stadio Olimpico,Davide Massa,https://fbref.com/en/matches/864b029d/Lazio-Atalanta-December-28-2024-Serie-A
-28/12,15:00,Parma,2–1,Monza,17499,Stadio Ennio Tardini,Federico La Penna,https://fbref.com/en/matches/45c4ef98/Parma-Monza-December-28-2024-Serie-A
-29/12,18:00,Juventus,2–2,Fiorentina,41188,Allianz Stadium,Maurizio Mariani,https://fbref.com/en/matches/866b53df/Juventus-Fiorentina-December-29-2024-Serie-A
-29/12,20:45,Milan,1–1,Roma,74283,Stadio Giuseppe Meazza,Michael Fabbri,https://fbref.com/en/matches/3f619cbf/Milan-Roma-December-29-2024-Serie-A
-29/12,15:00,Napoli,1–0,Venezia,51199,Stadio Diego Armando Maradona,Francesco Cosso,https://fbref.com/en/matches/84d5d1b8/Napoli-Venezia-December-29-2024-Serie-A
-29/12,12:30,Udinese,2–2,Torino,23082,Bluenergy Stadium,Francesco Fourneau,https://fbref.com/en/matches/eda442e1/Udinese-Torino-December-29-2024-Serie-A
-30/12,20:45,Bologna,2–3,Hellas Verona,26454,Stadio Renato Dall'Ara,Giovanni Ayroldi,https://fbref.com/en/matches/8607729b/Bologna-Hellas-Verona-December-30-2024-Serie-A
-30/12,18:30,Como,2–0,Lecce,12000,Stadio Giuseppe Sinigaglia,Marco Piccinini,https://fbref.com/en/matches/e75996b8/Como-Lecce-December-30-2024-Serie-A
-04/01,18:00,Fiorentina,0–3,Napoli,21685,Stadio Artemio Franchi,Gianluca Manganiello,https://fbref.com/en/matches/b061fbf8/Fiorentina-Napoli-January-4-2025-Serie-A
-04/01,20:45,Hellas Verona,0–0,Udinese,23663,Stadio Marc'Antonio Bentegodi,Federico Dionisi,https://fbref.com/en/matches/9a2501ce/Hellas-Verona-Udinese-January-4-2025-Serie-A
-04/01,15:00,Venezia,1–1,Empoli,10591,Stadio Pier Luigi Penzo,Juan Luca Sacchi,https://fbref.com/en/matches/81fed71a/Venezia-Empoli-January-4-2025-Serie-A
-05/01,15:00,Lecce,0–0,Genoa,26436,Stadio Comunale Ettore Giardiniero,Livio Marinelli,https://fbref.com/en/matches/02f898b8/Lecce-Genoa-January-5-2025-Serie-A
-05/01,12:30,Monza,1–2,Cagliari,10982,U-Power Stadium,Marco Di Bello,https://fbref.com/en/matches/91f9e319/Monza-Cagliari-January-5-2025-Serie-A
-05/01,20:45,Roma,2–0,Lazio,65042,Stadio Olimpico,Luca Pairetto,https://fbref.com/en/matches/5e0b2192/Roma-Lazio-January-5-2025-Serie-A
-05/01,18:00,Torino,0–0,Parma,19744,Stadio Olimpico Grande Torino,Ermanno Feliciani,https://fbref.com/en/matches/cdeef583/Torino-Parma-January-5-2025-Serie-A
-10/01,20:45,Lazio,1–1,Como,40000,Stadio Olimpico,Paride Tremolada,https://fbref.com/en/matches/f8c231d6/Lazio-Como-January-10-2025-Serie-A
-11/01,15:00,Empoli,1–3,Lecce,9096,Stadio Carlo Castellani - Computer Gross...,Daniele Chiffi,https://fbref.com/en/matches/fad008cb/Empoli-Lecce-January-11-2025-Serie-A
-11/01,20:45,Milan,1–1,Cagliari,69263,Stadio Giuseppe Meazza,Francesco Fourneau,https://fbref.com/en/matches/48765cf8/Milan-Cagliari-January-11-2025-Serie-A
-11/01,18:00,Torino,1–1,Juventus,27014,Stadio Olimpico Grande Torino,Michael Fabbri,https://fbref.com/en/matches/ccb3439a/Torino-Juventus-January-11-2025-Serie-A
-11/01,15:00,Udinese,0–0,Atalanta,21727,Bluenergy Stadium,Maurizio Mariani,https://fbref.com/en/matches/69cd8e7c/Udinese-Atalanta-January-11-2025-Serie-A
-12/01,18:00,Bologna,2–2,Roma,30226,Stadio Renato Dall'Ara,Rosario Abisso,https://fbref.com/en/matches/a5eda625/Bologna-Roma-January-12-2025-Serie-A
-12/01,12:30,Genoa,1–0,Parma,31689,Stadio Comunale Luigi Ferraris,Andrea Colombo,https://fbref.com/en/matches/ac1441eb/Genoa-Parma-January-12-2025-Serie-A
-12/01,20:45,Napoli,2–0,Hellas Verona,48750,Stadio Diego Armando Maradona,Luca Zufferli,https://fbref.com/en/matches/340f5b84/Napoli-Hellas-Verona-January-12-2025-Serie-A
-12/01,15:00,Venezia,0–1,Inter,12048,Stadio Pier Luigi Penzo,Marco Piccinini,https://fbref.com/en/matches/358fd054/Venezia-Internazionale-January-12-2025-Serie-A
-13/01,20:45,Monza,2–1,Fiorentina,9153,U-Power Stadium,Federico Dionisi,https://fbref.com/en/matches/d27a6eb4/Monza-Fiorentina-January-13-2025-Serie-A
-14/01,20:45,Atalanta,1–1,Juventus,22920,Gewiss Stadium,Daniele Doveri,https://fbref.com/en/matches/167a39df/Atalanta-Juventus-January-14-2025-Serie-A
-14/01,18:30,Como,1–2,Milan,13602,Stadio Giuseppe Sinigaglia,Gianluca Manganiello,https://fbref.com/en/matches/c8bcd0d8/Como-Milan-January-14-2025-Serie-A
-15/01,20:45,Inter,2–2,Bologna,63074,Stadio Giuseppe Meazza,Luca Pairetto,https://fbref.com/en/matches/276006d8/Internazionale-Bologna-January-15-2025-Serie-A
-17/01,20:45,Roma,3–1,Genoa,62217,Stadio Olimpico,Luca Zufferli,https://fbref.com/en/matches/00edb7b5/Roma-Genoa-January-17-2025-Serie-A
-18/01,20:45,Atalanta,2–3,Napoli,22874,Gewiss Stadium,Andrea Colombo,https://fbref.com/en/matches/c60e5b0e/Atalanta-Napoli-January-18-2025-Serie-A
-18/01,15:00,Bologna,3–1,Monza,23381,Stadio Renato Dall'Ara,Maurizio Mariani,https://fbref.com/en/matches/9f9010d6/Bologna-Monza-January-18-2025-Serie-A
-18/01,18:00,Juventus,2–0,Milan,41507,Allianz Stadium,Davide Massa,https://fbref.com/en/matches/4ba45ccb/Juventus-Milan-January-18-2025-Serie-A
-19/01,15:00,Cagliari,4–1,Lecce,16306,Unipol Domus,Juan Luca Sacchi,https://fbref.com/en/matches/25c00123/Cagliari-Lecce-January-19-2025-Serie-A
-19/01,12:30,Fiorentina,1–1,Torino,19313,Stadio Artemio Franchi,Livio Marinelli,https://fbref.com/en/matches/15a113e1/Fiorentina-Torino-January-19-2025-Serie-A
-19/01,18:00,Hellas Verona,0–3,Lazio,37000,Stadio Marc'Antonio Bentegodi,Michael Fabbri,https://fbref.com/en/matches/a125644d/Hellas-Verona-Lazio-January-19-2025-Serie-A
-19/01,20:45,Inter,3–1,Empoli,61230,Stadio Giuseppe Meazza,Ermanno Feliciani,https://fbref.com/en/matches/94972e08/Internazionale-Empoli-January-19-2025-Serie-A
-19/01,15:00,Parma,1–1,Venezia,15865,Stadio Ennio Tardini,Francesco Fourneau,https://fbref.com/en/matches/fa8b77b9/Parma-Venezia-January-19-2025-Serie-A
-20/01,20:45,Como,4–1,Udinese,9566,Stadio Giuseppe Sinigaglia,Francesco Cosso,https://fbref.com/en/matches/0e2d0788/Como-Udinese-January-20-2025-Serie-A
-24/01,20:45,Torino,2–0,Cagliari,18992,Stadio Olimpico Grande Torino,Kevin Bonacina,https://fbref.com/en/matches/ef7d0127/Torino-Cagliari-January-24-2025-Serie-A
-25/01,15:00,Como,1–2,Atalanta,10366,Stadio Giuseppe Sinigaglia,Luca Pairetto,https://fbref.com/en/matches/b003f7e9/Como-Atalanta-January-25-2025-Serie-A
-25/01,20:45,Empoli,1–1,Bologna,10321,Stadio Carlo Castellani - Computer Gross...,Federico La Penna,https://fbref.com/en/matches/23c955ea/Empoli-Bologna-January-25-2025-Serie-A
-25/01,18:00,Napoli,2–1,Juventus,53589,Stadio Diego Armando Maradona,Daniele Chiffi,https://fbref.com/en/matches/8e264909/Napoli-Juventus-January-25-2025-Serie-A
-26/01,20:45,Lazio,1–2,Fiorentina,37000,Stadio Olimpico,Antonio Rapuano,https://fbref.com/en/matches/5f421e14/Lazio-Fiorentina-January-26-2025-Serie-A
-26/01,18:00,Lecce,0–4,Inter,27223,Stadio Comunale Ettore Giardiniero,Livio Marinelli,https://fbref.com/en/matches/c93d7be3/Lecce-Internazionale-January-26-2025-Serie-A
-26/01,12:30,Milan,3–2,Parma,72304,Stadio Giuseppe Meazza,Rosario Abisso,https://fbref.com/en/matches/212a47ce/Milan-Parma-January-26-2025-Serie-A
-26/01,15:00,Udinese,1–2,Roma,23853,Bluenergy Stadium,Simone Sozza,https://fbref.com/en/matches/bab3336a/Udinese-Roma-January-26-2025-Serie-A
-27/01,20:45,Genoa,2–0,Monza,29976,Stadio Comunale Luigi Ferraris,Daniele Doveri,https://fbref.com/en/matches/3cf963e6/Genoa-Monza-January-27-2025-Serie-A
-27/01,18:30,Venezia,1–1,Hellas Verona,9481,Stadio Pier Luigi Penzo,Gianluca Manganiello,https://fbref.com/en/matches/172aa746/Venezia-Hellas-Verona-January-27-2025-Serie-A
-31/01,20:45,Parma,1–3,Lecce,18238,Stadio Ennio Tardini,Simone Sozza,https://fbref.com/en/matches/be735978/Parma-Lecce-January-31-2025-Serie-A
-01/02,18:00,Atalanta,1–1,Torino,22547,Gewiss Stadium,Marco Piccinini,https://fbref.com/en/matches/5ce2b496/Atalanta-Torino-February-1-2025-Serie-A
-01/02,20:45,Bologna,2–0,Como,26492,Stadio Renato Dall'Ara,Luca Massimi,https://fbref.com/en/matches/313b466d/Bologna-Como-February-1-2025-Serie-A
-01/02,15:00,Monza,0–1,Hellas Verona,11723,U-Power Stadium,Davide Massa,https://fbref.com/en/matches/95dc31fb/Monza-Hellas-Verona-February-1-2025-Serie-A
-01/02,15:00,Udinese,3–2,Venezia,19767,Bluenergy Stadium,Maurizio Mariani,https://fbref.com/en/matches/55a39dc2/Udinese-Venezia-February-1-2025-Serie-A
-02/02,15:00,Fiorentina,2–1,Genoa,19088,Stadio Artemio Franchi,Giuseppe Collu,https://fbref.com/en/matches/d04f2be7/Fiorentina-Genoa-February-2-2025-Serie-A
-02/02,12:30,Juventus,4–1,Empoli,40160,Allianz Stadium,Luca Zufferli,https://fbref.com/en/matches/448d4707/Juventus-Empoli-February-2-2025-Serie-A
-02/02,18:00,Milan,1–1,Inter,75493,Stadio Giuseppe Meazza,Daniele Chiffi,https://fbref.com/en/matches/c14ebb74/Derby-della-Madonnina-Milan-Internazionale-February-2-2025-Serie-A
-02/02,20:45,Roma,1–1,Napoli,60788,Stadio Olimpico,Michael Fabbri,https://fbref.com/en/matches/bc8eb4c8/Derby-del-Sole-Roma-Napoli-February-2-2025-Serie-A
-03/02,20:45,Cagliari,1–2,Lazio,15751,Unipol Domus,Gianluca Manganiello,https://fbref.com/en/matches/4b57b989/Cagliari-Lazio-February-3-2025-Serie-A
-06/02,20:45,Fiorentina,3–0,Inter,22351,Stadio Artemio Franchi,Daniele Doveri,https://fbref.com/en/matches/f7e35659/Fiorentina-Internazionale-February-6-2025-Serie-A
-07/02,20:45,Como,1–2,Juventus,10475,Stadio Giuseppe Sinigaglia,Rosario Abisso,https://fbref.com/en/matches/3278f598/Como-Juventus-February-7-2025-Serie-A
-08/02,18:00,Empoli,0–2,Milan,14691,Stadio Carlo Castellani - Computer Gross...,Luca Pairetto,https://fbref.com/en/matches/3af8a61d/Empoli-Milan-February-8-2025-Serie-A
-08/02,15:00,Hellas Verona,0–5,Atalanta,20872,Stadio Marc'Antonio Bentegodi,Simone Sozza,https://fbref.com/en/matches/d1303859/Hellas-Verona-Atalanta-February-8-2025-Serie-A
-08/02,20:45,Torino,1–1,Genoa,22359,Stadio Olimpico Grande Torino,Ermanno Feliciani,https://fbref.com/en/matches/094512d6/Torino-Genoa-February-8-2025-Serie-A
-09/02,15:00,Cagliari,2–1,Parma,16154,Unipol Domus,Marco Di Bello,https://fbref.com/en/matches/23f6ed48/Cagliari-Parma-February-9-2025-Serie-A
-09/02,15:00,Lazio,5–1,Monza,31540,Stadio Olimpico,Gianluca Aureliano,https://fbref.com/en/matches/a8e48bad/Lazio-Monza-February-9-2025-Serie-A
-09/02,18:00,Lecce,0–0,Bologna,24910,Stadio Comunale Ettore Giardiniero,Francesco Fourneau,https://fbref.com/en/matches/2b41c316/Lecce-Bologna-February-9-2025-Serie-A
-09/02,20:45,Napoli,1–1,Udinese,50938,Stadio Diego Armando Maradona,Livio Marinelli,https://fbref.com/en/matches/2d512f04/Napoli-Udinese-February-9-2025-Serie-A
-09/02,12:30,Venezia,0–1,Roma,9380,Stadio Pier Luigi Penzo,Luca Zufferli,https://fbref.com/en/matches/99a32fd5/Venezia-Roma-February-9-2025-Serie-A
-10/02,20:45,Inter,2–1,Fiorentina,67484,Stadio Giuseppe Meazza,Federico La Penna,https://fbref.com/en/matches/ccfbf3d4/Internazionale-Fiorentina-February-10-2025-Serie-A
-14/02,20:45,Bologna,3–2,Torino,24274,Stadio Renato Dall'Ara,Michael Fabbri,https://fbref.com/en/matches/a88cd10b/Bologna-Torino-February-14-2025-Serie-A
-15/02,15:00,Atalanta,0–0,Cagliari,21485,Gewiss Stadium,Matteo Marchetti,https://fbref.com/en/matches/aad0599d/Atalanta-Cagliari-February-15-2025-Serie-A
-15/02,18:00,Lazio,2–2,Napoli,42863,Stadio Olimpico,Davide Massa,https://fbref.com/en/matches/95099d4b/Lazio-Napoli-February-15-2025-Serie-A
-15/02,20:45,Milan,1–0,Hellas Verona,69578,Stadio Giuseppe Meazza,Francesco Fourneau,https://fbref.com/en/matches/70955f6e/Milan-Hellas-Verona-February-15-2025-Serie-A
-16/02,12:30,Fiorentina,0–2,Como,19000,Stadio Artemio Franchi,Marco Piccinini,https://fbref.com/en/matches/02aa80e2/Fiorentina-Como-February-16-2025-Serie-A
-16/02,20:45,Juventus,1–0,Inter,41361,Allianz Stadium,Maurizio Mariani,https://fbref.com/en/matches/1937abc6/Derby-dItalia-Juventus-Internazionale-February-16-2025-Serie-A
-16/02,15:00,Monza,0–0,Lecce,11050,U-Power Stadium,Giuseppe Collu,https://fbref.com/en/matches/eccedcc2/Monza-Lecce-February-16-2025-Serie-A
-16/02,18:00,Parma,0–1,Roma,20559,Stadio Ennio Tardini,Daniele Chiffi,https://fbref.com/en/matches/375b1b94/Parma-Roma-February-16-2025-Serie-A
-16/02,15:00,Udinese,3–0,Empoli,19539,Bluenergy Stadium,Daniele Doveri,https://fbref.com/en/matches/1fbf8daa/Udinese-Empoli-February-16-2025-Serie-A
-17/02,20:45,Genoa,2–0,Venezia,30478,Stadio Comunale Luigi Ferraris,Livio Marinelli,https://fbref.com/en/matches/696a318f/Genoa-Venezia-February-17-2025-Serie-A
-21/02,20:45,Lecce,0–1,Udinese,23989,Stadio Comunale Ettore Giardiniero,Kevin Bonacina,https://fbref.com/en/matches/9ec509fe/Lecce-Udinese-February-21-2025-Serie-A
-22/02,20:45,Inter,1–0,Genoa,68271,Stadio Giuseppe Meazza,Marco Piccinini,https://fbref.com/en/matches/d32f9068/Internazionale-Genoa-February-22-2025-Serie-A
-22/02,15:00,Parma,2–0,Bologna,19510,Stadio Ennio Tardini,Rosario Abisso,https://fbref.com/en/matches/ebb1f74f/Parma-Bologna-February-22-2025-Serie-A
-22/02,18:00,Torino,2–1,Milan,26868,Stadio Olimpico Grande Torino,Simone Sozza,https://fbref.com/en/matches/e6575a92/Torino-Milan-February-22-2025-Serie-A
-22/02,15:00,Venezia,0–0,Lazio,8796,Stadio Pier Luigi Penzo,Matteo Marchetti,https://fbref.com/en/matches/48f3bc32/Venezia-Lazio-February-22-2025-Serie-A
-23/02,20:45,Cagliari,0–1,Juventus,16412,Unipol Domus,Andrea Colombo,https://fbref.com/en/matches/e87e1d99/Cagliari-Juventus-February-23-2025-Serie-A
-23/02,12:30,Como,2–1,Napoli,10500,Stadio Giuseppe Sinigaglia,Gianluca Manganiello,https://fbref.com/en/matches/f232cc45/Como-Napoli-February-23-2025-Serie-A
-23/02,18:00,Empoli,0–5,Atalanta,9176,Stadio Carlo Castellani - Computer Gross...,Maurizio Mariani,https://fbref.com/en/matches/89964eba/Empoli-Atalanta-February-23-2025-Serie-A
-23/02,15:00,Hellas Verona,1–0,Fiorentina,26496,Stadio Marc'Antonio Bentegodi,Marco Di Bello,https://fbref.com/en/matches/e156f514/Hellas-Verona-Fiorentina-February-23-2025-Serie-A
-24/02,20:45,Roma,4–0,Monza,56965,Stadio Olimpico,Fabio Maresca,https://fbref.com/en/matches/e00a9736/Roma-Monza-February-24-2025-Serie-A
-27/02,20:45,Bologna,2–1,Milan,31784,Stadio Renato Dall'Ara,Maurizio Mariani,https://fbref.com/en/matches/5f718bc4/Bologna-Milan-February-27-2025-Serie-A
-28/02,20:45,Fiorentina,1–0,Lecce,17383,Stadio Artemio Franchi,Livio Marinelli,https://fbref.com/en/matches/d99d1615/Fiorentina-Lecce-February-28-2025-Serie-A
-01/03,15:00,Atalanta,0–0,Venezia,21991,Gewiss Stadium,Giuseppe Collu,https://fbref.com/en/matches/af143178/Atalanta-Venezia-March-1-2025-Serie-A
-01/03,18:00,Napoli,1–1,Inter,53851,Stadio Diego Armando Maradona,Daniele Doveri,https://fbref.com/en/matches/74de313e/Napoli-Internazionale-March-1-2025-Serie-A
-01/03,20:45,Udinese,1–0,Parma,20430,Bluenergy Stadium,Fabio Maresca,https://fbref.com/en/matches/55b0643e/Udinese-Parma-March-1-2025-Serie-A
-02/03,15:00,Bologna,2–1,Cagliari,25676,Stadio Renato Dall'Ara,Luca Zufferli,https://fbref.com/en/matches/ece34ddb/Bologna-Cagliari-March-2-2025-Serie-A
-02/03,15:00,Genoa,1–1,Empoli,31295,Stadio Comunale Luigi Ferraris,Davide Massa,https://fbref.com/en/matches/a38d0698/Genoa-Empoli-March-2-2025-Serie-A
-02/03,20:45,Milan,1–2,Lazio,65969,Stadio Giuseppe Meazza,Gianluca Manganiello,https://fbref.com/en/matches/8ea3005d/Milan-Lazio-March-2-2025-Serie-A
-02/03,12:30,Monza,0–2,Torino,11053,U-Power Stadium,Antonio Rapuano,https://fbref.com/en/matches/ff368ffa/Monza-Torino-March-2-2025-Serie-A
-02/03,18:00,Roma,2–1,Como,62125,Stadio Olimpico,Luca Pairetto,https://fbref.com/en/matches/a7745557/Roma-Como-March-2-2025-Serie-A
-03/03,20:45,Juventus,2–0,Hellas Verona,36215,Allianz Stadium,Matteo Marchetti,https://fbref.com/en/matches/3974ef83/Juventus-Hellas-Verona-March-3-2025-Serie-A
-07/03,20:45,Cagliari,1–1,Genoa,15827,Unipol Domus,Michael Fabbri,https://fbref.com/en/matches/f3d49f01/Cagliari-Genoa-March-7-2025-Serie-A
-08/03,15:00,Como,1–1,Venezia,10080,Stadio Giuseppe Sinigaglia,Giovanni Ayroldi,https://fbref.com/en/matches/80e5cecf/Como-Venezia-March-8-2025-Serie-A
-08/03,20:45,Inter,3–2,Monza,66344,Stadio Giuseppe Meazza,Luca Zufferli,https://fbref.com/en/matches/86ce720b/Internazionale-Monza-March-8-2025-Serie-A
-08/03,18:00,Lecce,2–3,Milan,25753,Stadio Comunale Ettore Giardiniero,Daniele Doveri,https://fbref.com/en/matches/001d3a5d/Lecce-Milan-March-8-2025-Serie-A
-08/03,15:00,Parma,2–2,Torino,18938,Stadio Ennio Tardini,Francesco Fourneau,https://fbref.com/en/matches/6074c57f/Parma-Torino-March-8-2025-Serie-A
-09/03,18:00,Empoli,0–1,Roma,12393,Stadio Carlo Castellani - Computer Gross...,Marco Di Bello,https://fbref.com/en/matches/ce1efae1/Empoli-Roma-March-9-2025-Serie-A
-09/03,12:30,Hellas Verona,1–2,Bologna,24612,Stadio Marc'Antonio Bentegodi,Antonio Rapuano,https://fbref.com/en/matches/396148a3/Hellas-Verona-Bologna-March-9-2025-Serie-A
-09/03,20:45,Juventus,0–4,Atalanta,40266,Allianz Stadium,Simone Sozza,https://fbref.com/en/matches/ecdc4b8d/Juventus-Atalanta-March-9-2025-Serie-A
-09/03,15:00,Napoli,2–1,Fiorentina,51504,Stadio Diego Armando Maradona,Andrea Colombo,https://fbref.com/en/matches/33dc159c/Napoli-Fiorentina-March-9-2025-Serie-A
-10/03,20:45,Lazio,1–1,Udinese,34655,Stadio Olimpico,Marco Piccinini,https://fbref.com/en/matches/f9658b87/Lazio-Udinese-March-10-2025-Serie-A
-14/03,20:45,Genoa,2–1,Lecce,31495,Stadio Comunale Luigi Ferraris,Fabio Maresca,https://fbref.com/en/matches/65b3e4b2/Genoa-Lecce-March-14-2025-Serie-A
-15/03,18:00,Milan,2–1,Como,74500,Stadio Giuseppe Meazza,Matteo Marchetti,https://fbref.com/en/matches/a7ffc114/Milan-Como-March-15-2025-Serie-A
-15/03,15:00,Monza,1–1,Parma,9251,U-Power Stadium,Gianluca Manganiello,https://fbref.com/en/matches/a90db6a7/Monza-Parma-March-15-2025-Serie-A
-15/03,20:45,Torino,1–0,Empoli,20402,Stadio Olimpico Grande Torino,Daniele Chiffi,https://fbref.com/en/matches/f021f721/Torino-Empoli-March-15-2025-Serie-A
-15/03,15:00,Udinese,0–1,Hellas Verona,20754,Bluenergy Stadium,Giovanni Ayroldi,https://fbref.com/en/matches/30070e2c/Udinese-Hellas-Verona-March-15-2025-Serie-A
-16/03,20:45,Atalanta,0–2,Inter,23215,Gewiss Stadium,Davide Massa,https://fbref.com/en/matches/0247cede/Atalanta-Internazionale-March-16-2025-Serie-A
-16/03,15:00,Bologna,5–0,Lazio,30846,Stadio Renato Dall'Ara,Andrea Colombo,https://fbref.com/en/matches/6ea9a6f4/Bologna-Lazio-March-16-2025-Serie-A
-16/03,18:00,Fiorentina,3–0,Juventus,22253,Stadio Artemio Franchi,Michael Fabbri,https://fbref.com/en/matches/8c211ded/Fiorentina-Juventus-March-16-2025-Serie-A
-16/03,16:00,Roma,1–0,Cagliari,62911,Stadio Olimpico,Marco Piccinini,https://fbref.com/en/matches/4fb25784/Roma-Cagliari-March-16-2025-Serie-A
-16/03,12:30,Venezia,0–0,Napoli,11440,Stadio Pier Luigi Penzo,Maurizio Mariani,https://fbref.com/en/matches/bebdb801/Venezia-Napoli-March-16-2025-Serie-A
-29/03,15:00,Como,1–1,Empoli,10118,Stadio Giuseppe Sinigaglia,Maurizio Mariani,https://fbref.com/en/matches/dc730fc2/Como-Empoli-March-29-2025-Serie-A
-29/03,18:00,Juventus,1–0,Genoa,40219,Allianz Stadium,Antonio Rapuano,https://fbref.com/en/matches/b11ec446/Juventus-Genoa-March-29-2025-Serie-A
-29/03,20:45,Lecce,0–1,Roma,27207,Stadio Comunale Ettore Giardiniero,Gianluca Manganiello,https://fbref.com/en/matches/f29c7427/Lecce-Roma-March-29-2025-Serie-A
-29/03,15:00,Venezia,0–1,Bologna,9864,Stadio Pier Luigi Penzo,Marco Di Bello,https://fbref.com/en/matches/3c6a91ff/Venezia-Bologna-March-29-2025-Serie-A
-30/03,12:30,Cagliari,3–0,Monza,16319,Unipol Domus,Francesco Fourneau,https://fbref.com/en/matches/b5cbd016/Cagliari-Monza-March-30-2025-Serie-A
-30/03,15:00,Fiorentina,1–0,Atalanta,20409,Stadio Artemio Franchi,Daniele Doveri,https://fbref.com/en/matches/3a802457/Fiorentina-Atalanta-March-30-2025-Serie-A
-30/03,18:00,Inter,2–1,Udinese,71924,Stadio Giuseppe Meazza,Daniele Chiffi,https://fbref.com/en/matches/29412934/Internazionale-Udinese-March-30-2025-Serie-A
-30/03,20:45,Napoli,2–1,Milan,52836,Stadio Diego Armando Maradona,Simone Sozza,https://fbref.com/en/matches/f211a752/Napoli-Milan-March-30-2025-Serie-A
-31/03,18:30,Hellas Verona,0–0,Parma,22706,Stadio Marc'Antonio Bentegodi,Juan Luca Sacchi,https://fbref.com/en/matches/a7028401/Hellas-Verona-Parma-March-31-2025-Serie-A
-31/03,20:45,Lazio,1–1,Torino,37000,Stadio Olimpico,Davide Massa,https://fbref.com/en/matches/26731b01/Lazio-Torino-March-31-2025-Serie-A
-04/04,20:45,Genoa,1–0,Udinese,31243,Stadio Comunale Luigi Ferraris,Daniele Perenzoni,https://fbref.com/en/matches/839ac664/Genoa-Udinese-April-4-2025-Serie-A
-05/04,20:45,Milan,2–2,Fiorentina,72451,Stadio Giuseppe Meazza,Giovanni Ayroldi,https://fbref.com/en/matches/686be623/Milan-Fiorentina-April-5-2025-Serie-A
-05/04,15:00,Monza,1–3,Como,8649,U-Power Stadium,Giuseppe Collu,https://fbref.com/en/matches/e970c3a4/Monza-Como-April-5-2025-Serie-A
-05/04,18:00,Parma,2–2,Inter,22126,Stadio Ennio Tardini,Daniele Doveri,https://fbref.com/en/matches/c0287d8d/Parma-Internazionale-April-5-2025-Serie-A
-06/04,18:00,Atalanta,0–1,Lazio,22731,Gewiss Stadium,Daniele Chiffi,https://fbref.com/en/matches/617486d8/Atalanta-Lazio-April-6-2025-Serie-A
-06/04,15:00,Empoli,0–0,Cagliari,9054,Stadio Carlo Castellani - Computer Gross...,Federico La Penna,https://fbref.com/en/matches/2db8cc44/Empoli-Cagliari-April-6-2025-Serie-A
-06/04,12:30,Lecce,1–1,Venezia,25709,Stadio Comunale Ettore Giardiniero,Marco Piccinini,https://fbref.com/en/matches/4c323af9/Lecce-Venezia-April-6-2025-Serie-A
-06/04,20:45,Roma,1–1,Juventus,65778,Stadio Olimpico,Andrea Colombo,https://fbref.com/en/matches/97fb2367/Roma-Juventus-April-6-2025-Serie-A
-06/04,15:00,Torino,1–1,Hellas Verona,25479,Stadio Olimpico Grande Torino,Kevin Bonacina,https://fbref.com/en/matches/d0dd0be5/Torino-Hellas-Verona-April-6-2025-Serie-A
-07/04,20:45,Bologna,1–1,Napoli,31974,Stadio Renato Dall'Ara,Davide Massa,https://fbref.com/en/matches/d8fb6510/Bologna-Napoli-April-7-2025-Serie-A
-11/04,20:45,Udinese,0–4,Milan,24214,Bluenergy Stadium,Juan Luca Sacchi,https://fbref.com/en/matches/08727bbe/Udinese-Milan-April-11-2025-Serie-A
-12/04,18:00,Inter,3–1,Cagliari,71799,Stadio Giuseppe Meazza,Marco Di Bello,https://fbref.com/en/matches/ef4a7f22/Internazionale-Cagliari-April-12-2025-Serie-A
-12/04,20:45,Juventus,2–1,Lecce,39259,Allianz Stadium,Luca Zufferli,https://fbref.com/en/matches/8984b658/Juventus-Lecce-April-12-2025-Serie-A
-12/04,15:00,Venezia,1–0,Monza,10001,Stadio Pier Luigi Penzo,Fabio Maresca,https://fbref.com/en/matches/48567cfa/Venezia-Monza-April-12-2025-Serie-A
-13/04,12:30,Atalanta,2–0,Bologna,23156,Gewiss Stadium,Maurizio Mariani,https://fbref.com/en/matches/fc3de8a2/Atalanta-Bologna-April-13-2025-Serie-A
-13/04,18:00,Como,1–0,Torino,10658,Stadio Giuseppe Sinigaglia,Matteo Marcenaro,https://fbref.com/en/matches/508b84c8/Como-Torino-April-13-2025-Serie-A
-13/04,15:00,Fiorentina,0–0,Parma,21355,Stadio Artemio Franchi,Gianluca Manganiello,https://fbref.com/en/matches/790548b5/Fiorentina-Parma-April-13-2025-Serie-A
-13/04,15:00,Hellas Verona,0–0,Genoa,27724,Stadio Marc'Antonio Bentegodi,Matteo Marchetti,https://fbref.com/en/matches/35af7e08/Hellas-Verona-Genoa-April-13-2025-Serie-A
-13/04,20:45,Lazio,1–1,Roma,63000,Stadio Olimpico,Simone Sozza,https://fbref.com/en/matches/7ce59536/Lazio-Roma-April-13-2025-Serie-A
-14/04,20:45,Napoli,3–0,Empoli,50898,Stadio Diego Armando Maradona,Michael Fabbri,https://fbref.com/en/matches/25fd6dcc/Napoli-Empoli-April-14-2025-Serie-A
-19/04,15:00,Lecce,0–3,Como,28181,Stadio Comunale Ettore Giardiniero,Simone Sozza,https://fbref.com/en/matches/51659765/Lecce-Como-April-19-2025-Serie-A
-19/04,18:00,Monza,0–1,Napoli,13784,U-Power Stadium,Federico La Penna,https://fbref.com/en/matches/43293eff/Monza-Napoli-April-19-2025-Serie-A
-19/04,20:45,Roma,1–0,Hellas Verona,62714,Stadio Olimpico,Luca Pairetto,https://fbref.com/en/matches/bfe41ff3/Roma-Hellas-Verona-April-19-2025-Serie-A
-20/04,18:00,Bologna,1–0,Inter,31978,Stadio Renato Dall'Ara,Andrea Colombo,https://fbref.com/en/matches/c84d74dd/Bologna-Internazionale-April-20-2025-Serie-A
-20/04,15:00,Empoli,2–2,Venezia,8477,Stadio Carlo Castellani - Computer Gross...,Davide Massa,https://fbref.com/en/matches/a32623e7/Empoli-Venezia-April-20-2025-Serie-A
-20/04,20:45,Milan,0–1,Atalanta,72745,Stadio Giuseppe Meazza,Marco Piccinini,https://fbref.com/en/matches/c810b524/Milan-Atalanta-April-20-2025-Serie-A
-23/04,18:30,Cagliari,1–2,Fiorentina,15917,Unipol Domus,Livio Marinelli,https://fbref.com/en/matches/2ab6a96f/Cagliari-Fiorentina-April-23-2025-Serie-A
-23/04,18:30,Genoa,0–2,Lazio,32038,Stadio Comunale Luigi Ferraris,Giovanni Ayroldi,https://fbref.com/en/matches/40628936/Genoa-Lazio-April-23-2025-Serie-A
-23/04,18:30,Parma,1–0,Juventus,21108,Stadio Ennio Tardini,Daniele Chiffi,https://fbref.com/en/matches/2dc01d9d/Parma-Juventus-April-23-2025-Serie-A
-23/04,18:30,Torino,2–0,Udinese,27958,Stadio Olimpico Grande Torino,Giuseppe Collu,https://fbref.com/en/matches/9a00f207/Torino-Udinese-April-23-2025-Serie-A
-27/04,20:45,Atalanta,1–1,Lecce,21875,Gewiss Stadium,Federico La Penna,https://fbref.com/en/matches/f8863600/Atalanta-Lecce-April-27-2025-Serie-A
-27/04,12:30,Como,1–0,Genoa,10664,Stadio Giuseppe Sinigaglia,Alberto Arena,https://fbref.com/en/matches/65b86f16/Como-Genoa-April-27-2025-Serie-A
-27/04,15:00,Fiorentina,2–1,Empoli,20547,Stadio Artemio Franchi,Antonio Rapuano,https://fbref.com/en/matches/a2af722c/Fiorentina-Empoli-April-27-2025-Serie-A
-27/04,15:00,Inter,0–1,Roma,70240,Stadio Giuseppe Meazza,Michael Fabbri,https://fbref.com/en/matches/bd8b0528/Internazionale-Roma-April-27-2025-Serie-A
-27/04,18:00,Juventus,2–0,Monza,40016,Allianz Stadium,Daniele Perenzoni,https://fbref.com/en/matches/a12f6bbe/Juventus-Monza-April-27-2025-Serie-A
-27/04,20:45,Napoli,2–0,Torino,51144,Stadio Diego Armando Maradona,Maurizio Mariani,https://fbref.com/en/matches/b0a980eb/Napoli-Torino-April-27-2025-Serie-A
-27/04,12:30,Venezia,0–2,Milan,12048,Stadio Pier Luigi Penzo,Gianluca Manganiello,https://fbref.com/en/matches/b5347b9e/Venezia-Milan-April-27-2025-Serie-A
-28/04,20:45,Hellas Verona,0–2,Cagliari,20741,Stadio Marc'Antonio Bentegodi,Rosario Abisso,https://fbref.com/en/matches/74ff68ec/Hellas-Verona-Cagliari-April-28-2025-Serie-A
-28/04,20:45,Lazio,2–2,Parma,32000,Stadio Olimpico,Juan Luca Sacchi,https://fbref.com/en/matches/e492b3dc/Lazio-Parma-April-28-2025-Serie-A
-28/04,18:30,Udinese,0–0,Bologna,23414,Bluenergy Stadium,Fabio Maresca,https://fbref.com/en/matches/fae1422d/Udinese-Bologna-April-28-2025-Serie-A
-02/05,20:45,Torino,1–1,Venezia,21931,Stadio Olimpico Grande Torino,Simone Sozza,https://fbref.com/en/matches/f57140cf/Torino-Venezia-May-2-2025-Serie-A
-03/05,15:00,Cagliari,1–2,Udinese,16099,Unipol Domus,Ermanno Feliciani,https://fbref.com/en/matches/374d14e7/Cagliari-Udinese-May-3-2025-Serie-A
-03/05,20:45,Inter,1–0,Hellas Verona,70222,Stadio Giuseppe Meazza,Gianluca Manganiello,https://fbref.com/en/matches/e3647411/Internazionale-Hellas-Verona-May-3-2025-Serie-A
-03/05,18:00,Lecce,0–1,Napoli,28403,Stadio Comunale Ettore Giardiniero,Davide Massa,https://fbref.com/en/matches/95959c4f/Lecce-Napoli-May-3-2025-Serie-A
-03/05,15:00,Parma,0–1,Como,20132,Stadio Ennio Tardini,Marco Di Bello,https://fbref.com/en/matches/2530eda5/Parma-Como-May-3-2025-Serie-A
-04/05,20:45,Bologna,1–1,Juventus,30846,Stadio Renato Dall'Ara,Daniele Doveri,https://fbref.com/en/matches/27fb223d/Bologna-Juventus-May-4-2025-Serie-A
-04/05,12:30,Empoli,0–1,Lazio,8787,Stadio Carlo Castellani - Computer Gross...,Andrea Colombo,https://fbref.com/en/matches/90d9dd2e/Empoli-Lazio-May-4-2025-Serie-A
-04/05,15:00,Monza,0–4,Atalanta,10440,U-Power Stadium,Luca Pairetto,https://fbref.com/en/matches/baef8a4c/Monza-Atalanta-May-4-2025-Serie-A
-04/05,18:00,Roma,1–0,Fiorentina,63640,Stadio Olimpico,Daniele Chiffi,https://fbref.com/en/matches/07a1cabc/Roma-Fiorentina-May-4-2025-Serie-A
-05/05,20:45,Genoa,1–2,Milan,32081,Stadio Comunale Luigi Ferraris,Giuseppe Collu,https://fbref.com/en/matches/0fcd692b/Genoa-Milan-May-5-2025-Serie-A
-09/05,20:45,Milan,3–1,Bologna,71076,Stadio Giuseppe Meazza,Livio Marinelli,https://fbref.com/en/matches/eaef3f45/Milan-Bologna-May-9-2025-Serie-A
-10/05,15:00,Como,3–1,Cagliari,13602,Stadio Giuseppe Sinigaglia,Francesco Fourneau,https://fbref.com/en/matches/6495e7f4/Como-Cagliari-May-10-2025-Serie-A
-10/05,20:45,Empoli,2–1,Parma,12040,Stadio Carlo Castellani - Computer Gross...,Michael Fabbri,https://fbref.com/en/matches/c14e9e23/Empoli-Parma-May-10-2025-Serie-A
-10/05,18:00,Lazio,1–1,Juventus,56000,Stadio Olimpico,Davide Massa,https://fbref.com/en/matches/6549caed/Lazio-Juventus-May-10-2025-Serie-A
-11/05,15:00,Hellas Verona,1–1,Lecce,27709,Stadio Marc'Antonio Bentegodi,Fabio Maresca,https://fbref.com/en/matches/a1325187/Hellas-Verona-Lecce-May-11-2025-Serie-A
-11/05,20:45,Napoli,2–2,Genoa,51426,Stadio Diego Armando Maradona,Marco Piccinini,https://fbref.com/en/matches/ac2b39d3/Napoli-Genoa-May-11-2025-Serie-A
-11/05,18:00,Torino,0–2,Inter,26537,Stadio Olimpico Grande Torino,Federico La Penna,https://fbref.com/en/matches/48220756/Torino-Internazionale-May-11-2025-Serie-A
-11/05,12:30,Udinese,1–2,Monza,20845,Bluenergy Stadium,Valerio Crezzini,https://fbref.com/en/matches/17fc8f69/Udinese-Monza-May-11-2025-Serie-A
-12/05,20:45,Atalanta,2–1,Roma,23249,Gewiss Stadium,Simone Sozza,https://fbref.com/en/matches/89fed893/Atalanta-Roma-May-12-2025-Serie-A
-12/05,18:30,Venezia,2–1,Fiorentina,11000,Stadio Pier Luigi Penzo,Matteo Marchetti,https://fbref.com/en/matches/ce81908e/Venezia-Fiorentina-May-12-2025-Serie-A
-17/05,20:45,Genoa,2–3,Atalanta,31929,Stadio Comunale Luigi Ferraris,Davide Ghersini,https://fbref.com/en/matches/ff6b72ea/Genoa-Atalanta-May-17-2025-Serie-A
-18/05,20:45,Cagliari,3–0,Venezia,16176,Unipol Domus,Luca Pairetto,https://fbref.com/en/matches/c9e65a18/Cagliari-Venezia-May-18-2025-Serie-A
-18/05,20:45,Fiorentina,3–2,Bologna,21280,Stadio Artemio Franchi,Luca Zufferli,https://fbref.com/en/matches/dfdf1b4a/Derby-dellAppennino-Fiorentina-Bologna-May-18-2025-Serie-A
-18/05,20:45,Hellas Verona,1–1,Como,24344,Stadio Marc'Antonio Bentegodi,Rosario Abisso,https://fbref.com/en/matches/1a9a2b31/Hellas-Verona-Como-May-18-2025-Serie-A
-18/05,20:45,Inter,2–2,Lazio,71060,Stadio Giuseppe Meazza,Daniele Chiffi,https://fbref.com/en/matches/17533f2c/Internazionale-Lazio-May-18-2025-Serie-A
-18/05,20:45,Juventus,2–0,Udinese,40259,Allianz Stadium,Giovanni Ayroldi,https://fbref.com/en/matches/a358a6ca/Juventus-Udinese-May-18-2025-Serie-A
-18/05,20:45,Lecce,1–0,Torino,21726,Stadio Comunale Ettore Giardiniero,Antonio Rapuano,https://fbref.com/en/matches/5bc1c77a/Lecce-Torino-May-18-2025-Serie-A
-18/05,20:45,Monza,1–3,Empoli,7472,U-Power Stadium,Livio Marinelli,https://fbref.com/en/matches/4ffa8178/Monza-Empoli-May-18-2025-Serie-A
-18/05,20:45,Parma,0–0,Napoli,20388,Stadio Ennio Tardini,Daniele Doveri,https://fbref.com/en/matches/5c73f7db/Parma-Napoli-May-18-2025-Serie-A
-18/05,20:45,Roma,3–1,Milan,68143,Stadio Olimpico,Marco Piccinini,https://fbref.com/en/matches/e8a82fc6/Roma-Milan-May-18-2025-Serie-A
-23/05,20:45,Como,0–2,Inter,10656,Stadio Giuseppe Sinigaglia,Davide Massa,https://fbref.com/en/matches/50b87e8b/Como-Internazionale-May-23-2025-Serie-A
-23/05,20:45,Napoli,2–0,Cagliari,53000,Stadio Diego Armando Maradona,Federico La Penna,https://fbref.com/en/matches/4d5ce659/Napoli-Cagliari-May-23-2025-Serie-A
-24/05,18:00,Bologna,1–3,Genoa,29975,Stadio Renato Dall'Ara,Marco Monaldi,https://fbref.com/en/matches/97392c7a/Bologna-Genoa-May-24-2025-Serie-A
-24/05,20:45,Milan,2–0,Monza,69124,Stadio Giuseppe Meazza,Daniele Rutella,https://fbref.com/en/matches/44028e06/Milan-Monza-May-24-2025-Serie-A
-25/05,20:45,Atalanta,2–3,Parma,23161,Gewiss Stadium,Livio Marinelli,https://fbref.com/en/matches/75ae7628/Atalanta-Parma-May-25-2025-Serie-A
-25/05,20:45,Empoli,1–2,Hellas Verona,14025,Stadio Carlo Castellani - Computer Gross...,Daniele Doveri,https://fbref.com/en/matches/dd961a5a/Empoli-Hellas-Verona-May-25-2025-Serie-A
-25/05,20:45,Lazio,0–1,Lecce,53000,Stadio Olimpico,Michael Fabbri,https://fbref.com/en/matches/233f0d37/Lazio-Lecce-May-25-2025-Serie-A
-25/05,20:45,Torino,0–2,Roma,24252,Stadio Olimpico Grande Torino,Marco Di Bello,https://fbref.com/en/matches/ec6788d3/Torino-Roma-May-25-2025-Serie-A
-25/05,20:45,Udinese,2–3,Fiorentina,20463,Bluenergy Stadium,Matteo Marcenaro,https://fbref.com/en/matches/70731611/Udinese-Fiorentina-May-25-2025-Serie-A
-25/05,20:45,Venezia,2–3,Juventus,12048,Stadio Pier Luigi Penzo,Andrea Colombo,https://fbref.com/en/matches/2473b3f0/Venezia-Juventus-May-25-2025-Serie-A
+2024-08-17,20:45,Empoli,0–0,Monza,7746,Stadio Carlo Castellani - Computer Gross...,Michael Fabbri,https://fbref.com/en/matches/e1942888/Empoli-Monza-August-17-2024-Serie-A
+2024-08-17,18:30,Genoa,2–2,Inter,33300,Stadio Comunale Luigi Ferraris,Ermanno Feliciani,https://fbref.com/en/matches/5dd9a8ae/Genoa-Internazionale-August-17-2024-Serie-A
+2024-08-17,20:45,Milan,2–2,Torino,70742,Stadio Giuseppe Meazza,Fabio Maresca,https://fbref.com/en/matches/6321e075/Milan-Torino-August-17-2024-Serie-A
+2024-08-17,18:30,Parma,1–1,Fiorentina,21384,Stadio Ennio Tardini,Giovanni Ayroldi,https://fbref.com/en/matches/99186416/Parma-Fiorentina-August-17-2024-Serie-A
+2024-08-18,18:30,Bologna,1–1,Udinese,26418,Stadio Renato Dall'Ara,Maria Sole Ferrieri Caputi,https://fbref.com/en/matches/a538d1ae/Bologna-Udinese-August-18-2024-Serie-A
+2024-08-18,20:45,Cagliari,0–0,Roma,16261,Unipol Domus,Livio Marinelli,https://fbref.com/en/matches/8314db9d/Cagliari-Roma-August-18-2024-Serie-A
+2024-08-18,18:30,Hellas Verona,3–0,Napoli,20027,Stadio Marc'Antonio Bentegodi,Matteo Marchetti,https://fbref.com/en/matches/6a1d7fbe/Hellas-Verona-Napoli-August-18-2024-Serie-A
+2024-08-18,20:45,Lazio,3–1,Venezia,42000,Stadio Olimpico,Paride Tremolada,https://fbref.com/en/matches/8c25dfec/Lazio-Venezia-August-18-2024-Serie-A
+2024-08-19,20:45,Juventus,3–0,Como,40696,Allianz Stadium,Matteo Marcenaro,https://fbref.com/en/matches/888690a6/Juventus-Como-August-19-2024-Serie-A
+2024-08-19,18:30,Lecce,0–4,Atalanta,28719,Stadio Comunale Ettore Giardiniero,Davide Massa,https://fbref.com/en/matches/5b248995/Lecce-Atalanta-August-19-2024-Serie-A
+2024-08-24,20:45,Inter,2–0,Lecce,70921,Stadio Giuseppe Meazza,Davide Di Marco,https://fbref.com/en/matches/bf16fd3f/Internazionale-Lecce-August-24-2024-Serie-A
+2024-08-24,20:45,Monza,0–1,Genoa,10394,U-Power Stadium,Maurizio Mariani,https://fbref.com/en/matches/d9489d1e/Monza-Genoa-August-24-2024-Serie-A
+2024-08-24,18:30,Parma,2–1,Milan,21808,Stadio Ennio Tardini,Juan Luca Sacchi,https://fbref.com/en/matches/d2885a35/Parma-Milan-August-24-2024-Serie-A
+2024-08-24,18:30,Udinese,2–1,Lazio,21636,Bluenergy Stadium,Daniele Doveri,https://fbref.com/en/matches/b6b8cabd/Udinese-Lazio-August-24-2024-Serie-A
+2024-08-25,18:30,Fiorentina,0–0,Venezia,18915,Stadio Artemio Franchi,Simone Sozza,https://fbref.com/en/matches/cab6fee7/Fiorentina-Venezia-August-25-2024-Serie-A
+2024-08-25,20:45,Napoli,3–0,Bologna,45000,Stadio Diego Armando Maradona,Luca Pairetto,https://fbref.com/en/matches/cd189339/Napoli-Bologna-August-25-2024-Serie-A
+2024-08-25,20:45,Roma,1–2,Empoli,67517,Stadio Olimpico,Luca Zufferli,https://fbref.com/en/matches/31d64d59/Roma-Empoli-August-25-2024-Serie-A
+2024-08-25,18:30,Torino,2–1,Atalanta,20451,Stadio Olimpico Grande Torino,Antonio Rapuano,https://fbref.com/en/matches/324b2f87/Torino-Atalanta-August-25-2024-Serie-A
+2024-08-26,18:30,Cagliari,1–1,Como,16365,Unipol Domus,Marco Di Bello,https://fbref.com/en/matches/0948742e/Cagliari-Como-August-26-2024-Serie-A
+2024-08-26,20:45,Hellas Verona,0–3,Juventus,29575,Stadio Marc'Antonio Bentegodi,Antonio Giua,https://fbref.com/en/matches/22c07009/Hellas-Verona-Juventus-August-26-2024-Serie-A
+2024-08-30,20:45,Inter,4–0,Atalanta,71745,Stadio Giuseppe Meazza,Matteo Marchetti,https://fbref.com/en/matches/adc30b79/Internazionale-Atalanta-August-30-2024-Serie-A
+2024-08-30,18:30,Venezia,0–1,Torino,10652,Stadio Pier Luigi Penzo,Matteo Marcenaro,https://fbref.com/en/matches/55203d33/Venezia-Torino-August-30-2024-Serie-A
+2024-08-31,18:30,Bologna,1–1,Empoli,25960,Stadio Renato Dall'Ara,Livio Marinelli,https://fbref.com/en/matches/bd4cd3af/Bologna-Empoli-August-31-2024-Serie-A
+2024-08-31,20:45,Lazio,2–2,Milan,53000,Stadio Olimpico,Davide Massa,https://fbref.com/en/matches/105b1a82/Lazio-Milan-August-31-2024-Serie-A
+2024-08-31,18:30,Lecce,1–0,Cagliari,26386,Stadio Comunale Ettore Giardiniero,Michael Fabbri,https://fbref.com/en/matches/25367b4b/Lecce-Cagliari-August-31-2024-Serie-A
+2024-08-31,20:45,Napoli,2–1,Parma,50000,Stadio Diego Armando Maradona,Paride Tremolada,https://fbref.com/en/matches/f6ed3bc4/Napoli-Parma-August-31-2024-Serie-A
+2024-09-01,18:30,Fiorentina,2–2,Monza,18376,Stadio Artemio Franchi,Andrea Colombo,https://fbref.com/en/matches/2fc37926/Fiorentina-Monza-September-1-2024-Serie-A
+2024-09-01,18:30,Genoa,0–2,Hellas Verona,30747,Stadio Comunale Luigi Ferraris,Giovanni Ayroldi,https://fbref.com/en/matches/aab74d02/Genoa-Hellas-Verona-September-1-2024-Serie-A
+2024-09-01,20:45,Juventus,0–0,Roma,41375,Allianz Stadium,Marco Guida,https://fbref.com/en/matches/6a978d77/Juventus-Roma-September-1-2024-Serie-A
+2024-09-01,20:45,Udinese,1–0,Como,7020,Bluenergy Stadium,Alessandro Prontera,https://fbref.com/en/matches/24249630/Udinese-Como-September-1-2024-Serie-A
+2024-09-14,15:00,Como,2–2,Bologna,10584,Stadio Giuseppe Sinigaglia,Marco Piccinini,https://fbref.com/en/matches/30c9c7af/Como-Bologna-September-14-2024-Serie-A
+2024-09-14,18:00,Empoli,0–0,Juventus,15715,Stadio Carlo Castellani - Computer Gross...,Marco Di Bello,https://fbref.com/en/matches/5ede3e48/Empoli-Juventus-September-14-2024-Serie-A
+2024-09-14,20:45,Milan,4–0,Venezia,71273,Stadio Giuseppe Meazza,Davide Di Marco,https://fbref.com/en/matches/ec4ceae1/Milan-Venezia-September-14-2024-Serie-A
+2024-09-15,15:00,Atalanta,3–2,Fiorentina,22705,Gewiss Stadium,Juan Luca Sacchi,https://fbref.com/en/matches/c69565c7/Atalanta-Fiorentina-September-15-2024-Serie-A
+2024-09-15,18:00,Cagliari,0–4,Napoli,15733,Unipol Domus,Federico La Penna,https://fbref.com/en/matches/226b0118/Cagliari-Napoli-September-15-2024-Serie-A
+2024-09-15,12:30,Genoa,1–1,Roma,33009,Stadio Comunale Luigi Ferraris,Antonio Giua,https://fbref.com/en/matches/ad2de1d0/Genoa-Roma-September-15-2024-Serie-A
+2024-09-15,20:45,Monza,1–1,Inter,14541,U-Power Stadium,Luca Pairetto,https://fbref.com/en/matches/cb14ff92/Monza-Internazionale-September-15-2024-Serie-A
+2024-09-15,15:00,Torino,0–0,Lecce,24277,Stadio Olimpico Grande Torino,Andrea Colombo,https://fbref.com/en/matches/dab3859c/Torino-Lecce-September-15-2024-Serie-A
+2024-09-16,20:45,Lazio,2–1,Hellas Verona,,Stadio Olimpico,Luca Zufferli,https://fbref.com/en/matches/45f09f95/Lazio-Hellas-Verona-September-16-2024-Serie-A
+2024-09-16,18:30,Parma,2–3,Udinese,17586,Stadio Ennio Tardini,Rosario Abisso,https://fbref.com/en/matches/580f27c1/Parma-Udinese-September-16-2024-Serie-A
+2024-09-20,18:30,Cagliari,0–2,Empoli,15225,Unipol Domus,Simone Sozza,https://fbref.com/en/matches/89a8e948/Cagliari-Empoli-September-20-2024-Serie-A
+2024-09-20,20:45,Hellas Verona,2–3,Torino,23000,Stadio Marc'Antonio Bentegodi,Livio Marinelli,https://fbref.com/en/matches/2e904a65/Hellas-Verona-Torino-September-20-2024-Serie-A
+2024-09-21,18:00,Juventus,0–0,Napoli,40295,Allianz Stadium,Daniele Doveri,https://fbref.com/en/matches/87a4e1ae/Juventus-Napoli-September-21-2024-Serie-A
+2024-09-21,20:45,Lecce,2–2,Parma,25503,Stadio Comunale Ettore Giardiniero,Marco Guida,https://fbref.com/en/matches/8aed6358/Lecce-Parma-September-21-2024-Serie-A
+2024-09-21,15:00,Venezia,2–0,Genoa,10502,Stadio Pier Luigi Penzo,Matteo Marchetti,https://fbref.com/en/matches/2cd93038/Venezia-Genoa-September-21-2024-Serie-A
+2024-09-22,12:30,Fiorentina,2–1,Lazio,19624,Stadio Artemio Franchi,Matteo Marcenaro,https://fbref.com/en/matches/ad104788/Fiorentina-Lazio-September-22-2024-Serie-A
+2024-09-22,20:45,Inter,1–2,Milan,75366,Stadio Giuseppe Meazza,Maurizio Mariani,https://fbref.com/en/matches/5ceec90c/Derby-della-Madonnina-Internazionale-Milan-September-22-2024-Serie-A
+2024-09-22,15:00,Monza,1–2,Bologna,9991,U-Power Stadium,Davide Massa,https://fbref.com/en/matches/9c510611/Monza-Bologna-September-22-2024-Serie-A
+2024-09-22,18:00,Roma,3–0,Udinese,63499,Stadio Olimpico,Ermanno Feliciani,https://fbref.com/en/matches/2c1f7af3/Roma-Udinese-September-22-2024-Serie-A
+2024-09-24,20:45,Atalanta,2–3,Como,22977,Gewiss Stadium,Paride Tremolada,https://fbref.com/en/matches/3e592227/Atalanta-Como-September-24-2024-Serie-A
+2024-09-27,20:45,Milan,3–0,Lecce,71103,Stadio Giuseppe Meazza,Luca Zufferli,https://fbref.com/en/matches/6d6624e2/Milan-Lecce-September-27-2024-Serie-A
+2024-09-28,20:45,Bologna,1–1,Atalanta,27126,Stadio Renato Dall'Ara,Antonio Rapuano,https://fbref.com/en/matches/5ebd3c92/Bologna-Atalanta-September-28-2024-Serie-A
+2024-09-28,18:00,Genoa,0–3,Juventus,26599,Stadio Comunale Luigi Ferraris,Andrea Colombo,https://fbref.com/en/matches/b21bad0d/Genoa-Juventus-September-28-2024-Serie-A
+2024-09-28,15:00,Udinese,2–3,Inter,24611,Bluenergy Stadium,Juan Luca Sacchi,https://fbref.com/en/matches/a87c6b35/Udinese-Internazionale-September-28-2024-Serie-A
+2024-09-29,15:00,Como,3–2,Hellas Verona,9000,Stadio Giuseppe Sinigaglia,Antonio Giua,https://fbref.com/en/matches/1b4d793e/Como-Hellas-Verona-September-29-2024-Serie-A
+2024-09-29,18:00,Empoli,0–0,Fiorentina,13053,Stadio Carlo Castellani - Computer Gross...,Gianluca Aureliano,https://fbref.com/en/matches/11c1605f/Empoli-Fiorentina-September-29-2024-Serie-A
+2024-09-29,20:45,Napoli,2–0,Monza,50000,Stadio Diego Armando Maradona,Gianluca Manganiello,https://fbref.com/en/matches/54f6fa48/Napoli-Monza-September-29-2024-Serie-A
+2024-09-29,15:00,Roma,2–1,Venezia,62165,Stadio Olimpico,Rosario Abisso,https://fbref.com/en/matches/ec69829c/Roma-Venezia-September-29-2024-Serie-A
+2024-09-29,12:30,Torino,2–3,Lazio,23130,Stadio Olimpico Grande Torino,Simone Sozza,https://fbref.com/en/matches/caf6a7d2/Torino-Lazio-September-29-2024-Serie-A
+2024-09-30,20:45,Parma,2–3,Cagliari,17718,Stadio Ennio Tardini,Francesco Fourneau,https://fbref.com/en/matches/df2ec112/Parma-Cagliari-September-30-2024-Serie-A
+2024-10-04,20:45,Hellas Verona,2–1,Venezia,25979,Stadio Marc'Antonio Bentegodi,Marco Guida,https://fbref.com/en/matches/f8385042/Hellas-Verona-Venezia-October-4-2024-Serie-A
+2024-10-04,18:30,Napoli,3–1,Como,50000,Stadio Diego Armando Maradona,Ermanno Feliciani,https://fbref.com/en/matches/e474c2fe/Napoli-Como-October-4-2024-Serie-A
+2024-10-05,18:00,Atalanta,5–1,Genoa,23138,Gewiss Stadium,Daniele Chiffi,https://fbref.com/en/matches/b1035fb5/Atalanta-Genoa-October-5-2024-Serie-A
+2024-10-05,20:45,Inter,3–2,Torino,73348,Stadio Giuseppe Meazza,Matteo Marcenaro,https://fbref.com/en/matches/282abdf2/Internazionale-Torino-October-5-2024-Serie-A
+2024-10-05,15:00,Udinese,1–0,Lecce,21441,Bluenergy Stadium,Maurizio Mariani,https://fbref.com/en/matches/e86c2b7c/Udinese-Lecce-October-5-2024-Serie-A
+2024-10-06,15:00,Bologna,0–0,Parma,28400,Stadio Renato Dall'Ara,Marco Di Bello,https://fbref.com/en/matches/0ca23022/Bologna-Parma-October-6-2024-Serie-A
+2024-10-06,20:45,Fiorentina,2–1,Milan,21923,Stadio Artemio Franchi,Luca Pairetto,https://fbref.com/en/matches/7b49f33b/Fiorentina-Milan-October-6-2024-Serie-A
+2024-10-06,12:30,Juventus,1–1,Cagliari,40557,Allianz Stadium,Livio Marinelli,https://fbref.com/en/matches/3f957426/Juventus-Cagliari-October-6-2024-Serie-A
+2024-10-06,15:00,Lazio,2–1,Empoli,38000,Stadio Olimpico,Giovanni Ayroldi,https://fbref.com/en/matches/6b642876/Lazio-Empoli-October-6-2024-Serie-A
+2024-10-06,18:00,Monza,1–1,Roma,12021,U-Power Stadium,Federico La Penna,https://fbref.com/en/matches/d19770cf/Monza-Roma-October-6-2024-Serie-A
+2024-10-19,15:00,Como,1–1,Parma,7000,Stadio Giuseppe Sinigaglia,Michael Fabbri,https://fbref.com/en/matches/0e383c84/Como-Parma-October-19-2024-Serie-A
+2024-10-19,15:00,Genoa,2–2,Bologna,30000,Stadio Comunale Luigi Ferraris,Daniele Doveri,https://fbref.com/en/matches/b69fbc8e/Genoa-Bologna-October-19-2024-Serie-A
+2024-10-19,20:45,Juventus,1–0,Lazio,40800,Allianz Stadium,Juan Luca Sacchi,https://fbref.com/en/matches/2a7043fd/Juventus-Lazio-October-19-2024-Serie-A
+2024-10-19,18:00,Milan,1–0,Udinese,71214,Stadio Giuseppe Meazza,Daniele Chiffi,https://fbref.com/en/matches/c9b4f966/Milan-Udinese-October-19-2024-Serie-A
+2024-10-20,18:00,Cagliari,3–2,Torino,16000,Unipol Domus,Gianluca Aureliano,https://fbref.com/en/matches/1d1a4e0d/Cagliari-Torino-October-20-2024-Serie-A
+2024-10-20,12:30,Empoli,0–1,Napoli,12000,Stadio Carlo Castellani - Computer Gross...,Rosario Abisso,https://fbref.com/en/matches/e486a986/Empoli-Napoli-October-20-2024-Serie-A
+2024-10-20,15:00,Lecce,0–6,Fiorentina,25124,Stadio Comunale Ettore Giardiniero,Francesco Fourneau,https://fbref.com/en/matches/015e4919/Lecce-Fiorentina-October-20-2024-Serie-A
+2024-10-20,20:45,Roma,0–1,Inter,64119,Stadio Olimpico,Davide Massa,https://fbref.com/en/matches/f65c16b7/Roma-Internazionale-October-20-2024-Serie-A
+2024-10-20,15:00,Venezia,0–2,Atalanta,11979,Stadio Pier Luigi Penzo,Luca Zufferli,https://fbref.com/en/matches/2ec189f4/Venezia-Atalanta-October-20-2024-Serie-A
+2024-10-21,20:45,Hellas Verona,0–3,Monza,24854,Stadio Marc'Antonio Bentegodi,Federico Dionisi,https://fbref.com/en/matches/1bf8a854/Hellas-Verona-Monza-October-21-2024-Serie-A
+2024-10-25,20:45,Torino,1–0,Como,23571,Stadio Olimpico Grande Torino,Giovanni Ayroldi,https://fbref.com/en/matches/05c25e1e/Torino-Como-October-25-2024-Serie-A
+2024-10-25,18:30,Udinese,2–0,Cagliari,21095,Bluenergy Stadium,Gianluca Manganiello,https://fbref.com/en/matches/8bd5bba7/Udinese-Cagliari-October-25-2024-Serie-A
+2024-10-26,20:45,Atalanta,6–1,Hellas Verona,23015,Gewiss Stadium,Ermanno Feliciani,https://fbref.com/en/matches/8e432430/Atalanta-Hellas-Verona-October-26-2024-Serie-A
+2024-10-26,15:00,Napoli,1–0,Lecce,51103,Stadio Diego Armando Maradona,Paride Tremolada,https://fbref.com/en/matches/69ffe801/Napoli-Lecce-October-26-2024-Serie-A
+2024-10-27,20:45,Fiorentina,5–1,Roma,20440,Stadio Artemio Franchi,Simone Sozza,https://fbref.com/en/matches/54bfe5ba/Fiorentina-Roma-October-27-2024-Serie-A
+2024-10-27,18:00,Inter,4–4,Juventus,75000,Stadio Giuseppe Meazza,Marco Guida,https://fbref.com/en/matches/1e164a6c/Derby-dItalia-Internazionale-Juventus-October-27-2024-Serie-A
+2024-10-27,15:00,Lazio,3–0,Genoa,40000,Stadio Olimpico,Marco Piccinini,https://fbref.com/en/matches/67b8955a/Lazio-Genoa-October-27-2024-Serie-A
+2024-10-27,15:00,Monza,2–2,Venezia,10141,U-Power Stadium,Antonio Rapuano,https://fbref.com/en/matches/ee055cc8/Monza-Venezia-October-27-2024-Serie-A
+2024-10-27,12:30,Parma,1–1,Empoli,17802,Stadio Ennio Tardini,Federico La Penna,https://fbref.com/en/matches/edec012f/Parma-Empoli-October-27-2024-Serie-A
+2024-10-29,18:30,Cagliari,0–2,Bologna,15977,Unipol Domus,Francesco Fourneau,https://fbref.com/en/matches/cbe119cc/Cagliari-Bologna-October-29-2024-Serie-A
+2024-10-29,18:30,Lecce,1–0,Hellas Verona,23698,Stadio Comunale Ettore Giardiniero,Maurizio Mariani,https://fbref.com/en/matches/1affd587/Lecce-Hellas-Verona-October-29-2024-Serie-A
+2024-10-29,20:45,Milan,0–2,Napoli,73507,Stadio Giuseppe Meazza,Andrea Colombo,https://fbref.com/en/matches/da11c409/Milan-Napoli-October-29-2024-Serie-A
+2024-10-30,20:45,Atalanta,2–0,Monza,22142,Gewiss Stadium,Marco Piccinini,https://fbref.com/en/matches/75f96018/Atalanta-Monza-October-30-2024-Serie-A
+2024-10-30,18:30,Empoli,0–3,Inter,15706,Stadio Carlo Castellani - Computer Gross...,Matteo Marchetti,https://fbref.com/en/matches/a2a61f01/Empoli-Internazionale-October-30-2024-Serie-A
+2024-10-30,20:45,Juventus,2–2,Parma,40809,Allianz Stadium,Luca Zufferli,https://fbref.com/en/matches/bc7ed4c6/Juventus-Parma-October-30-2024-Serie-A
+2024-10-30,18:30,Venezia,3–2,Udinese,10000,Stadio Pier Luigi Penzo,Davide Massa,https://fbref.com/en/matches/50efe60a/Venezia-Udinese-October-30-2024-Serie-A
+2024-10-31,20:45,Como,1–5,Lazio,10750,Stadio Giuseppe Sinigaglia,Luca Pairetto,https://fbref.com/en/matches/128ece0d/Como-Lazio-October-31-2024-Serie-A
+2024-10-31,18:30,Genoa,0–1,Fiorentina,30254,Stadio Comunale Luigi Ferraris,Daniele Chiffi,https://fbref.com/en/matches/463a6b71/Genoa-Fiorentina-October-31-2024-Serie-A
+2024-10-31,20:45,Roma,1–0,Torino,60920,Stadio Olimpico,Michael Fabbri,https://fbref.com/en/matches/2d7f07e3/Roma-Torino-October-31-2024-Serie-A
+2024-11-02,15:00,Bologna,1–0,Lecce,25000,Stadio Renato Dall'Ara,Giuseppe Collu,https://fbref.com/en/matches/131fb996/Bologna-Lecce-November-2-2024-Serie-A
+2024-11-02,20:45,Monza,0–1,Milan,17000,U-Power Stadium,Ermanno Feliciani,https://fbref.com/en/matches/6e2f5ec6/Monza-Milan-November-2-2024-Serie-A
+2024-11-02,18:00,Udinese,0–2,Juventus,24990,Bluenergy Stadium,Rosario Abisso,https://fbref.com/en/matches/2680b604/Udinese-Juventus-November-2-2024-Serie-A
+2024-11-03,18:00,Hellas Verona,3–2,Roma,28185,Stadio Marc'Antonio Bentegodi,Matteo Marcenaro,https://fbref.com/en/matches/0c67c952/Hellas-Verona-Roma-November-3-2024-Serie-A
+2024-11-03,20:45,Inter,1–0,Venezia,66326,Stadio Giuseppe Meazza,Maria Sole Ferrieri Caputi,https://fbref.com/en/matches/f6ba9194/Internazionale-Venezia-November-3-2024-Serie-A
+2024-11-03,12:30,Napoli,0–3,Atalanta,50873,Stadio Diego Armando Maradona,Daniele Doveri,https://fbref.com/en/matches/31d4ab7d/Napoli-Atalanta-November-3-2024-Serie-A
+2024-11-03,15:00,Torino,0–1,Fiorentina,23326,Stadio Olimpico Grande Torino,Federico La Penna,https://fbref.com/en/matches/7c298383/Torino-Fiorentina-November-3-2024-Serie-A
+2024-11-04,18:30,Empoli,1–0,Como,8102,Stadio Carlo Castellani - Computer Gross...,Marco Di Bello,https://fbref.com/en/matches/cf8ba91a/Empoli-Como-November-4-2024-Serie-A
+2024-11-04,20:45,Lazio,2–1,Cagliari,35000,Stadio Olimpico,Giovanni Ayroldi,https://fbref.com/en/matches/b3fa2e3c/Lazio-Cagliari-November-4-2024-Serie-A
+2024-11-04,18:30,Parma,0–1,Genoa,16151,Stadio Ennio Tardini,Marco Guida,https://fbref.com/en/matches/d8a1b693/Parma-Genoa-November-4-2024-Serie-A
+2024-11-07,20:45,Genoa,1–1,Como,30708,Stadio Comunale Luigi Ferraris,Antonio Rapuano,https://fbref.com/en/matches/ee077ae1/Genoa-Como-November-7-2024-Serie-A
+2024-11-08,20:45,Lecce,1–1,Empoli,23907,Stadio Comunale Ettore Giardiniero,Juan Luca Sacchi,https://fbref.com/en/matches/dac22768/Lecce-Empoli-November-8-2024-Serie-A
+2024-11-09,18:00,Cagliari,3–3,Milan,16271,Unipol Domus,Michael Fabbri,https://fbref.com/en/matches/23026b6f/Cagliari-Milan-November-9-2024-Serie-A
+2024-11-09,20:45,Juventus,2–0,Torino,41066,Allianz Stadium,Simone Sozza,https://fbref.com/en/matches/51962386/Juventus-Torino-November-9-2024-Serie-A
+2024-11-09,15:00,Venezia,1–2,Parma,10866,Stadio Pier Luigi Penzo,Daniele Chiffi,https://fbref.com/en/matches/8b0cfe1d/Venezia-Parma-November-9-2024-Serie-A
+2024-11-10,12:30,Atalanta,2–1,Udinese,22884,Gewiss Stadium,Marco Di Bello,https://fbref.com/en/matches/fcc555f9/Atalanta-Udinese-November-10-2024-Serie-A
+2024-11-10,15:00,Fiorentina,3–1,Hellas Verona,22495,Stadio Artemio Franchi,Luca Zufferli,https://fbref.com/en/matches/c9d4e593/Fiorentina-Hellas-Verona-November-10-2024-Serie-A
+2024-11-10,20:45,Inter,1–1,Napoli,72951,Stadio Giuseppe Meazza,Maurizio Mariani,https://fbref.com/en/matches/8a3f7f87/Internazionale-Napoli-November-10-2024-Serie-A
+2024-11-10,18:00,Monza,0–1,Lazio,11706,U-Power Stadium,Andrea Colombo,https://fbref.com/en/matches/90116cdb/Monza-Lazio-November-10-2024-Serie-A
+2024-11-10,15:00,Roma,2–3,Bologna,50500,Stadio Olimpico,Gianluca Manganiello,https://fbref.com/en/matches/b93d514f/Roma-Bologna-November-10-2024-Serie-A
+2024-11-23,15:00,Hellas Verona,0–5,Inter,27000,Stadio Marc'Antonio Bentegodi,Andrea Colombo,https://fbref.com/en/matches/f40e8673/Hellas-Verona-Internazionale-November-23-2024-Serie-A
+2024-11-23,18:00,Milan,0–0,Juventus,75502,Stadio Giuseppe Meazza,Daniele Chiffi,https://fbref.com/en/matches/3d6d1119/Milan-Juventus-November-23-2024-Serie-A
+2024-11-23,20:45,Parma,1–3,Atalanta,18790,Stadio Ennio Tardini,Gianluca Manganiello,https://fbref.com/en/matches/b0abcd14/Parma-Atalanta-November-23-2024-Serie-A
+2024-11-24,15:00,Como,0–2,Fiorentina,8500,Stadio Giuseppe Sinigaglia,Matteo Marchetti,https://fbref.com/en/matches/8ad4e7bb/Como-Fiorentina-November-24-2024-Serie-A
+2024-11-24,12:30,Genoa,2–2,Cagliari,31070,Stadio Comunale Luigi Ferraris,Simone Sozza,https://fbref.com/en/matches/6a1e4119/Genoa-Cagliari-November-24-2024-Serie-A
+2024-11-24,20:45,Lazio,3–0,Bologna,40000,Stadio Olimpico,Antonio Rapuano,https://fbref.com/en/matches/b823aa0b/Lazio-Bologna-November-24-2024-Serie-A
+2024-11-24,18:00,Napoli,1–0,Roma,51164,Stadio Diego Armando Maradona,Davide Massa,https://fbref.com/en/matches/5993c0f0/Derby-del-Sole-Napoli-Roma-November-24-2024-Serie-A
+2024-11-24,15:00,Torino,1–1,Monza,22000,Stadio Olimpico Grande Torino,Rosario Abisso,https://fbref.com/en/matches/a9bc6012/Torino-Monza-November-24-2024-Serie-A
+2024-11-25,18:30,Empoli,1–1,Udinese,1449,Stadio Carlo Castellani - Computer Gross...,Livio Marinelli,https://fbref.com/en/matches/249de3fa/Empoli-Udinese-November-25-2024-Serie-A
+2024-11-25,20:45,Venezia,0–1,Lecce,9448,Stadio Pier Luigi Penzo,Luca Pairetto,https://fbref.com/en/matches/616c48a5/Venezia-Lecce-November-25-2024-Serie-A
+2024-11-29,20:45,Cagliari,1–0,Hellas Verona,16162,Unipol Domus,Maurizio Mariani,https://fbref.com/en/matches/b2adb745/Cagliari-Hellas-Verona-November-29-2024-Serie-A
+2024-11-30,20:45,Bologna,3–0,Venezia,24866,Stadio Renato Dall'Ara,Luca Massimi,https://fbref.com/en/matches/75f6e865/Bologna-Venezia-November-30-2024-Serie-A
+2024-11-30,15:00,Como,1–1,Monza,9749,Stadio Giuseppe Sinigaglia,Juan Luca Sacchi,https://fbref.com/en/matches/54be0ee5/Como-Monza-November-30-2024-Serie-A
+2024-11-30,18:00,Milan,3–0,Empoli,68725,Stadio Giuseppe Meazza,Federico Dionisi,https://fbref.com/en/matches/1d6a6ac7/Milan-Empoli-November-30-2024-Serie-A
+2024-12-01,20:45,Lecce,1–1,Juventus,27080,Stadio Comunale Ettore Giardiniero,Antonio Rapuano,https://fbref.com/en/matches/6663ff8b/Lecce-Juventus-December-1-2024-Serie-A
+2024-12-01,15:00,Parma,3–1,Lazio,22885,Stadio Ennio Tardini,Luca Zufferli,https://fbref.com/en/matches/655f8c05/Parma-Lazio-December-1-2024-Serie-A
+2024-12-01,15:00,Torino,0–1,Napoli,25060,Stadio Olimpico Grande Torino,Michael Fabbri,https://fbref.com/en/matches/148db1a0/Torino-Napoli-December-1-2024-Serie-A
+2024-12-01,12:30,Udinese,0–2,Genoa,21995,Bluenergy Stadium,Gianluca Aureliano,https://fbref.com/en/matches/bb7b34e8/Udinese-Genoa-December-1-2024-Serie-A
+2024-12-02,20:45,Roma,0–2,Atalanta,55772,Stadio Olimpico,Marco Guida,https://fbref.com/en/matches/74396b38/Roma-Atalanta-December-2-2024-Serie-A
+2024-12-06,20:45,Atalanta,2–1,Milan,22606,Gewiss Stadium,Federico La Penna,https://fbref.com/en/matches/3c291cde/Atalanta-Milan-December-6-2024-Serie-A
+2024-12-06,18:30,Inter,3–1,Parma,71879,Stadio Giuseppe Meazza,Rosario Abisso,https://fbref.com/en/matches/36a8e6c1/Internazionale-Parma-December-6-2024-Serie-A
+2024-12-07,15:00,Genoa,0–0,Torino,32363,Stadio Comunale Luigi Ferraris,Livio Marinelli,https://fbref.com/en/matches/5209f745/Genoa-Torino-December-7-2024-Serie-A
+2024-12-07,18:00,Juventus,2–2,Bologna,40748,Allianz Stadium,Matteo Marchetti,https://fbref.com/en/matches/f335a456/Juventus-Bologna-December-7-2024-Serie-A
+2024-12-07,20:45,Roma,4–1,Lecce,58213,Stadio Olimpico,Daniele Chiffi,https://fbref.com/en/matches/2f4aac74/Roma-Lecce-December-7-2024-Serie-A
+2024-12-08,12:30,Fiorentina,1–0,Cagliari,19851,Stadio Artemio Franchi,Marco Piccinini,https://fbref.com/en/matches/a3f7f065/Fiorentina-Cagliari-December-8-2024-Serie-A
+2024-12-08,15:00,Hellas Verona,1–4,Empoli,23949,Stadio Marc'Antonio Bentegodi,Marco Di Bello,https://fbref.com/en/matches/52d351e8/Hellas-Verona-Empoli-December-8-2024-Serie-A
+2024-12-08,20:45,Napoli,0–1,Lazio,50000,Stadio Diego Armando Maradona,Andrea Colombo,https://fbref.com/en/matches/aea55efb/Napoli-Lazio-December-8-2024-Serie-A
+2024-12-08,18:00,Venezia,2–2,Como,8026,Stadio Pier Luigi Penzo,Daniele Doveri,https://fbref.com/en/matches/4171bb56/Venezia-Como-December-8-2024-Serie-A
+2024-12-09,20:45,Monza,1–2,Udinese,9317,U-Power Stadium,Gianluca Manganiello,https://fbref.com/en/matches/fbe80ac9/Monza-Udinese-December-9-2024-Serie-A
+2024-12-13,20:45,Empoli,0–1,Torino,7832,Stadio Carlo Castellani - Computer Gross...,Kevin Bonacina,https://fbref.com/en/matches/33b426d2/Empoli-Torino-December-13-2024-Serie-A
+2024-12-14,15:00,Cagliari,0–1,Atalanta,15985,Unipol Domus,Luca Pairetto,https://fbref.com/en/matches/69244b8a/Cagliari-Atalanta-December-14-2024-Serie-A
+2024-12-14,20:45,Juventus,2–2,Venezia,38425,Allianz Stadium,Antonio Giua,https://fbref.com/en/matches/6eb424b7/Juventus-Venezia-December-14-2024-Serie-A
+2024-12-14,18:00,Udinese,1–3,Napoli,19981,Bluenergy Stadium,Daniele Doveri,https://fbref.com/en/matches/700e4d44/Udinese-Napoli-December-14-2024-Serie-A
+2024-12-15,15:00,Bologna,1–0,Fiorentina,26000,Stadio Renato Dall'Ara,Michael Fabbri,https://fbref.com/en/matches/a4be7984/Derby-dellAppennino-Bologna-Fiorentina-December-15-2024-Serie-A
+2024-12-15,18:00,Como,2–0,Roma,13602,Stadio Giuseppe Sinigaglia,Antonio Rapuano,https://fbref.com/en/matches/27c53562/Como-Roma-December-15-2024-Serie-A
+2024-12-15,12:30,Lecce,2–1,Monza,23663,Stadio Comunale Ettore Giardiniero,Maurizio Mariani,https://fbref.com/en/matches/4bd3b181/Lecce-Monza-December-15-2024-Serie-A
+2024-12-15,20:45,Milan,0–0,Genoa,70078,Stadio Giuseppe Meazza,Marco Guida,https://fbref.com/en/matches/715aa683/Milan-Genoa-December-15-2024-Serie-A
+2024-12-15,15:00,Parma,2–3,Hellas Verona,17003,Stadio Ennio Tardini,Simone Sozza,https://fbref.com/en/matches/c31235f0/Parma-Hellas-Verona-December-15-2024-Serie-A
+2024-12-16,20:45,Lazio,0–6,Inter,59000,Stadio Olimpico,Daniele Chiffi,https://fbref.com/en/matches/180750a4/Lazio-Internazionale-December-16-2024-Serie-A
+2024-12-20,20:45,Hellas Verona,0–1,Milan,24000,Stadio Marc'Antonio Bentegodi,Livio Marinelli,https://fbref.com/en/matches/95273d30/Hellas-Verona-Milan-December-20-2024-Serie-A
+2024-12-21,18:00,Genoa,1–2,Napoli,33435,Stadio Comunale Luigi Ferraris,Federico La Penna,https://fbref.com/en/matches/f40ec8ec/Genoa-Napoli-December-21-2024-Serie-A
+2024-12-21,20:45,Lecce,1–2,Lazio,30000,Stadio Comunale Ettore Giardiniero,Gianluca Manganiello,https://fbref.com/en/matches/e9e5a4d3/Lecce-Lazio-December-21-2024-Serie-A
+2024-12-21,15:00,Torino,0–2,Bologna,19860,Stadio Olimpico Grande Torino,Marco Piccinini,https://fbref.com/en/matches/b6364093/Torino-Bologna-December-21-2024-Serie-A
+2024-12-22,18:00,Atalanta,3–2,Empoli,22163,Gewiss Stadium,Ermanno Feliciani,https://fbref.com/en/matches/8ea96d1a/Atalanta-Empoli-December-22-2024-Serie-A
+2024-12-22,20:45,Monza,1–2,Juventus,15479,U-Power Stadium,Davide Massa,https://fbref.com/en/matches/d259dc6c/Monza-Juventus-December-22-2024-Serie-A
+2024-12-22,12:30,Roma,5–0,Parma,62968,Stadio Olimpico,Marco Di Bello,https://fbref.com/en/matches/ee646ed8/Roma-Parma-December-22-2024-Serie-A
+2024-12-22,15:00,Venezia,2–1,Cagliari,9713,Stadio Pier Luigi Penzo,Marco Guida,https://fbref.com/en/matches/e97ff3c8/Venezia-Cagliari-December-22-2024-Serie-A
+2024-12-23,18:30,Fiorentina,1–2,Udinese,20505,Stadio Artemio Franchi,Matteo Marcenaro,https://fbref.com/en/matches/bc6b88d2/Fiorentina-Udinese-December-23-2024-Serie-A
+2024-12-23,20:45,Inter,2–0,Como,73204,Stadio Giuseppe Meazza,Antonio Giua,https://fbref.com/en/matches/815f82e8/Internazionale-Como-December-23-2024-Serie-A
+2024-12-28,18:00,Cagliari,0–3,Inter,16412,Unipol Domus,Daniele Doveri,https://fbref.com/en/matches/a4004016/Cagliari-Internazionale-December-28-2024-Serie-A
+2024-12-28,15:00,Empoli,1–2,Genoa,12657,Stadio Carlo Castellani - Computer Gross...,Antonio Rapuano,https://fbref.com/en/matches/6d5e84f9/Empoli-Genoa-December-28-2024-Serie-A
+2024-12-28,20:45,Lazio,1–1,Atalanta,48000,Stadio Olimpico,Davide Massa,https://fbref.com/en/matches/864b029d/Lazio-Atalanta-December-28-2024-Serie-A
+2024-12-28,15:00,Parma,2–1,Monza,17499,Stadio Ennio Tardini,Federico La Penna,https://fbref.com/en/matches/45c4ef98/Parma-Monza-December-28-2024-Serie-A
+2024-12-29,18:00,Juventus,2–2,Fiorentina,41188,Allianz Stadium,Maurizio Mariani,https://fbref.com/en/matches/866b53df/Juventus-Fiorentina-December-29-2024-Serie-A
+2024-12-29,20:45,Milan,1–1,Roma,74283,Stadio Giuseppe Meazza,Michael Fabbri,https://fbref.com/en/matches/3f619cbf/Milan-Roma-December-29-2024-Serie-A
+2024-12-29,15:00,Napoli,1–0,Venezia,51199,Stadio Diego Armando Maradona,Francesco Cosso,https://fbref.com/en/matches/84d5d1b8/Napoli-Venezia-December-29-2024-Serie-A
+2024-12-29,12:30,Udinese,2–2,Torino,23082,Bluenergy Stadium,Francesco Fourneau,https://fbref.com/en/matches/eda442e1/Udinese-Torino-December-29-2024-Serie-A
+2024-12-30,20:45,Bologna,2–3,Hellas Verona,26454,Stadio Renato Dall'Ara,Giovanni Ayroldi,https://fbref.com/en/matches/8607729b/Bologna-Hellas-Verona-December-30-2024-Serie-A
+2024-12-30,18:30,Como,2–0,Lecce,12000,Stadio Giuseppe Sinigaglia,Marco Piccinini,https://fbref.com/en/matches/e75996b8/Como-Lecce-December-30-2024-Serie-A
+2025-01-04,18:00,Fiorentina,0–3,Napoli,21685,Stadio Artemio Franchi,Gianluca Manganiello,https://fbref.com/en/matches/b061fbf8/Fiorentina-Napoli-January-4-2025-Serie-A
+2025-01-04,20:45,Hellas Verona,0–0,Udinese,23663,Stadio Marc'Antonio Bentegodi,Federico Dionisi,https://fbref.com/en/matches/9a2501ce/Hellas-Verona-Udinese-January-4-2025-Serie-A
+2025-01-04,15:00,Venezia,1–1,Empoli,10591,Stadio Pier Luigi Penzo,Juan Luca Sacchi,https://fbref.com/en/matches/81fed71a/Venezia-Empoli-January-4-2025-Serie-A
+2025-01-05,15:00,Lecce,0–0,Genoa,26436,Stadio Comunale Ettore Giardiniero,Livio Marinelli,https://fbref.com/en/matches/02f898b8/Lecce-Genoa-January-5-2025-Serie-A
+2025-01-05,12:30,Monza,1–2,Cagliari,10982,U-Power Stadium,Marco Di Bello,https://fbref.com/en/matches/91f9e319/Monza-Cagliari-January-5-2025-Serie-A
+2025-01-05,20:45,Roma,2–0,Lazio,65042,Stadio Olimpico,Luca Pairetto,https://fbref.com/en/matches/5e0b2192/Roma-Lazio-January-5-2025-Serie-A
+2025-01-05,18:00,Torino,0–0,Parma,19744,Stadio Olimpico Grande Torino,Ermanno Feliciani,https://fbref.com/en/matches/cdeef583/Torino-Parma-January-5-2025-Serie-A
+2025-01-10,20:45,Lazio,1–1,Como,40000,Stadio Olimpico,Paride Tremolada,https://fbref.com/en/matches/f8c231d6/Lazio-Como-January-10-2025-Serie-A
+2025-01-11,15:00,Empoli,1–3,Lecce,9096,Stadio Carlo Castellani - Computer Gross...,Daniele Chiffi,https://fbref.com/en/matches/fad008cb/Empoli-Lecce-January-11-2025-Serie-A
+2025-01-11,20:45,Milan,1–1,Cagliari,69263,Stadio Giuseppe Meazza,Francesco Fourneau,https://fbref.com/en/matches/48765cf8/Milan-Cagliari-January-11-2025-Serie-A
+2025-01-11,18:00,Torino,1–1,Juventus,27014,Stadio Olimpico Grande Torino,Michael Fabbri,https://fbref.com/en/matches/ccb3439a/Torino-Juventus-January-11-2025-Serie-A
+2025-01-11,15:00,Udinese,0–0,Atalanta,21727,Bluenergy Stadium,Maurizio Mariani,https://fbref.com/en/matches/69cd8e7c/Udinese-Atalanta-January-11-2025-Serie-A
+2025-01-12,18:00,Bologna,2–2,Roma,30226,Stadio Renato Dall'Ara,Rosario Abisso,https://fbref.com/en/matches/a5eda625/Bologna-Roma-January-12-2025-Serie-A
+2025-01-12,12:30,Genoa,1–0,Parma,31689,Stadio Comunale Luigi Ferraris,Andrea Colombo,https://fbref.com/en/matches/ac1441eb/Genoa-Parma-January-12-2025-Serie-A
+2025-01-12,20:45,Napoli,2–0,Hellas Verona,48750,Stadio Diego Armando Maradona,Luca Zufferli,https://fbref.com/en/matches/340f5b84/Napoli-Hellas-Verona-January-12-2025-Serie-A
+2025-01-12,15:00,Venezia,0–1,Inter,12048,Stadio Pier Luigi Penzo,Marco Piccinini,https://fbref.com/en/matches/358fd054/Venezia-Internazionale-January-12-2025-Serie-A
+2025-01-13,20:45,Monza,2–1,Fiorentina,9153,U-Power Stadium,Federico Dionisi,https://fbref.com/en/matches/d27a6eb4/Monza-Fiorentina-January-13-2025-Serie-A
+2025-01-14,20:45,Atalanta,1–1,Juventus,22920,Gewiss Stadium,Daniele Doveri,https://fbref.com/en/matches/167a39df/Atalanta-Juventus-January-14-2025-Serie-A
+2025-01-14,18:30,Como,1–2,Milan,13602,Stadio Giuseppe Sinigaglia,Gianluca Manganiello,https://fbref.com/en/matches/c8bcd0d8/Como-Milan-January-14-2025-Serie-A
+2025-01-15,20:45,Inter,2–2,Bologna,63074,Stadio Giuseppe Meazza,Luca Pairetto,https://fbref.com/en/matches/276006d8/Internazionale-Bologna-January-15-2025-Serie-A
+2025-01-17,20:45,Roma,3–1,Genoa,62217,Stadio Olimpico,Luca Zufferli,https://fbref.com/en/matches/00edb7b5/Roma-Genoa-January-17-2025-Serie-A
+2025-01-18,20:45,Atalanta,2–3,Napoli,22874,Gewiss Stadium,Andrea Colombo,https://fbref.com/en/matches/c60e5b0e/Atalanta-Napoli-January-18-2025-Serie-A
+2025-01-18,15:00,Bologna,3–1,Monza,23381,Stadio Renato Dall'Ara,Maurizio Mariani,https://fbref.com/en/matches/9f9010d6/Bologna-Monza-January-18-2025-Serie-A
+2025-01-18,18:00,Juventus,2–0,Milan,41507,Allianz Stadium,Davide Massa,https://fbref.com/en/matches/4ba45ccb/Juventus-Milan-January-18-2025-Serie-A
+2025-01-19,15:00,Cagliari,4–1,Lecce,16306,Unipol Domus,Juan Luca Sacchi,https://fbref.com/en/matches/25c00123/Cagliari-Lecce-January-19-2025-Serie-A
+2025-01-19,12:30,Fiorentina,1–1,Torino,19313,Stadio Artemio Franchi,Livio Marinelli,https://fbref.com/en/matches/15a113e1/Fiorentina-Torino-January-19-2025-Serie-A
+2025-01-19,18:00,Hellas Verona,0–3,Lazio,37000,Stadio Marc'Antonio Bentegodi,Michael Fabbri,https://fbref.com/en/matches/a125644d/Hellas-Verona-Lazio-January-19-2025-Serie-A
+2025-01-19,20:45,Inter,3–1,Empoli,61230,Stadio Giuseppe Meazza,Ermanno Feliciani,https://fbref.com/en/matches/94972e08/Internazionale-Empoli-January-19-2025-Serie-A
+2025-01-19,15:00,Parma,1–1,Venezia,15865,Stadio Ennio Tardini,Francesco Fourneau,https://fbref.com/en/matches/fa8b77b9/Parma-Venezia-January-19-2025-Serie-A
+2025-01-20,20:45,Como,4–1,Udinese,9566,Stadio Giuseppe Sinigaglia,Francesco Cosso,https://fbref.com/en/matches/0e2d0788/Como-Udinese-January-20-2025-Serie-A
+2025-01-24,20:45,Torino,2–0,Cagliari,18992,Stadio Olimpico Grande Torino,Kevin Bonacina,https://fbref.com/en/matches/ef7d0127/Torino-Cagliari-January-24-2025-Serie-A
+2025-01-25,15:00,Como,1–2,Atalanta,10366,Stadio Giuseppe Sinigaglia,Luca Pairetto,https://fbref.com/en/matches/b003f7e9/Como-Atalanta-January-25-2025-Serie-A
+2025-01-25,20:45,Empoli,1–1,Bologna,10321,Stadio Carlo Castellani - Computer Gross...,Federico La Penna,https://fbref.com/en/matches/23c955ea/Empoli-Bologna-January-25-2025-Serie-A
+2025-01-25,18:00,Napoli,2–1,Juventus,53589,Stadio Diego Armando Maradona,Daniele Chiffi,https://fbref.com/en/matches/8e264909/Napoli-Juventus-January-25-2025-Serie-A
+2025-01-26,20:45,Lazio,1–2,Fiorentina,37000,Stadio Olimpico,Antonio Rapuano,https://fbref.com/en/matches/5f421e14/Lazio-Fiorentina-January-26-2025-Serie-A
+2025-01-26,18:00,Lecce,0–4,Inter,27223,Stadio Comunale Ettore Giardiniero,Livio Marinelli,https://fbref.com/en/matches/c93d7be3/Lecce-Internazionale-January-26-2025-Serie-A
+2025-01-26,12:30,Milan,3–2,Parma,72304,Stadio Giuseppe Meazza,Rosario Abisso,https://fbref.com/en/matches/212a47ce/Milan-Parma-January-26-2025-Serie-A
+2025-01-26,15:00,Udinese,1–2,Roma,23853,Bluenergy Stadium,Simone Sozza,https://fbref.com/en/matches/bab3336a/Udinese-Roma-January-26-2025-Serie-A
+2025-01-27,20:45,Genoa,2–0,Monza,29976,Stadio Comunale Luigi Ferraris,Daniele Doveri,https://fbref.com/en/matches/3cf963e6/Genoa-Monza-January-27-2025-Serie-A
+2025-01-27,18:30,Venezia,1–1,Hellas Verona,9481,Stadio Pier Luigi Penzo,Gianluca Manganiello,https://fbref.com/en/matches/172aa746/Venezia-Hellas-Verona-January-27-2025-Serie-A
+2025-01-31,20:45,Parma,1–3,Lecce,18238,Stadio Ennio Tardini,Simone Sozza,https://fbref.com/en/matches/be735978/Parma-Lecce-January-31-2025-Serie-A
+2025-02-01,18:00,Atalanta,1–1,Torino,22547,Gewiss Stadium,Marco Piccinini,https://fbref.com/en/matches/5ce2b496/Atalanta-Torino-February-1-2025-Serie-A
+2025-02-01,20:45,Bologna,2–0,Como,26492,Stadio Renato Dall'Ara,Luca Massimi,https://fbref.com/en/matches/313b466d/Bologna-Como-February-1-2025-Serie-A
+2025-02-01,15:00,Monza,0–1,Hellas Verona,11723,U-Power Stadium,Davide Massa,https://fbref.com/en/matches/95dc31fb/Monza-Hellas-Verona-February-1-2025-Serie-A
+2025-02-01,15:00,Udinese,3–2,Venezia,19767,Bluenergy Stadium,Maurizio Mariani,https://fbref.com/en/matches/55a39dc2/Udinese-Venezia-February-1-2025-Serie-A
+2025-02-02,15:00,Fiorentina,2–1,Genoa,19088,Stadio Artemio Franchi,Giuseppe Collu,https://fbref.com/en/matches/d04f2be7/Fiorentina-Genoa-February-2-2025-Serie-A
+2025-02-02,12:30,Juventus,4–1,Empoli,40160,Allianz Stadium,Luca Zufferli,https://fbref.com/en/matches/448d4707/Juventus-Empoli-February-2-2025-Serie-A
+2025-02-02,18:00,Milan,1–1,Inter,75493,Stadio Giuseppe Meazza,Daniele Chiffi,https://fbref.com/en/matches/c14ebb74/Derby-della-Madonnina-Milan-Internazionale-February-2-2025-Serie-A
+2025-02-02,20:45,Roma,1–1,Napoli,60788,Stadio Olimpico,Michael Fabbri,https://fbref.com/en/matches/bc8eb4c8/Derby-del-Sole-Roma-Napoli-February-2-2025-Serie-A
+2025-02-03,20:45,Cagliari,1–2,Lazio,15751,Unipol Domus,Gianluca Manganiello,https://fbref.com/en/matches/4b57b989/Cagliari-Lazio-February-3-2025-Serie-A
+2025-02-06,20:45,Fiorentina,3–0,Inter,22351,Stadio Artemio Franchi,Daniele Doveri,https://fbref.com/en/matches/f7e35659/Fiorentina-Internazionale-February-6-2025-Serie-A
+2025-02-07,20:45,Como,1–2,Juventus,10475,Stadio Giuseppe Sinigaglia,Rosario Abisso,https://fbref.com/en/matches/3278f598/Como-Juventus-February-7-2025-Serie-A
+2025-02-08,18:00,Empoli,0–2,Milan,14691,Stadio Carlo Castellani - Computer Gross...,Luca Pairetto,https://fbref.com/en/matches/3af8a61d/Empoli-Milan-February-8-2025-Serie-A
+2025-02-08,15:00,Hellas Verona,0–5,Atalanta,20872,Stadio Marc'Antonio Bentegodi,Simone Sozza,https://fbref.com/en/matches/d1303859/Hellas-Verona-Atalanta-February-8-2025-Serie-A
+2025-02-08,20:45,Torino,1–1,Genoa,22359,Stadio Olimpico Grande Torino,Ermanno Feliciani,https://fbref.com/en/matches/094512d6/Torino-Genoa-February-8-2025-Serie-A
+2025-02-09,15:00,Cagliari,2–1,Parma,16154,Unipol Domus,Marco Di Bello,https://fbref.com/en/matches/23f6ed48/Cagliari-Parma-February-9-2025-Serie-A
+2025-02-09,15:00,Lazio,5–1,Monza,31540,Stadio Olimpico,Gianluca Aureliano,https://fbref.com/en/matches/a8e48bad/Lazio-Monza-February-9-2025-Serie-A
+2025-02-09,18:00,Lecce,0–0,Bologna,24910,Stadio Comunale Ettore Giardiniero,Francesco Fourneau,https://fbref.com/en/matches/2b41c316/Lecce-Bologna-February-9-2025-Serie-A
+2025-02-09,20:45,Napoli,1–1,Udinese,50938,Stadio Diego Armando Maradona,Livio Marinelli,https://fbref.com/en/matches/2d512f04/Napoli-Udinese-February-9-2025-Serie-A
+2025-02-09,12:30,Venezia,0–1,Roma,9380,Stadio Pier Luigi Penzo,Luca Zufferli,https://fbref.com/en/matches/99a32fd5/Venezia-Roma-February-9-2025-Serie-A
+2025-02-10,20:45,Inter,2–1,Fiorentina,67484,Stadio Giuseppe Meazza,Federico La Penna,https://fbref.com/en/matches/ccfbf3d4/Internazionale-Fiorentina-February-10-2025-Serie-A
+2025-02-14,20:45,Bologna,3–2,Torino,24274,Stadio Renato Dall'Ara,Michael Fabbri,https://fbref.com/en/matches/a88cd10b/Bologna-Torino-February-14-2025-Serie-A
+2025-02-15,15:00,Atalanta,0–0,Cagliari,21485,Gewiss Stadium,Matteo Marchetti,https://fbref.com/en/matches/aad0599d/Atalanta-Cagliari-February-15-2025-Serie-A
+2025-02-15,18:00,Lazio,2–2,Napoli,42863,Stadio Olimpico,Davide Massa,https://fbref.com/en/matches/95099d4b/Lazio-Napoli-February-15-2025-Serie-A
+2025-02-15,20:45,Milan,1–0,Hellas Verona,69578,Stadio Giuseppe Meazza,Francesco Fourneau,https://fbref.com/en/matches/70955f6e/Milan-Hellas-Verona-February-15-2025-Serie-A
+2025-02-16,12:30,Fiorentina,0–2,Como,19000,Stadio Artemio Franchi,Marco Piccinini,https://fbref.com/en/matches/02aa80e2/Fiorentina-Como-February-16-2025-Serie-A
+2025-02-16,20:45,Juventus,1–0,Inter,41361,Allianz Stadium,Maurizio Mariani,https://fbref.com/en/matches/1937abc6/Derby-dItalia-Juventus-Internazionale-February-16-2025-Serie-A
+2025-02-16,15:00,Monza,0–0,Lecce,11050,U-Power Stadium,Giuseppe Collu,https://fbref.com/en/matches/eccedcc2/Monza-Lecce-February-16-2025-Serie-A
+2025-02-16,18:00,Parma,0–1,Roma,20559,Stadio Ennio Tardini,Daniele Chiffi,https://fbref.com/en/matches/375b1b94/Parma-Roma-February-16-2025-Serie-A
+2025-02-16,15:00,Udinese,3–0,Empoli,19539,Bluenergy Stadium,Daniele Doveri,https://fbref.com/en/matches/1fbf8daa/Udinese-Empoli-February-16-2025-Serie-A
+2025-02-17,20:45,Genoa,2–0,Venezia,30478,Stadio Comunale Luigi Ferraris,Livio Marinelli,https://fbref.com/en/matches/696a318f/Genoa-Venezia-February-17-2025-Serie-A
+2025-02-21,20:45,Lecce,0–1,Udinese,23989,Stadio Comunale Ettore Giardiniero,Kevin Bonacina,https://fbref.com/en/matches/9ec509fe/Lecce-Udinese-February-21-2025-Serie-A
+2025-02-22,20:45,Inter,1–0,Genoa,68271,Stadio Giuseppe Meazza,Marco Piccinini,https://fbref.com/en/matches/d32f9068/Internazionale-Genoa-February-22-2025-Serie-A
+2025-02-22,15:00,Parma,2–0,Bologna,19510,Stadio Ennio Tardini,Rosario Abisso,https://fbref.com/en/matches/ebb1f74f/Parma-Bologna-February-22-2025-Serie-A
+2025-02-22,18:00,Torino,2–1,Milan,26868,Stadio Olimpico Grande Torino,Simone Sozza,https://fbref.com/en/matches/e6575a92/Torino-Milan-February-22-2025-Serie-A
+2025-02-22,15:00,Venezia,0–0,Lazio,8796,Stadio Pier Luigi Penzo,Matteo Marchetti,https://fbref.com/en/matches/48f3bc32/Venezia-Lazio-February-22-2025-Serie-A
+2025-02-23,20:45,Cagliari,0–1,Juventus,16412,Unipol Domus,Andrea Colombo,https://fbref.com/en/matches/e87e1d99/Cagliari-Juventus-February-23-2025-Serie-A
+2025-02-23,12:30,Como,2–1,Napoli,10500,Stadio Giuseppe Sinigaglia,Gianluca Manganiello,https://fbref.com/en/matches/f232cc45/Como-Napoli-February-23-2025-Serie-A
+2025-02-23,18:00,Empoli,0–5,Atalanta,9176,Stadio Carlo Castellani - Computer Gross...,Maurizio Mariani,https://fbref.com/en/matches/89964eba/Empoli-Atalanta-February-23-2025-Serie-A
+2025-02-23,15:00,Hellas Verona,1–0,Fiorentina,26496,Stadio Marc'Antonio Bentegodi,Marco Di Bello,https://fbref.com/en/matches/e156f514/Hellas-Verona-Fiorentina-February-23-2025-Serie-A
+2025-02-24,20:45,Roma,4–0,Monza,56965,Stadio Olimpico,Fabio Maresca,https://fbref.com/en/matches/e00a9736/Roma-Monza-February-24-2025-Serie-A
+2025-02-27,20:45,Bologna,2–1,Milan,31784,Stadio Renato Dall'Ara,Maurizio Mariani,https://fbref.com/en/matches/5f718bc4/Bologna-Milan-February-27-2025-Serie-A
+2025-02-28,20:45,Fiorentina,1–0,Lecce,17383,Stadio Artemio Franchi,Livio Marinelli,https://fbref.com/en/matches/d99d1615/Fiorentina-Lecce-February-28-2025-Serie-A
+2025-03-01,15:00,Atalanta,0–0,Venezia,21991,Gewiss Stadium,Giuseppe Collu,https://fbref.com/en/matches/af143178/Atalanta-Venezia-March-1-2025-Serie-A
+2025-03-01,18:00,Napoli,1–1,Inter,53851,Stadio Diego Armando Maradona,Daniele Doveri,https://fbref.com/en/matches/74de313e/Napoli-Internazionale-March-1-2025-Serie-A
+2025-03-01,20:45,Udinese,1–0,Parma,20430,Bluenergy Stadium,Fabio Maresca,https://fbref.com/en/matches/55b0643e/Udinese-Parma-March-1-2025-Serie-A
+2025-03-02,15:00,Bologna,2–1,Cagliari,25676,Stadio Renato Dall'Ara,Luca Zufferli,https://fbref.com/en/matches/ece34ddb/Bologna-Cagliari-March-2-2025-Serie-A
+2025-03-02,15:00,Genoa,1–1,Empoli,31295,Stadio Comunale Luigi Ferraris,Davide Massa,https://fbref.com/en/matches/a38d0698/Genoa-Empoli-March-2-2025-Serie-A
+2025-03-02,20:45,Milan,1–2,Lazio,65969,Stadio Giuseppe Meazza,Gianluca Manganiello,https://fbref.com/en/matches/8ea3005d/Milan-Lazio-March-2-2025-Serie-A
+2025-03-02,12:30,Monza,0–2,Torino,11053,U-Power Stadium,Antonio Rapuano,https://fbref.com/en/matches/ff368ffa/Monza-Torino-March-2-2025-Serie-A
+2025-03-02,18:00,Roma,2–1,Como,62125,Stadio Olimpico,Luca Pairetto,https://fbref.com/en/matches/a7745557/Roma-Como-March-2-2025-Serie-A
+2025-03-03,20:45,Juventus,2–0,Hellas Verona,36215,Allianz Stadium,Matteo Marchetti,https://fbref.com/en/matches/3974ef83/Juventus-Hellas-Verona-March-3-2025-Serie-A
+2025-03-07,20:45,Cagliari,1–1,Genoa,15827,Unipol Domus,Michael Fabbri,https://fbref.com/en/matches/f3d49f01/Cagliari-Genoa-March-7-2025-Serie-A
+2025-03-08,15:00,Como,1–1,Venezia,10080,Stadio Giuseppe Sinigaglia,Giovanni Ayroldi,https://fbref.com/en/matches/80e5cecf/Como-Venezia-March-8-2025-Serie-A
+2025-03-08,20:45,Inter,3–2,Monza,66344,Stadio Giuseppe Meazza,Luca Zufferli,https://fbref.com/en/matches/86ce720b/Internazionale-Monza-March-8-2025-Serie-A
+2025-03-08,18:00,Lecce,2–3,Milan,25753,Stadio Comunale Ettore Giardiniero,Daniele Doveri,https://fbref.com/en/matches/001d3a5d/Lecce-Milan-March-8-2025-Serie-A
+2025-03-08,15:00,Parma,2–2,Torino,18938,Stadio Ennio Tardini,Francesco Fourneau,https://fbref.com/en/matches/6074c57f/Parma-Torino-March-8-2025-Serie-A
+2025-03-09,18:00,Empoli,0–1,Roma,12393,Stadio Carlo Castellani - Computer Gross...,Marco Di Bello,https://fbref.com/en/matches/ce1efae1/Empoli-Roma-March-9-2025-Serie-A
+2025-03-09,12:30,Hellas Verona,1–2,Bologna,24612,Stadio Marc'Antonio Bentegodi,Antonio Rapuano,https://fbref.com/en/matches/396148a3/Hellas-Verona-Bologna-March-9-2025-Serie-A
+2025-03-09,20:45,Juventus,0–4,Atalanta,40266,Allianz Stadium,Simone Sozza,https://fbref.com/en/matches/ecdc4b8d/Juventus-Atalanta-March-9-2025-Serie-A
+2025-03-09,15:00,Napoli,2–1,Fiorentina,51504,Stadio Diego Armando Maradona,Andrea Colombo,https://fbref.com/en/matches/33dc159c/Napoli-Fiorentina-March-9-2025-Serie-A
+2025-03-10,20:45,Lazio,1–1,Udinese,34655,Stadio Olimpico,Marco Piccinini,https://fbref.com/en/matches/f9658b87/Lazio-Udinese-March-10-2025-Serie-A
+2025-03-14,20:45,Genoa,2–1,Lecce,31495,Stadio Comunale Luigi Ferraris,Fabio Maresca,https://fbref.com/en/matches/65b3e4b2/Genoa-Lecce-March-14-2025-Serie-A
+2025-03-15,18:00,Milan,2–1,Como,74500,Stadio Giuseppe Meazza,Matteo Marchetti,https://fbref.com/en/matches/a7ffc114/Milan-Como-March-15-2025-Serie-A
+2025-03-15,15:00,Monza,1–1,Parma,9251,U-Power Stadium,Gianluca Manganiello,https://fbref.com/en/matches/a90db6a7/Monza-Parma-March-15-2025-Serie-A
+2025-03-15,20:45,Torino,1–0,Empoli,20402,Stadio Olimpico Grande Torino,Daniele Chiffi,https://fbref.com/en/matches/f021f721/Torino-Empoli-March-15-2025-Serie-A
+2025-03-15,15:00,Udinese,0–1,Hellas Verona,20754,Bluenergy Stadium,Giovanni Ayroldi,https://fbref.com/en/matches/30070e2c/Udinese-Hellas-Verona-March-15-2025-Serie-A
+2025-03-16,20:45,Atalanta,0–2,Inter,23215,Gewiss Stadium,Davide Massa,https://fbref.com/en/matches/0247cede/Atalanta-Internazionale-March-16-2025-Serie-A
+2025-03-16,15:00,Bologna,5–0,Lazio,30846,Stadio Renato Dall'Ara,Andrea Colombo,https://fbref.com/en/matches/6ea9a6f4/Bologna-Lazio-March-16-2025-Serie-A
+2025-03-16,18:00,Fiorentina,3–0,Juventus,22253,Stadio Artemio Franchi,Michael Fabbri,https://fbref.com/en/matches/8c211ded/Fiorentina-Juventus-March-16-2025-Serie-A
+2025-03-16,16:00,Roma,1–0,Cagliari,62911,Stadio Olimpico,Marco Piccinini,https://fbref.com/en/matches/4fb25784/Roma-Cagliari-March-16-2025-Serie-A
+2025-03-16,12:30,Venezia,0–0,Napoli,11440,Stadio Pier Luigi Penzo,Maurizio Mariani,https://fbref.com/en/matches/bebdb801/Venezia-Napoli-March-16-2025-Serie-A
+2025-03-29,15:00,Como,1–1,Empoli,10118,Stadio Giuseppe Sinigaglia,Maurizio Mariani,https://fbref.com/en/matches/dc730fc2/Como-Empoli-March-29-2025-Serie-A
+2025-03-29,18:00,Juventus,1–0,Genoa,40219,Allianz Stadium,Antonio Rapuano,https://fbref.com/en/matches/b11ec446/Juventus-Genoa-March-29-2025-Serie-A
+2025-03-29,20:45,Lecce,0–1,Roma,27207,Stadio Comunale Ettore Giardiniero,Gianluca Manganiello,https://fbref.com/en/matches/f29c7427/Lecce-Roma-March-29-2025-Serie-A
+2025-03-29,15:00,Venezia,0–1,Bologna,9864,Stadio Pier Luigi Penzo,Marco Di Bello,https://fbref.com/en/matches/3c6a91ff/Venezia-Bologna-March-29-2025-Serie-A
+2025-03-30,12:30,Cagliari,3–0,Monza,16319,Unipol Domus,Francesco Fourneau,https://fbref.com/en/matches/b5cbd016/Cagliari-Monza-March-30-2025-Serie-A
+2025-03-30,15:00,Fiorentina,1–0,Atalanta,20409,Stadio Artemio Franchi,Daniele Doveri,https://fbref.com/en/matches/3a802457/Fiorentina-Atalanta-March-30-2025-Serie-A
+2025-03-30,18:00,Inter,2–1,Udinese,71924,Stadio Giuseppe Meazza,Daniele Chiffi,https://fbref.com/en/matches/29412934/Internazionale-Udinese-March-30-2025-Serie-A
+2025-03-30,20:45,Napoli,2–1,Milan,52836,Stadio Diego Armando Maradona,Simone Sozza,https://fbref.com/en/matches/f211a752/Napoli-Milan-March-30-2025-Serie-A
+2025-03-31,18:30,Hellas Verona,0–0,Parma,22706,Stadio Marc'Antonio Bentegodi,Juan Luca Sacchi,https://fbref.com/en/matches/a7028401/Hellas-Verona-Parma-March-31-2025-Serie-A
+2025-03-31,20:45,Lazio,1–1,Torino,37000,Stadio Olimpico,Davide Massa,https://fbref.com/en/matches/26731b01/Lazio-Torino-March-31-2025-Serie-A
+2025-04-04,20:45,Genoa,1–0,Udinese,31243,Stadio Comunale Luigi Ferraris,Daniele Perenzoni,https://fbref.com/en/matches/839ac664/Genoa-Udinese-April-4-2025-Serie-A
+2025-04-05,20:45,Milan,2–2,Fiorentina,72451,Stadio Giuseppe Meazza,Giovanni Ayroldi,https://fbref.com/en/matches/686be623/Milan-Fiorentina-April-5-2025-Serie-A
+2025-04-05,15:00,Monza,1–3,Como,8649,U-Power Stadium,Giuseppe Collu,https://fbref.com/en/matches/e970c3a4/Monza-Como-April-5-2025-Serie-A
+2025-04-05,18:00,Parma,2–2,Inter,22126,Stadio Ennio Tardini,Daniele Doveri,https://fbref.com/en/matches/c0287d8d/Parma-Internazionale-April-5-2025-Serie-A
+2025-04-06,18:00,Atalanta,0–1,Lazio,22731,Gewiss Stadium,Daniele Chiffi,https://fbref.com/en/matches/617486d8/Atalanta-Lazio-April-6-2025-Serie-A
+2025-04-06,15:00,Empoli,0–0,Cagliari,9054,Stadio Carlo Castellani - Computer Gross...,Federico La Penna,https://fbref.com/en/matches/2db8cc44/Empoli-Cagliari-April-6-2025-Serie-A
+2025-04-06,12:30,Lecce,1–1,Venezia,25709,Stadio Comunale Ettore Giardiniero,Marco Piccinini,https://fbref.com/en/matches/4c323af9/Lecce-Venezia-April-6-2025-Serie-A
+2025-04-06,20:45,Roma,1–1,Juventus,65778,Stadio Olimpico,Andrea Colombo,https://fbref.com/en/matches/97fb2367/Roma-Juventus-April-6-2025-Serie-A
+2025-04-06,15:00,Torino,1–1,Hellas Verona,25479,Stadio Olimpico Grande Torino,Kevin Bonacina,https://fbref.com/en/matches/d0dd0be5/Torino-Hellas-Verona-April-6-2025-Serie-A
+2025-04-07,20:45,Bologna,1–1,Napoli,31974,Stadio Renato Dall'Ara,Davide Massa,https://fbref.com/en/matches/d8fb6510/Bologna-Napoli-April-7-2025-Serie-A
+2025-04-11,20:45,Udinese,0–4,Milan,24214,Bluenergy Stadium,Juan Luca Sacchi,https://fbref.com/en/matches/08727bbe/Udinese-Milan-April-11-2025-Serie-A
+2025-04-12,18:00,Inter,3–1,Cagliari,71799,Stadio Giuseppe Meazza,Marco Di Bello,https://fbref.com/en/matches/ef4a7f22/Internazionale-Cagliari-April-12-2025-Serie-A
+2025-04-12,20:45,Juventus,2–1,Lecce,39259,Allianz Stadium,Luca Zufferli,https://fbref.com/en/matches/8984b658/Juventus-Lecce-April-12-2025-Serie-A
+2025-04-12,15:00,Venezia,1–0,Monza,10001,Stadio Pier Luigi Penzo,Fabio Maresca,https://fbref.com/en/matches/48567cfa/Venezia-Monza-April-12-2025-Serie-A
+2025-04-13,12:30,Atalanta,2–0,Bologna,23156,Gewiss Stadium,Maurizio Mariani,https://fbref.com/en/matches/fc3de8a2/Atalanta-Bologna-April-13-2025-Serie-A
+2025-04-13,18:00,Como,1–0,Torino,10658,Stadio Giuseppe Sinigaglia,Matteo Marcenaro,https://fbref.com/en/matches/508b84c8/Como-Torino-April-13-2025-Serie-A
+2025-04-13,15:00,Fiorentina,0–0,Parma,21355,Stadio Artemio Franchi,Gianluca Manganiello,https://fbref.com/en/matches/790548b5/Fiorentina-Parma-April-13-2025-Serie-A
+2025-04-13,15:00,Hellas Verona,0–0,Genoa,27724,Stadio Marc'Antonio Bentegodi,Matteo Marchetti,https://fbref.com/en/matches/35af7e08/Hellas-Verona-Genoa-April-13-2025-Serie-A
+2025-04-13,20:45,Lazio,1–1,Roma,63000,Stadio Olimpico,Simone Sozza,https://fbref.com/en/matches/7ce59536/Lazio-Roma-April-13-2025-Serie-A
+2025-04-14,20:45,Napoli,3–0,Empoli,50898,Stadio Diego Armando Maradona,Michael Fabbri,https://fbref.com/en/matches/25fd6dcc/Napoli-Empoli-April-14-2025-Serie-A
+2025-04-19,15:00,Lecce,0–3,Como,28181,Stadio Comunale Ettore Giardiniero,Simone Sozza,https://fbref.com/en/matches/51659765/Lecce-Como-April-19-2025-Serie-A
+2025-04-19,18:00,Monza,0–1,Napoli,13784,U-Power Stadium,Federico La Penna,https://fbref.com/en/matches/43293eff/Monza-Napoli-April-19-2025-Serie-A
+2025-04-19,20:45,Roma,1–0,Hellas Verona,62714,Stadio Olimpico,Luca Pairetto,https://fbref.com/en/matches/bfe41ff3/Roma-Hellas-Verona-April-19-2025-Serie-A
+2025-04-20,18:00,Bologna,1–0,Inter,31978,Stadio Renato Dall'Ara,Andrea Colombo,https://fbref.com/en/matches/c84d74dd/Bologna-Internazionale-April-20-2025-Serie-A
+2025-04-20,15:00,Empoli,2–2,Venezia,8477,Stadio Carlo Castellani - Computer Gross...,Davide Massa,https://fbref.com/en/matches/a32623e7/Empoli-Venezia-April-20-2025-Serie-A
+2025-04-20,20:45,Milan,0–1,Atalanta,72745,Stadio Giuseppe Meazza,Marco Piccinini,https://fbref.com/en/matches/c810b524/Milan-Atalanta-April-20-2025-Serie-A
+2025-04-23,18:30,Cagliari,1–2,Fiorentina,15917,Unipol Domus,Livio Marinelli,https://fbref.com/en/matches/2ab6a96f/Cagliari-Fiorentina-April-23-2025-Serie-A
+2025-04-23,18:30,Genoa,0–2,Lazio,32038,Stadio Comunale Luigi Ferraris,Giovanni Ayroldi,https://fbref.com/en/matches/40628936/Genoa-Lazio-April-23-2025-Serie-A
+2025-04-23,18:30,Parma,1–0,Juventus,21108,Stadio Ennio Tardini,Daniele Chiffi,https://fbref.com/en/matches/2dc01d9d/Parma-Juventus-April-23-2025-Serie-A
+2025-04-23,18:30,Torino,2–0,Udinese,27958,Stadio Olimpico Grande Torino,Giuseppe Collu,https://fbref.com/en/matches/9a00f207/Torino-Udinese-April-23-2025-Serie-A
+2025-04-27,20:45,Atalanta,1–1,Lecce,21875,Gewiss Stadium,Federico La Penna,https://fbref.com/en/matches/f8863600/Atalanta-Lecce-April-27-2025-Serie-A
+2025-04-27,12:30,Como,1–0,Genoa,10664,Stadio Giuseppe Sinigaglia,Alberto Arena,https://fbref.com/en/matches/65b86f16/Como-Genoa-April-27-2025-Serie-A
+2025-04-27,15:00,Fiorentina,2–1,Empoli,20547,Stadio Artemio Franchi,Antonio Rapuano,https://fbref.com/en/matches/a2af722c/Fiorentina-Empoli-April-27-2025-Serie-A
+2025-04-27,15:00,Inter,0–1,Roma,70240,Stadio Giuseppe Meazza,Michael Fabbri,https://fbref.com/en/matches/bd8b0528/Internazionale-Roma-April-27-2025-Serie-A
+2025-04-27,18:00,Juventus,2–0,Monza,40016,Allianz Stadium,Daniele Perenzoni,https://fbref.com/en/matches/a12f6bbe/Juventus-Monza-April-27-2025-Serie-A
+2025-04-27,20:45,Napoli,2–0,Torino,51144,Stadio Diego Armando Maradona,Maurizio Mariani,https://fbref.com/en/matches/b0a980eb/Napoli-Torino-April-27-2025-Serie-A
+2025-04-27,12:30,Venezia,0–2,Milan,12048,Stadio Pier Luigi Penzo,Gianluca Manganiello,https://fbref.com/en/matches/b5347b9e/Venezia-Milan-April-27-2025-Serie-A
+2025-04-28,20:45,Hellas Verona,0–2,Cagliari,20741,Stadio Marc'Antonio Bentegodi,Rosario Abisso,https://fbref.com/en/matches/74ff68ec/Hellas-Verona-Cagliari-April-28-2025-Serie-A
+2025-04-28,20:45,Lazio,2–2,Parma,32000,Stadio Olimpico,Juan Luca Sacchi,https://fbref.com/en/matches/e492b3dc/Lazio-Parma-April-28-2025-Serie-A
+2025-04-28,18:30,Udinese,0–0,Bologna,23414,Bluenergy Stadium,Fabio Maresca,https://fbref.com/en/matches/fae1422d/Udinese-Bologna-April-28-2025-Serie-A
+2025-05-02,20:45,Torino,1–1,Venezia,21931,Stadio Olimpico Grande Torino,Simone Sozza,https://fbref.com/en/matches/f57140cf/Torino-Venezia-May-2-2025-Serie-A
+2025-05-03,15:00,Cagliari,1–2,Udinese,16099,Unipol Domus,Ermanno Feliciani,https://fbref.com/en/matches/374d14e7/Cagliari-Udinese-May-3-2025-Serie-A
+2025-05-03,20:45,Inter,1–0,Hellas Verona,70222,Stadio Giuseppe Meazza,Gianluca Manganiello,https://fbref.com/en/matches/e3647411/Internazionale-Hellas-Verona-May-3-2025-Serie-A
+2025-05-03,18:00,Lecce,0–1,Napoli,28403,Stadio Comunale Ettore Giardiniero,Davide Massa,https://fbref.com/en/matches/95959c4f/Lecce-Napoli-May-3-2025-Serie-A
+2025-05-03,15:00,Parma,0–1,Como,20132,Stadio Ennio Tardini,Marco Di Bello,https://fbref.com/en/matches/2530eda5/Parma-Como-May-3-2025-Serie-A
+2025-05-04,20:45,Bologna,1–1,Juventus,30846,Stadio Renato Dall'Ara,Daniele Doveri,https://fbref.com/en/matches/27fb223d/Bologna-Juventus-May-4-2025-Serie-A
+2025-05-04,12:30,Empoli,0–1,Lazio,8787,Stadio Carlo Castellani - Computer Gross...,Andrea Colombo,https://fbref.com/en/matches/90d9dd2e/Empoli-Lazio-May-4-2025-Serie-A
+2025-05-04,15:00,Monza,0–4,Atalanta,10440,U-Power Stadium,Luca Pairetto,https://fbref.com/en/matches/baef8a4c/Monza-Atalanta-May-4-2025-Serie-A
+2025-05-04,18:00,Roma,1–0,Fiorentina,63640,Stadio Olimpico,Daniele Chiffi,https://fbref.com/en/matches/07a1cabc/Roma-Fiorentina-May-4-2025-Serie-A
+2025-05-05,20:45,Genoa,1–2,Milan,32081,Stadio Comunale Luigi Ferraris,Giuseppe Collu,https://fbref.com/en/matches/0fcd692b/Genoa-Milan-May-5-2025-Serie-A
+2025-05-09,20:45,Milan,3–1,Bologna,71076,Stadio Giuseppe Meazza,Livio Marinelli,https://fbref.com/en/matches/eaef3f45/Milan-Bologna-May-9-2025-Serie-A
+2025-05-10,15:00,Como,3–1,Cagliari,13602,Stadio Giuseppe Sinigaglia,Francesco Fourneau,https://fbref.com/en/matches/6495e7f4/Como-Cagliari-May-10-2025-Serie-A
+2025-05-10,20:45,Empoli,2–1,Parma,12040,Stadio Carlo Castellani - Computer Gross...,Michael Fabbri,https://fbref.com/en/matches/c14e9e23/Empoli-Parma-May-10-2025-Serie-A
+2025-05-10,18:00,Lazio,1–1,Juventus,56000,Stadio Olimpico,Davide Massa,https://fbref.com/en/matches/6549caed/Lazio-Juventus-May-10-2025-Serie-A
+2025-05-11,15:00,Hellas Verona,1–1,Lecce,27709,Stadio Marc'Antonio Bentegodi,Fabio Maresca,https://fbref.com/en/matches/a1325187/Hellas-Verona-Lecce-May-11-2025-Serie-A
+2025-05-11,20:45,Napoli,2–2,Genoa,51426,Stadio Diego Armando Maradona,Marco Piccinini,https://fbref.com/en/matches/ac2b39d3/Napoli-Genoa-May-11-2025-Serie-A
+2025-05-11,18:00,Torino,0–2,Inter,26537,Stadio Olimpico Grande Torino,Federico La Penna,https://fbref.com/en/matches/48220756/Torino-Internazionale-May-11-2025-Serie-A
+2025-05-11,12:30,Udinese,1–2,Monza,20845,Bluenergy Stadium,Valerio Crezzini,https://fbref.com/en/matches/17fc8f69/Udinese-Monza-May-11-2025-Serie-A
+2025-05-12,20:45,Atalanta,2–1,Roma,23249,Gewiss Stadium,Simone Sozza,https://fbref.com/en/matches/89fed893/Atalanta-Roma-May-12-2025-Serie-A
+2025-05-12,18:30,Venezia,2–1,Fiorentina,11000,Stadio Pier Luigi Penzo,Matteo Marchetti,https://fbref.com/en/matches/ce81908e/Venezia-Fiorentina-May-12-2025-Serie-A
+2025-05-17,20:45,Genoa,2–3,Atalanta,31929,Stadio Comunale Luigi Ferraris,Davide Ghersini,https://fbref.com/en/matches/ff6b72ea/Genoa-Atalanta-May-17-2025-Serie-A
+2025-05-18,20:45,Cagliari,3–0,Venezia,16176,Unipol Domus,Luca Pairetto,https://fbref.com/en/matches/c9e65a18/Cagliari-Venezia-May-18-2025-Serie-A
+2025-05-18,20:45,Fiorentina,3–2,Bologna,21280,Stadio Artemio Franchi,Luca Zufferli,https://fbref.com/en/matches/dfdf1b4a/Derby-dellAppennino-Fiorentina-Bologna-May-18-2025-Serie-A
+2025-05-18,20:45,Hellas Verona,1–1,Como,24344,Stadio Marc'Antonio Bentegodi,Rosario Abisso,https://fbref.com/en/matches/1a9a2b31/Hellas-Verona-Como-May-18-2025-Serie-A
+2025-05-18,20:45,Inter,2–2,Lazio,71060,Stadio Giuseppe Meazza,Daniele Chiffi,https://fbref.com/en/matches/17533f2c/Internazionale-Lazio-May-18-2025-Serie-A
+2025-05-18,20:45,Juventus,2–0,Udinese,40259,Allianz Stadium,Giovanni Ayroldi,https://fbref.com/en/matches/a358a6ca/Juventus-Udinese-May-18-2025-Serie-A
+2025-05-18,20:45,Lecce,1–0,Torino,21726,Stadio Comunale Ettore Giardiniero,Antonio Rapuano,https://fbref.com/en/matches/5bc1c77a/Lecce-Torino-May-18-2025-Serie-A
+2025-05-18,20:45,Monza,1–3,Empoli,7472,U-Power Stadium,Livio Marinelli,https://fbref.com/en/matches/4ffa8178/Monza-Empoli-May-18-2025-Serie-A
+2025-05-18,20:45,Parma,0–0,Napoli,20388,Stadio Ennio Tardini,Daniele Doveri,https://fbref.com/en/matches/5c73f7db/Parma-Napoli-May-18-2025-Serie-A
+2025-05-18,20:45,Roma,3–1,Milan,68143,Stadio Olimpico,Marco Piccinini,https://fbref.com/en/matches/e8a82fc6/Roma-Milan-May-18-2025-Serie-A
+2025-05-23,20:45,Como,0–2,Inter,10656,Stadio Giuseppe Sinigaglia,Davide Massa,https://fbref.com/en/matches/50b87e8b/Como-Internazionale-May-23-2025-Serie-A
+2025-05-23,20:45,Napoli,2–0,Cagliari,53000,Stadio Diego Armando Maradona,Federico La Penna,https://fbref.com/en/matches/4d5ce659/Napoli-Cagliari-May-23-2025-Serie-A
+2025-05-24,18:00,Bologna,1–3,Genoa,29975,Stadio Renato Dall'Ara,Marco Monaldi,https://fbref.com/en/matches/97392c7a/Bologna-Genoa-May-24-2025-Serie-A
+2025-05-24,20:45,Milan,2–0,Monza,69124,Stadio Giuseppe Meazza,Daniele Rutella,https://fbref.com/en/matches/44028e06/Milan-Monza-May-24-2025-Serie-A
+2025-05-25,20:45,Atalanta,2–3,Parma,23161,Gewiss Stadium,Livio Marinelli,https://fbref.com/en/matches/75ae7628/Atalanta-Parma-May-25-2025-Serie-A
+2025-05-25,20:45,Empoli,1–2,Hellas Verona,14025,Stadio Carlo Castellani - Computer Gross...,Daniele Doveri,https://fbref.com/en/matches/dd961a5a/Empoli-Hellas-Verona-May-25-2025-Serie-A
+2025-05-25,20:45,Lazio,0–1,Lecce,53000,Stadio Olimpico,Michael Fabbri,https://fbref.com/en/matches/233f0d37/Lazio-Lecce-May-25-2025-Serie-A
+2025-05-25,20:45,Torino,0–2,Roma,24252,Stadio Olimpico Grande Torino,Marco Di Bello,https://fbref.com/en/matches/ec6788d3/Torino-Roma-May-25-2025-Serie-A
+2025-05-25,20:45,Udinese,2–3,Fiorentina,20463,Bluenergy Stadium,Matteo Marcenaro,https://fbref.com/en/matches/70731611/Udinese-Fiorentina-May-25-2025-Serie-A
+2025-05-25,20:45,Venezia,2–3,Juventus,12048,Stadio Pier Luigi Penzo,Andrea Colombo,https://fbref.com/en/matches/2473b3f0/Venezia-Juventus-May-25-2025-Serie-A
