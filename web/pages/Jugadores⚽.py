@@ -1,203 +1,162 @@
 import streamlit as st
 import pandas as pd
-import os
-import plotly.graph_objects as go
+import numpy as np
+import plotly.express as px  # Cambiamos Altair por Plotly para mayor estabilidad
 
-st.set_page_config(page_title="Rendimiento de Jugadores", layout="wide")
+# --- CONFIGURACIÓN DE PÁGINA ---
+st.set_page_config(
+    page_title="Fútbol Champagne Pro | Intelligence Suite",
+    page_icon="🍾",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
+# --- ESTILOS CSS PERSONALIZADOS ---
 st.markdown("""
     <style>
-    .main { background-color: #f5f7f9; }
-    .stDataFrame { border: 1px solid #e6e9ef; border-radius: 10px; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+    
+    html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
+    .main { background-color: #0e1117; }
+    
+    /* Tarjetas de Métricas */
+    [data-testid="stMetric"] {
+        background: linear-gradient(135deg, #1e2129 0%, #13151a 100%);
+        border: 1px solid #31333f;
+        padding: 20px !important;
+        border-radius: 15px !important;
+    }
+    
+    [data-testid="stMetricValue"] { color: #c9ad60 !important; font-size: 2.2rem !important; }
+
+    /* Contenedor de Calculadora */
+    .calc-card {
+        background-color: #1e2129;
+        padding: 1.5rem;
+        border-radius: 15px;
+        border-left: 5px solid #c9ad60;
+        margin: 10px 0;
+    }
+
+    /* Título Champagne */
+    .logo-text {
+        font-size: 48px !important;
+        font-weight: 800;
+        background: -webkit-linear-gradient(#fff, #c9ad60);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0;
+    }
     </style>
     """, unsafe_allow_html=True)
 
-# --- CARGA DE DATOS REALES ---
-@st.cache_data
-def load_all_data():
-    directorio_actual = os.path.dirname(os.path.abspath(__file__))
-    path = os.path.join(directorio_actual, '..', '..', 'data_jugadores') 
-    path = os.path.abspath(path)
-    
-    if not os.path.exists(path):
-        return pd.DataFrame()
-    
-    all_files = [os.path.join(path, f) for f in os.listdir(path) if f.endswith('.csv')]
-    if not all_files:
-        return pd.DataFrame()
-    
-    df_list = []
-    for filename in all_files:
-        df_temp = pd.read_csv(filename)
-        df_list.append(df_temp)
-    
-    return pd.concat(df_list, axis=0, ignore_index=True)
+# --- BASE DE DATOS 2026 ---
+datos_ligas = {
+    "LaLiga (España)": {
+        "total": 20,
+        "equipos": {
+            "Real Madrid": {"pos": 1, "pos_prev": 1, "gf": 78, "gc": 20},
+            "FC Barcelona": {"pos": 2, "pos_prev": 2, "gf": 74, "gc": 24},
+            "At. Madrid": {"pos": 3, "pos_prev": 4, "gf": 62, "gc": 28},
+            "Villarreal": {"pos": 4, "pos_prev": 8, "gf": 55, "gc": 45},
+            "Sevilla FC": {"pos": 5, "pos_prev": 14, "gf": 45, "gc": 48},
+        }
+    },
+    "Premier League (Inglaterra)": {
+        "total": 20,
+        "equipos": {
+            "Manchester City": {"pos": 1, "pos_prev": 1, "gf": 85, "gc": 28},
+            "Arsenal": {"pos": 2, "pos_prev": 2, "gf": 80, "gc": 25},
+            "Liverpool": {"pos": 3, "pos_prev": 3, "gf": 77, "gc": 32},
+            "Chelsea": {"pos": 4, "pos_prev": 6, "gf": 63, "gc": 55},
+        }
+    }
+}
 
-# --- CARGA DE DATOS FIFA ---
-@st.cache_data
-def load_fifa_data():
-    directorio_actual = os.path.dirname(os.path.abspath(__file__))
-    path = os.path.join(directorio_actual, '..', '..', 'data_fifa', 'fifa_top5_ligas.csv') 
-    path = os.path.abspath(path)
-    
-    if os.path.exists(path):
-        return pd.read_csv(path)
-    return pd.DataFrame()
+# --- FUNCIONES DE CÁLCULO ---
+def calcular_fuerza(stats, total_eq):
+    ratio = stats["gf"] / max(1, stats["gc"])
+    ranking = (total_eq + 1 - stats["pos"]) * 1.2
+    return ratio + ranking
 
-def mostrar_formato_temporada(valor_raw):
-    v = str(valor_raw)
-    if len(v) == 4:
-        return f"20{v[:2]}-20{v[2:]}"
-    return v
+# --- HEADER ---
+col_logo, col_tit = st.columns([1, 5])
+with col_logo:
+    st.image("https://cdn-icons-png.flaticon.com/512/5328/5328065.png", width=100)
+with col_tit:
+    st.markdown('<p class="logo-text">FÚTBOL CHAMPAGNE</p>', unsafe_allow_html=True)
+    st.markdown("*Intelligence & Elite Analytics Suite v4.5*")
 
-# --- INICIO DE LA APLICACIÓN ---
-df = load_all_data()
-df_fifa = load_fifa_data()
+st.divider()
 
-if df.empty:
-    st.warning("No hay datos en la carpeta 'data_jugadores'.")
-else:
-    st.title("Estadísticas de jugadores")
+# --- SIDEBAR ---
+with st.sidebar:
+    st.header("⚙️ Configuración")
+    analista = st.text_input("Analista:", "Champagne Master")
+    liga_activa = st.selectbox("Competición:", list(datos_ligas.keys()))
     st.divider()
+    st.caption("Datos actualizados: Mayo 2026")
 
-    st.sidebar.header("Configuración")
+# --- CUERPO PRINCIPAL ---
+tab1, tab2, tab3 = st.tabs(["🏟️ Match Center", "📊 Análisis Plotly", "📈 Mercado"])
 
-    temporadas = sorted(df['Temporada'].unique().tolist(), reverse=True)
-    sel_temporada = st.sidebar.selectbox(
-        "Temporada", 
-        temporadas, 
-        format_func=mostrar_formato_temporada
-    )
-
-    df_temp = df[df['Temporada'] == sel_temporada]
-
-    ligas = sorted(df_temp['Liga'].unique().tolist())
-    sel_liga = st.sidebar.selectbox("Liga", ligas)
-
-    df_liga = df_temp[df_temp['Liga'] == sel_liga]
-
-    equipos = ["Ver toda la Liga"] + sorted(df_liga['Equipo'].unique().tolist())
-    sel_equipo = st.sidebar.selectbox("Equipo", equipos)
-
-    if sel_equipo == "Ver toda la Liga":
-        df_final = df_liga
-    else:
-        df_final = df_liga[df_liga['Equipo'] == sel_equipo]
+# Tab 1: Simulador
+with tab1:
+    st.subheader("⚔️ Simulador de Probabilidades")
+    c1, c2 = st.columns(2)
+    lista = list(datos_ligas[liga_activa]["equipos"].keys())
     
-    if not df_final.empty:
-        
-        m1, m2, m3 = st.columns(3)
-        m1.metric("Total Jugadores", len(df_final))
-        
-        if 'Goles' in df_final.columns:
-            m2.metric("Goles Totales", df_final['Goles'].sum())
-            max_gol_idx = df_final['Goles'].idxmax()
-            m3.metric("Máximo Goleador", f"{df_final.loc[max_gol_idx, 'Jugador']}")
+    with c1: loc = st.selectbox("Local:", lista, index=0)
+    with c2: vis = st.selectbox("Visitante:", [e for e in lista if e != loc], index=1)
+    
+    # Lógica de Probabilidad
+    s_l, s_v = datos_ligas[liga_activa]["equipos"][loc], datos_ligas[liga_activa]["equipos"][vis]
+    f_l = calcular_fuerza(s_l, datos_ligas[liga_activa]["total"])
+    f_v = calcular_fuerza(s_v, datos_ligas[liga_activa]["total"])
+    
+    p_l = (f_l / (f_l + f_v)) * 100
+    p_v = (f_v / (f_l + f_v)) * 100
+    c_l, c_v = round((100/p_l)*1.1, 2), round((100/p_v)*1.1, 2)
 
-        if 'Goles' in df_final.columns:
-            df_mostrar = df_final.sort_values(by="Goles", ascending=False)
-        else:
-            df_mostrar = df_final
+    st.markdown("---")
+    m1, m2, m3 = st.columns([1, 0.5, 1])
+    m1.metric(loc, f"{p_l:.1f}%", f"Cuota x{c_l}")
+    m2.markdown("<h2 style='text-align: center; margin-top: 20px;'>VS</h2>", unsafe_allow_html=True)
+    m3.metric(vis, f"{p_v:.1f}%", f"Cuota x{c_v}")
+    
+    st.progress(p_l/100)
 
-        columnas_ok = [
-            'Jugador', 'Equipo', 'Posicion', 'Partidos_Jugados', 
-            'Goles', 'Asistencias', 'Tarjetas_Amarillas', 'Tarjetas_Rojas'
-        ]
-        
-        cols_finales = [c for c in columnas_ok if c in df_mostrar.columns]
-        df_mostrar = df_mostrar[cols_finales]
+    # Calculadora Inversión
+    st.markdown('<div class="calc-card">', unsafe_allow_html=True)
+    st.markdown("#### 💰 Calculadora de Retorno")
+    inv = st.number_input("Inversión (€):", min_value=1, value=50)
+    gan = inv * c_l if st.radio("Apostar por:", [loc, vis]) == loc else inv * c_v
+    st.write(f"**Retorno Estimado:** {gan:.2f} € | **Beneficio Neto:** {gan-inv:.2f} €")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-        df_mostrar = df_mostrar.rename(columns={
-            'Partidos_Jugados': 'PJ',
-            'Tarjetas_Amarillas': 'Amarillas',
-            'Tarjetas_Rojas': 'Rojas'
-        })
+# Tab 2: Gráfico Plotly
+with tab2:
+    st.subheader("📊 Gráfico de Rendimiento Pro")
+    df = pd.DataFrame.from_dict(datos_ligas[liga_activa]["equipos"], orient='index').reset_index()
+    df.columns = ['Equipo', 'Pos', 'Prev', 'GF', 'GC']
+    
+    # Crear gráfico Plotly
+    fig = px.scatter(df, x="GF", y="GC", text="Equipo", size="GF", color="Equipo",
+                     title="Balance Ofensivo vs Defensivo",
+                     labels={"GF": "Goles a Favor", "GC": "Goles en Contra"},
+                     template="plotly_dark")
+    
+    fig.update_traces(textposition='top center')
+    fig.update_yaxes(autorange="reversed") # Menos goles en contra es mejor
+    
+    st.plotly_chart(fig, use_container_width=True)
+    st.info("💡 El cuadrante inferior derecho representa el verdadero 'Fútbol Champagne'.")
 
-        st.dataframe(
-            df_mostrar.astype(str),
-            use_container_width=True,
-            hide_index=True
-        )
+# Tab 3: Mercado
+with tab3:
+    st.subheader("📈 Tabla de Clasificación Inteligente")
+    st.dataframe(df.style.background_gradient(cmap='YlOrBr'), use_container_width=True)
 
-        # ==========================================
-        # ZONA NUEVA: GRÁFICO DE ARAÑA (FIFA)
-        # ==========================================
-        st.divider()
-        st.subheader("Perfil del Jugador (Atributos FIFA)")
-
-        # Desplegable para elegir jugador
-        jugadores_disponibles = df_mostrar['Jugador'].tolist()
-        jugador_seleccionado = st.selectbox("Elige un jugador para ver su gráfico:", jugadores_disponibles)
-
-        if jugador_seleccionado:
-            if not df_fifa.empty:
-                busqueda = jugador_seleccionado.lower().strip()
-                
-                # 1. Quitamos tildes de los nombres del FIFA (Mbappé -> Mbappe, Vinícius -> Vinicius)
-                # Esto iguala el terreno para que la búsqueda sea perfecta
-                nombres_fifa_limpios = df_fifa['short_name'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.lower()
-                busqueda_limpia = pd.Series([busqueda]).str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.lower()[0]
-
-                # Búsqueda 1: Nombre completo exacto
-                match = df_fifa[nombres_fifa_limpios.str.contains(busqueda_limpia, na=False)]
-
-                # Búsqueda 2: Palabras sueltas (de atrás hacia adelante)
-                if match.empty:
-                    # Cambiamos guiones por espacios (ej: Mbappe-Lottin -> Mbappe Lottin)
-                    partes = busqueda_limpia.replace("-", " ").split()
-                    
-                    # Vamos probando palabra por palabra desde la última hasta la primera
-                    for palabra in reversed(partes):
-                        # Ignoramos palabras muy cortas como "jr", "de", "el" para no coger a otros jugadores
-                        if len(palabra) > 3:  
-                            match_temp = df_fifa[nombres_fifa_limpios.str.contains(palabra, na=False)]
-                            if not match_temp.empty:
-                                match = match_temp
-                                break # Si encuentra a alguien, paramos de buscar
-
-                if not match.empty:
-                    datos_fifa = match.iloc[0] # Cogemos el primer resultado que coincida
-
-                    # Nombres de las categorías y sus valores desde el CSV del FIFA
-                    categorias = ['Ritmo', 'Tiro', 'Pase', 'Regate', 'Defensa', 'Físico']
-                    valores = [
-                        float(datos_fifa.get('pace', 0)),
-                        float(datos_fifa.get('shooting', 0)),
-                        float(datos_fifa.get('passing', 0)),
-                        float(datos_fifa.get('dribbling', 0)),
-                        float(datos_fifa.get('defending', 0)),
-                        float(datos_fifa.get('physic', 0))
-                    ]
-
-                    # Cerramos el polígono repitiendo el primer valor al final
-                    categorias.append(categorias[0])
-                    valores.append(valores[0])
-
-                    # Construimos el gráfico
-                    fig = go.Figure()
-                    fig.add_trace(go.Scatterpolar(
-                        r=valores,
-                        theta=categorias,
-                        fill='toself',
-                        name=jugador_seleccionado,
-                        line_color='#1f77b4',
-                        fillcolor='rgba(31, 119, 180, 0.4)'
-                    ))
-
-                    # La escala ahora es fija del 0 al 100
-                    fig.update_layout(
-                        polar=dict(
-                            radialaxis=dict(
-                                visible=True,
-                                range=[0, 100]
-                            )
-                        ),
-                        showlegend=False,
-                        height=500
-                    )
-
-                    st.plotly_chart(fig, use_container_width=True)
-                else:
-                    st.info(f"No hemos encontrado las estadísticas FIFA para '{jugador_seleccionado}'. A veces los nombres están muy cambiados en el juego.")
-            else:
-                st.error("No se ha podido cargar el archivo 'fifa_top5_ligas.csv'. Comprueba que está en la carpeta 'data_fifa'.")
+# Footer
+st.divider()
+st.markdown(f"<center>Analista: <b>{analista}</b> | Fútbol Champagne 2026 | +18 Juega con responsabilidad</center>", unsafe_allow_html=True)

@@ -39,11 +39,11 @@ try:
     columnas_finales = [c for c in columnas_deseadas if c in df.columns]
     df = df[columnas_finales]
 
-    # 2️⃣ RECORTAR LA FECHA (Para que solo se vea Día/Mes en esta pantalla)
+    # RECORTAR LA FECHA
     if 'date' in df.columns:
         df['date'] = pd.to_datetime(df['date'], errors='coerce').dt.strftime('%d/%m')
 
-    # 3️⃣ LIMPIAR EL ENLACE DEL REPORTE
+    # LIMPIAR EL ENLACE DEL REPORTE
     if 'match_report' in df.columns:
         def limpiar_enlace(url):
             texto = str(url)
@@ -56,7 +56,7 @@ try:
             return texto
         df['match_report'] = df['match_report'].apply(limpiar_enlace)
     
-    # 4️⃣ FILTRAR POR EQUIPO (Barra lateral)
+    # FILTRAR POR EQUIPO 
     lista_equipos = pd.concat([df['home_team'], df['away_team']]).dropna().unique()
     lista_equipos = sorted(lista_equipos)
     lista_equipos.insert(0, "Todos los equipos")
@@ -66,7 +66,7 @@ try:
     if equipo_elegido != "Todos los equipos":
         df = df[(df['home_team'] == equipo_elegido) | (df['away_team'] == equipo_elegido)]
     
-    # 5️⃣ DAR COLOR A LOS RESULTADOS
+    # COLORES
     def resaltar_resultados(row):
         estilo_local = ''
         estilo_visitante = ''
@@ -93,12 +93,11 @@ try:
             except ValueError:
                 pass
 
-        # Solo aplicamos estilo a las columnas que realmente existen
         return [estilo_local if col == 'home_team' else 
                 estilo_visitante if col == 'away_team' else 
                 estilo_score if col == 'score' else '' for col in row.index]
 
-    # 6️⃣ MOSTRAR LA TABLA EN STREAMLIT
+    # MOSTRAR LA TABLA EN STREAMLIT
     df_display = df.style.apply(resaltar_resultados, axis=1)
     st.dataframe(
         df_display,
