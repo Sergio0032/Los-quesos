@@ -3,3 +3,12 @@ __pycache__/
 notebooks/
 .git/
 .gitignore
+
+*.pyc
+web/
+downloaded_files/
+
+data/
+data_clasificaciones/
+data_jugadores/
+datos_resultados/

@@ -38,11 +38,9 @@ for liga in ligas:
 
             columnas_finales = [c for c in columnas_deseadas if c in resultados.columns]
             resultados_limpios = resultados[columnas_finales].copy()
-            # ✔️ CÓDIGO CORREGIDO (100% FIABLE)
             if 'date' in resultados_limpios.columns:
 
                 resultados_limpios['date'] = pd.to_datetime(resultados_limpios['date'], errors='coerce')
-                # Guardamos la fecha completa: Año-Mes-Día (Ejemplo: 2024-08-15)
                 resultados_limpios['date'] = resultados_limpios['date'].dt.strftime('%Y-%m-%d')
 
             if 'match_report' in resultados_limpios.columns:

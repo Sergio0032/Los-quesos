@@ -182,7 +182,7 @@ def generar_cuotas_sim(f1, f2):
     p2 = f2 / (f1 + f2)
     px = 0.25 # Empate base aproximado
     
-    # Cuotas con margen de la casa (1.05)
+    # Cuotas con margen (1.05)
     c1 = round((1 / p1) * 1.05, 2)
     c2 = round((1 / p2) * 1.05, 2)
     cx = round((1 / px) * 1.15, 2)
@@ -191,14 +191,12 @@ def generar_cuotas_sim(f1, f2):
     prob_v2 = round(p2 * 100, 1)
     return c1, cx, c2, prob_v1, prob_v2
 
-# --- UI SIDEBAR ---
 with st.sidebar:
     st.title("Configuración")
     st.session_state.user = st.text_input("Nombre Analista:", st.session_state.user)
     st.divider()
     liga_activa = st.selectbox("Liga a Consultar:", list(datos_ligas.keys()))
 
-# --- MAIN APP ---
 st.title(f"Centro de Inteligencia: {liga_activa}")
 
 tab1, tab2, tab3, tab4 = st.tabs(["Centro de Partido", "Datos Avanzados", "Mercado", "Casas de Apuestas"])

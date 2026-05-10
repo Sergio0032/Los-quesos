@@ -1,28 +1,17 @@
-# Usamos una versión ligera de Python
+# 1. Usar la imagen de Python ligera y oficial
 FROM python:3.11-slim
 
-# Definimos la carpeta de trabajo dentro del contenedor
+# 2. Carpeta de trabajo interna
 WORKDIR /app
 
-# Copiamos el archivo de librerías y las instalamos
+# 3. Copiar dependencias e instalarlas (Separado para mayor velocidad)
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiamos todo tu código al contenedor
-COPY . .
+# 4. Copiar SOLO el motor de tu Worker y la configuración
+COPY src/ ./src/
+COPY config.py .
 
-# Exponemos el puerto de tu aplicación web
-EXPOSE 8501
-
-# Comando para arrancar tu menú principal (ajustado a tu carpeta 'web')
-CMD ["streamlit", "run", "web/MENÚ.py", "--server.address=0.0.0.0"]
-
-#FROM: Eliges los ingredientes base (Python).
-
-#WORKDIR: Eliges en qué encimera vas a cocinar (/app).
-
-#RUN: Preparas los ingredientes (instalas las librerías).
-
-#COPY: Metes tu código en la olla.
-
-#CMD: Enciendes el fuego (ejecutas el programa).
+# 5. La orden MAESTRA: Ejecuta todos tus scripts en orden de izquierda a derecha. 
+# (El símbolo && asegura que el siguiente script solo empiece si el anterior terminó bien). 
+CMD ["sh", "-c", "python src/download_partidos.py && python src/download_clasificaciones.py && python src/download_jugadores.py && python src/download_fifa.py && python src/clean_fifa.py"]
