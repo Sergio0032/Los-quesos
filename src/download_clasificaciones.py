@@ -59,13 +59,13 @@ async def descargar_temporada(understat, temporada, es_ultima_temporada):
 async def main():
     os.makedirs('data', exist_ok=True)
     
-    temporadas = range(2014, 2026) 
+    temporadas = range(2015, 2026) 
     
     ultima_temporada_del_rango = max(temporadas)
 
     async with aiohttp.ClientSession() as session:
         understat = Understat(session)
-        +
+        
         for año in temporadas:
             es_ultima = (año == ultima_temporada_del_rango)
             

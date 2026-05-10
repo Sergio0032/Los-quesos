@@ -1,0 +1,99 @@
+Temporada,Liga,Posicion,Equipo,Partidos_Jugados,Ganados,Empatados,Perdidos,Goles_a_favor,Goles_en_contra,Puntos,xG_Esperado
+2016/2017,Premier League,1,Chelsea,38,30,3,5,85,33,93,61.8
+2016/2017,Premier League,2,Tottenham,38,26,8,4,86,26,86,70.07
+2016/2017,Premier League,3,Manchester City,38,23,9,6,80,39,78,79.85
+2016/2017,Premier League,4,Liverpool,38,22,10,6,78,42,76,66.63
+2016/2017,Premier League,5,Arsenal,38,23,6,9,77,44,75,63.58
+2016/2017,Premier League,6,Manchester United,38,18,15,5,54,29,69,57.57
+2016/2017,Premier League,7,Everton,38,17,10,11,62,44,61,49.63
+2016/2017,Premier League,8,Southampton,38,12,10,16,41,48,46,49.98
+2016/2017,Premier League,9,Bournemouth,38,12,10,16,55,67,46,50.02
+2016/2017,Premier League,10,West Bromwich Albion,38,12,9,17,43,51,45,38.21
+2016/2017,Premier League,11,West Ham,38,12,9,17,47,64,45,48.25
+2016/2017,Premier League,12,Leicester,38,12,8,18,48,63,44,44.34
+2016/2017,Premier League,13,Stoke,38,11,11,16,41,56,44,47.87
+2016/2017,Premier League,14,Crystal Palace,38,12,5,21,50,63,41,45.4
+2016/2017,Premier League,15,Swansea,38,12,5,21,45,70,41,39.5
+2016/2017,Premier League,16,Burnley,38,11,7,20,39,55,40,35.59
+2016/2017,Premier League,17,Watford,38,11,7,20,40,68,40,36.25
+2016/2017,Premier League,18,Hull,38,9,7,22,37,80,34,33.84
+2016/2017,Premier League,19,Middlesbrough,38,5,13,20,27,53,28,30.93
+2016/2017,Premier League,20,Sunderland,38,6,6,26,29,69,24,34.22
+2016/2017,La Liga,1,Real Madrid,38,29,6,3,106,41,93,90.87
+2016/2017,La Liga,2,Barcelona,38,28,6,4,116,37,90,93.55
+2016/2017,La Liga,3,Atletico Madrid,38,23,9,6,70,27,78,60.66
+2016/2017,La Liga,4,Sevilla,38,21,9,8,69,49,72,59.09
+2016/2017,La Liga,5,Villarreal,38,19,10,9,56,33,67,52.23
+2016/2017,La Liga,6,Real Sociedad,38,19,7,12,59,53,64,45.58
+2016/2017,La Liga,7,Athletic Club,38,19,6,13,53,43,63,51.08
+2016/2017,La Liga,8,Espanyol,38,15,11,12,49,50,56,32.55
+2016/2017,La Liga,9,Alaves,38,14,13,11,41,43,55,42.6
+2016/2017,La Liga,10,Eibar,38,15,9,14,56,51,54,42.98
+2016/2017,La Liga,11,Malaga,38,12,10,16,49,55,46,40.37
+2016/2017,La Liga,12,Valencia,38,13,7,18,56,65,46,50.34
+2016/2017,La Liga,13,Celta Vigo,38,13,6,19,53,69,45,40.48
+2016/2017,La Liga,14,Las Palmas,38,10,9,19,53,74,39,40.8
+2016/2017,La Liga,15,Real Betis,38,10,9,19,41,64,39,35.72
+2016/2017,La Liga,16,Deportivo La Coruna,38,8,12,18,43,61,36,41.0
+2016/2017,La Liga,17,Leganes,38,8,11,19,36,55,35,33.19
+2016/2017,La Liga,18,Sporting Gijon,38,7,10,21,42,72,31,36.35
+2016/2017,La Liga,19,Osasuna,38,4,10,24,40,94,22,33.13
+2016/2017,La Liga,20,Granada,38,4,8,26,30,82,20,29.69
+2016/2017,Serie A,1,Juventus,38,29,4,5,77,27,91,68.74
+2016/2017,Serie A,2,Roma,38,28,3,7,90,38,87,83.0
+2016/2017,Serie A,3,Napoli,38,26,8,4,94,39,86,77.51
+2016/2017,Serie A,4,Atalanta,38,21,9,8,62,41,72,61.39
+2016/2017,Serie A,5,Lazio,38,21,7,10,74,51,70,65.39
+2016/2017,Serie A,6,AC Milan,38,18,9,11,57,45,63,59.67
+2016/2017,Serie A,7,Inter,38,19,5,14,72,49,62,68.76
+2016/2017,Serie A,8,Fiorentina,38,16,12,10,63,57,60,55.14
+2016/2017,Serie A,9,Torino,38,13,14,11,71,66,53,57.4
+2016/2017,Serie A,10,Sassuolo,38,14,7,17,60,61,49,50.57
+2016/2017,Serie A,11,Sampdoria,38,12,12,14,49,55,48,46.17
+2016/2017,Serie A,12,Cagliari,38,14,5,19,55,76,47,42.42
+2016/2017,Serie A,13,Udinese,38,12,9,17,47,56,45,44.94
+2016/2017,Serie A,14,Chievo,38,12,7,19,43,61,43,42.74
+2016/2017,Serie A,15,Bologna,38,11,8,19,40,58,41,36.51
+2016/2017,Serie A,16,Genoa,38,9,9,20,38,64,36,45.2
+2016/2017,Serie A,17,Crotone,38,9,7,22,34,58,34,34.17
+2016/2017,Serie A,18,Empoli,38,8,8,22,29,61,32,35.09
+2016/2017,Serie A,19,Palermo,38,6,8,24,33,77,26,28.92
+2016/2017,Serie A,20,Pescara,38,2,9,27,35,83,15,43.12
+2016/2017,Bundesliga,1,Bayern Munich,34,25,7,2,89,22,82,73.91
+2016/2017,Bundesliga,2,RasenBallsport Leipzig,34,20,7,7,66,39,67,55.09
+2016/2017,Bundesliga,3,Borussia Dortmund,34,18,10,6,72,40,64,74.91
+2016/2017,Bundesliga,4,Hoffenheim,34,16,14,4,64,37,62,54.5
+2016/2017,Bundesliga,5,FC Cologne,34,12,13,9,51,42,49,45.34
+2016/2017,Bundesliga,6,Hertha Berlin,34,15,4,15,43,47,49,38.15
+2016/2017,Bundesliga,7,Freiburg,34,14,6,14,42,60,48,39.41
+2016/2017,Bundesliga,8,Werder Bremen,34,13,6,15,61,64,45,42.99
+2016/2017,Bundesliga,9,Borussia M.Gladbach,34,12,9,13,45,49,45,45.82
+2016/2017,Bundesliga,10,Schalke 04,34,11,10,13,45,40,43,44.86
+2016/2017,Bundesliga,11,Eintracht Frankfurt,34,11,9,14,36,43,42,43.59
+2016/2017,Bundesliga,12,Bayer Leverkusen,34,11,8,15,53,55,41,53.1
+2016/2017,Bundesliga,13,Augsburg,34,9,11,14,35,51,38,33.88
+2016/2017,Bundesliga,14,Hamburger SV,34,10,8,16,33,61,38,31.91
+2016/2017,Bundesliga,15,Mainz 05,34,10,7,17,44,55,37,42.36
+2016/2017,Bundesliga,16,Wolfsburg,34,10,7,17,34,52,37,44.47
+2016/2017,Bundesliga,17,Ingolstadt,34,8,8,18,36,57,32,44.51
+2016/2017,Bundesliga,18,Darmstadt,34,7,4,23,28,63,25,33.91
+2016/2017,Ligue 1,1,Monaco,38,30,5,3,107,31,95,76.04
+2016/2017,Ligue 1,2,Paris Saint Germain,38,27,6,5,83,27,87,82.16
+2016/2017,Ligue 1,3,Nice,38,22,12,4,63,36,78,51.54
+2016/2017,Ligue 1,4,Lyon,38,21,4,13,80,48,67,71.13
+2016/2017,Ligue 1,5,Marseille,38,17,11,10,57,41,62,53.83
+2016/2017,Ligue 1,6,Bordeaux,38,15,14,9,53,43,59,52.02
+2016/2017,Ligue 1,7,Nantes,38,14,9,15,40,54,51,42.99
+2016/2017,Ligue 1,8,Saint-Etienne,38,12,14,12,41,42,50,42.92
+2016/2017,Ligue 1,9,Rennes,38,12,14,12,36,42,50,41.81
+2016/2017,Ligue 1,10,Guingamp,38,14,8,16,46,53,50,47.14
+2016/2017,Ligue 1,11,Lille,38,13,7,18,40,47,46,44.08
+2016/2017,Ligue 1,12,Angers,38,13,7,18,40,49,46,46.19
+2016/2017,Ligue 1,13,Toulouse,38,10,14,14,37,41,44,41.19
+2016/2017,Ligue 1,14,Metz,38,11,10,17,39,72,43,34.76
+2016/2017,Ligue 1,15,Montpellier,38,10,9,19,48,66,39,44.2
+2016/2017,Ligue 1,16,Dijon,38,8,13,17,46,58,37,38.59
+2016/2017,Ligue 1,17,Caen,38,10,7,21,36,65,37,45.28
+2016/2017,Ligue 1,18,Lorient,38,10,6,22,44,70,36,44.46
+2016/2017,Ligue 1,19,Nancy,38,9,8,21,29,52,35,32.58
+2016/2017,Ligue 1,20,SC Bastia,38,8,10,20,29,57,34,32.27
