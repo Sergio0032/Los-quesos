@@ -3,14 +3,11 @@ import pandas as pd
 
 # --- 1. CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(
-    page_title="Fútbol Champagne Pro | Elite Edition",
+    page_title="Fútbol Champagne Pro | 25-26",
     layout="wide"
 )
 
-# --- 2. ESTILO PROFESIONAL (TONOS EXACTOS UNIFICADOS) ---
-# Sidebar: #EBF2F6 (Gris azulado pálido)
-# Títulos: #1D3557 (Azul oscuro institucional)
-# Acento: #E63946 (Rojo institucional)
+# --- 2. ESTILO INSTITUCIONAL (MODO CLARO Y BARRA #EBF2F6) ---
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&display=swap');
@@ -18,17 +15,16 @@ st.markdown("""
     html, body, [class*="css"] {
         font-family: 'Outfit', sans-serif;
         background-color: #FFFFFF;
+        color: #333333;
     }
 
-    /* Cabecera institucional */
     .brand-header {
-        padding: 20px 0 10px 0;
-        background-color: #FFFFFF;
+        padding: 40px 0 10px 0;
         border-bottom: 5px solid #1D3557; 
         margin-bottom: 40px;
     }
     .brand-title {
-        font-size: 50px;
+        font-size: 52px;
         font-weight: 900;
         letter-spacing: -1.5px;
         color: #333333;
@@ -36,7 +32,7 @@ st.markdown("""
         margin: 0;
     }
 
-    /* BARRA LATERAL: COLOR EXACTO #EBF2F6 */
+    /* BARRA LATERAL: COLOR #EBF2F6 */
     [data-testid="stSidebar"] {
         background-color: #EBF2F6 !important;
         border-right: 1px solid #DDE4E9;
@@ -45,7 +41,6 @@ st.markdown("""
         background-color: #EBF2F6 !important;
     }
 
-    /* Etiquetas del Panel de Control */
     .sidebar-label {
         font-size: 15px;
         font-weight: 800;
@@ -55,13 +50,9 @@ st.markdown("""
         margin-bottom: 5px;
     }
 
-    /* Estilo de los Tabs (Pestañas) */
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 30px;
-        background-color: transparent;
-    }
+    .stTabs [data-baseweb="tab-list"] { gap: 30px; }
     .stTabs [data-baseweb="tab"] {
-        font-size: 16px;
+        font-size: 17px;
         font-weight: 700;
         color: #6C757D !important;
         text-transform: uppercase;
@@ -71,190 +62,174 @@ st.markdown("""
         border-bottom: 4px solid #E63946 !important;
     }
 
-    /* Tarjetas de Cuotas */
     .odds-card {
         background: #F8FAFC;
         border: 1px solid #E2E8F0;
-        padding: 35px;
+        padding: 40px;
         border-radius: 8px;
         text-align: center;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    }
-    .odds-label {
-        color: #64748B;
-        font-size: 13px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 15px;
     }
     .odds-value {
         color: #D4AF37; 
-        font-size: 50px;
+        font-size: 54px;
         font-weight: 900;
     }
 
-    /* Selectores de la Barra Lateral */
-    div[data-baseweb="select"] > div {
-        background-color: #FFFFFF !important;
-        border: 1px solid #CED4DA !important;
+    .report-box {
+        background-color: #F8FAFC;
+        border-left: 6px solid #1D3557;
+        padding: 25px;
+        border-radius: 4px;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# --- 3. BASE DE DATOS MAESTRA (96 EQUIPOS - 5 GRANDES LIGAS) ---
+# --- 3. BASE DE DATOS MAESTRA 2025/2026 ---
 datos_ligas = {
-    "LaLiga (España)": {
+    "Premier League": {
         "total": 20, "equipos": {
-            "Real Madrid": {"pos": 1, "gf": 82, "gc": 22}, "FC Barcelona": {"pos": 2, "gf": 79, "gc": 25},
-            "Atlético de Madrid": {"pos": 3, "gf": 65, "gc": 30}, "Villarreal CF": {"pos": 4, "gf": 60, "gc": 35},
-            "Real Sociedad": {"pos": 5, "gf": 55, "gc": 32}, "Athletic Club": {"pos": 6, "gf": 52, "gc": 38},
-            "Girona FC": {"pos": 7, "gf": 68, "gc": 45}, "Real Betis": {"pos": 8, "gf": 48, "gc": 42},
-            "CA Osasuna": {"pos": 9, "gf": 40, "gc": 40}, "Sevilla FC": {"pos": 10, "gf": 45, "gc": 50},
-            "Valencia CF": {"pos": 11, "gf": 38, "gc": 44}, "Celta de Vigo": {"pos": 12, "gf": 42, "gc": 52},
-            "RCD Mallorca": {"pos": 13, "gf": 33, "gc": 40}, "Rayo Vallecano": {"pos": 14, "gf": 35, "gc": 48},
-            "UD Las Palmas": {"pos": 15, "gf": 32, "gc": 47}, "Getafe CF": {"pos": 16, "gf": 30, "gc": 42},
-            "RCD Espanyol": {"pos": 17, "gf": 34, "gc": 55}, "CD Leganés": {"pos": 18, "gf": 28, "gc": 50},
-            "Real Valladolid": {"pos": 19, "gf": 26, "gc": 58}, "Deportivo Alavés": {"pos": 20, "gf": 25, "gc": 60}
+            "Arsenal": {"pos": 1, "gf": 67, "gc": 26}, "Manchester City": {"pos": 2, "gf": 72, "gc": 32},
+            "Manchester United": {"pos": 3, "gf": 63, "gc": 48}, "Liverpool": {"pos": 4, "gf": 60, "gc": 48},
+            "Aston Villa": {"pos": 5, "gf": 48, "gc": 44}, "Bournemouth": {"pos": 6, "gf": 56, "gc": 52},
+            "Brighton": {"pos": 7, "gf": 52, "gc": 42}, "Brentford": {"pos": 8, "gf": 52, "gc": 49},
+            "Chelsea": {"pos": 9, "gf": 55, "gc": 49}, "Everton": {"pos": 10, "gf": 44, "gc": 44},
+            "Fulham": {"pos": 11, "gf": 44, "gc": 50}, "Sunderland": {"pos": 12, "gf": 37, "gc": 46},
+            "Newcastle United": {"pos": 13, "gf": 49, "gc": 51}, "Leeds": {"pos": 14, "gf": 47, "gc": 52},
+            "Crystal Palace": {"pos": 15, "gf": 36, "gc": 42}, "Nottingham Forest": {"pos": 16, "gf": 44, "gc": 46},
+            "Tottenham": {"pos": 17, "gf": 45, "gc": 54}, "West Ham": {"pos": 18, "gf": 42, "gc": 61},
+            "Burnley": {"pos": 19, "gf": 35, "gc": 71}, "Wolverhampton Wanderers": {"pos": 20, "gf": 25, "gc": 66}
         }
     },
-    "Premier League (Inglaterra)": {
+    "La Liga": {
         "total": 20, "equipos": {
-            "Manchester City": {"pos": 1, "gf": 94, "gc": 30}, "Arsenal": {"pos": 2, "gf": 88, "gc": 28},
-            "Liverpool": {"pos": 3, "gf": 85, "gc": 35}, "Chelsea": {"pos": 4, "gf": 72, "gc": 40},
-            "Aston Villa": {"pos": 5, "gf": 70, "gc": 45}, "Tottenham": {"pos": 6, "gf": 74, "gc": 55},
-            "Manchester United": {"pos": 7, "gf": 58, "gc": 50}, "Newcastle": {"pos": 8, "gf": 65, "gc": 52},
-            "Brighton": {"pos": 9, "gf": 60, "gc": 58}, "West Ham": {"pos": 10, "gf": 52, "gc": 55},
-            "Fulham": {"pos": 11, "gf": 48, "gc": 55}, "Bournemouth": {"pos": 12, "gf": 50, "gc": 62},
-            "Brentford": {"pos": 13, "gf": 45, "gc": 60}, "Crystal Palace": {"pos": 14, "gf": 40, "gc": 58},
-            "Nottingham Forest": {"pos": 15, "gf": 38, "gc": 65}, "Everton": {"pos": 16, "gf": 35, "gc": 52},
-            "Wolverhampton": {"pos": 17, "gf": 33, "gc": 60}, "Leicester City": {"pos": 18, "gf": 38, "gc": 70},
-            "Ipswich Town": {"pos": 19, "gf": 30, "gc": 75}, "Southampton": {"pos": 20, "gf": 28, "gc": 80}
+            "Barcelona": {"pos": 1, "gf": 89, "gc": 31}, "Real Madrid": {"pos": 2, "gf": 70, "gc": 31},
+            "Villarreal": {"pos": 3, "gf": 64, "gc": 39}, "Atletico Madrid": {"pos": 4, "gf": 58, "gc": 38},
+            "Real Betis": {"pos": 5, "gf": 54, "gc": 43}, "Celta Vigo": {"pos": 6, "gf": 49, "gc": 44},
+            "Real Sociedad": {"pos": 7, "gf": 54, "gc": 55}, "Getafe": {"pos": 8, "gf": 28, "gc": 36},
+            "Athletic Club": {"pos": 9, "gf": 40, "gc": 50}, "Osasuna": {"pos": 10, "gf": 42, "gc": 45},
+            "Rayo Vallecano": {"pos": 11, "gf": 35, "gc": 41}, "Sevilla": {"pos": 12, "gf": 43, "gc": 56},
+            "Elche": {"pos": 13, "gf": 46, "gc": 54}, "Valencia": {"pos": 14, "gf": 37, "gc": 50},
+            "Espanyol": {"pos": 15, "gf": 38, "gc": 53}, "Mallorca": {"pos": 16, "gf": 42, "gc": 51},
+            "Girona": {"pos": 17, "gf": 36, "gc": 51}, "Alaves": {"pos": 18, "gf": 41, "gc": 54},
+            "Levante": {"pos": 19, "gf": 41, "gc": 57}, "Real Oviedo": {"pos": 20, "gf": 26, "gc": 54}
         }
     },
-    "Serie A (Italia)": {
+    "Serie A": {
         "total": 20, "equipos": {
-            "Inter Milan": {"pos": 1, "gf": 85, "gc": 20}, "Juventus": {"pos": 2, "gf": 65, "gc": 18},
-            "AC Milan": {"pos": 3, "gf": 70, "gc": 35}, "Napoli": {"pos": 4, "gf": 68, "gc": 32},
-            "Atalanta": {"pos": 5, "gf": 75, "gc": 42}, "AS Roma": {"pos": 6, "gf": 60, "gc": 40},
-            "Lazio": {"pos": 7, "gf": 55, "gc": 38}, "Fiorentina": {"pos": 8, "gf": 58, "gc": 44},
-            "Bologna": {"pos": 9, "gf": 50, "gc": 35}, "Torino": {"pos": 10, "gf": 42, "gc": 40},
-            "Udinese": {"pos": 11, "gf": 38, "gc": 45}, "Parma": {"pos": 12, "gf": 40, "gc": 50},
-            "Genoa": {"pos": 13, "gf": 35, "gc": 42}, "Como": {"pos": 14, "gf": 38, "gc": 55},
-            "Monza": {"pos": 15, "gf": 32, "gc": 48}, "Cagliari": {"pos": 16, "gf": 30, "gc": 52},
-            "Lecce": {"pos": 17, "gf": 28, "gc": 55}, "Empoli": {"pos": 18, "gf": 26, "gc": 58},
-            "Venezia": {"pos": 19, "gf": 29, "gc": 65}, "Hellas Verona": {"pos": 20, "gf": 25, "gc": 62}
+            "Inter": {"pos": 1, "gf": 85, "gc": 31}, "Napoli": {"pos": 2, "gf": 52, "gc": 33},
+            "Juventus": {"pos": 3, "gf": 59, "gc": 30}, "AC Milan": {"pos": 4, "gf": 48, "gc": 29},
+            "Roma": {"pos": 5, "gf": 52, "gc": 29}, "Como": {"pos": 6, "gf": 59, "gc": 28},
+            "Atalanta": {"pos": 7, "gf": 47, "gc": 32}, "Lazio": {"pos": 8, "gf": 39, "gc": 37},
+            "Udinese": {"pos": 9, "gf": 45, "gc": 46}, "Bologna": {"pos": 10, "gf": 42, "gc": 41},
+            "Sassuolo": {"pos": 11, "gf": 44, "gc": 46}, "Torino": {"pos": 12, "gf": 41, "gc": 59},
+            "Parma Calcio 1913": {"pos": 13, "gf": 25, "gc": 42}, "Genoa": {"pos": 14, "gf": 40, "gc": 48},
+            "Fiorentina": {"pos": 15, "gf": 38, "gc": 49}, "Cagliari": {"pos": 16, "gf": 36, "gc": 51},
+            "Lecce": {"pos": 17, "gf": 24, "gc": 48}, "Cremonese": {"pos": 18, "gf": 27, "gc": 53},
+            "Verona": {"pos": 19, "gf": 24, "gc": 57}, "Pisa": {"pos": 20, "gf": 25, "gc": 63}
         }
     },
-    "Bundesliga (Alemania)": {
+    "Bundesliga": {
         "total": 18, "equipos": {
-            "Bayer Leverkusen": {"pos": 1, "gf": 88, "gc": 24}, "Bayern Munich": {"pos": 2, "gf": 92, "gc": 30},
-            "RB Leipzig": {"pos": 3, "gf": 75, "gc": 35}, "Borussia Dortmund": {"pos": 4, "gf": 72, "gc": 40},
-            "VfB Stuttgart": {"pos": 5, "gf": 78, "gc": 45}, "Eintracht Frankfurt": {"pos": 6, "gf": 60, "gc": 48},
-            "Hoffenheim": {"pos": 7, "gf": 62, "gc": 60}, "SC Freiburg": {"pos": 8, "gf": 50, "gc": 52},
-            "Werder Bremen": {"pos": 9, "gf": 48, "gc": 55}, "Wolfsburg": {"pos": 10, "gf": 45, "gc": 52},
-            "Augsburg": {"pos": 11, "gf": 46, "gc": 58}, "Heidenheim": {"pos": 12, "gf": 42, "gc": 55},
-            "Mainz 05": {"pos": 13, "gf": 38, "gc": 54}, "Mönchengladbach": {"pos": 14, "gf": 52, "gc": 65},
-            "Union Berlin": {"pos": 15, "gf": 33, "gc": 50}, "St. Pauli": {"pos": 16, "gf": 30, "gc": 55},
-            "Holstein Kiel": {"pos": 17, "gf": 28, "gc": 62}, "VfL Bochum": {"pos": 18, "gf": 25, "gc": 70}
+            "Bayern Munich": {"pos": 1, "gf": 117, "gc": 35}, "Borussia Dortmund": {"pos": 2, "gf": 68, "gc": 34},
+            "RB Leipzig": {"pos": 3, "gf": 65, "gc": 43}, "VfB Stuttgart": {"pos": 4, "gf": 69, "gc": 47},
+            "Hoffenheim": {"pos": 5, "gf": 65, "gc": 48}, "Bayer Leverkusen": {"pos": 6, "gf": 67, "gc": 46},
+            "Freiburg": {"pos": 7, "gf": 45, "gc": 53}, "Eintracht Frankfurt": {"pos": 8, "gf": 59, "gc": 63},
+            "Augsburg": {"pos": 9, "gf": 45, "gc": 57}, "Mainz 05": {"pos": 10, "gf": 41, "gc": 50},
+            "Borussia M.Gladbach": {"pos": 11, "gf": 38, "gc": 53}, "Hamburger SV": {"pos": 12, "gf": 36, "gc": 51},
+            "Union Berlin": {"pos": 13, "gf": 37, "gc": 57}, "FC Cologne": {"pos": 14, "gf": 47, "gc": 55},
+            "Werder Bremen": {"pos": 15, "gf": 37, "gc": 58}, "Wolfsburg": {"pos": 16, "gf": 42, "gc": 68},
+            "St. Pauli": {"pos": 17, "gf": 28, "gc": 57}, "FC Heidenheim": {"pos": 18, "gf": 38, "gc": 69}
         }
     },
-    "Ligue 1 (Francia)": {
+    "Ligue 1": {
         "total": 18, "equipos": {
-            "Paris Saint-Germain": {"pos": 1, "gf": 85, "gc": 22}, "Monaco": {"pos": 2, "gf": 68, "gc": 38},
-            "Lille": {"pos": 3, "gf": 62, "gc": 32}, "Marseille": {"pos": 4, "gf": 65, "gc": 40},
-            "Lyon": {"pos": 5, "gf": 60, "gc": 45}, "Lens": {"pos": 6, "gf": 52, "gc": 35},
-            "Nice": {"pos": 7, "gf": 48, "gc": 30}, "Rennes": {"pos": 8, "gf": 55, "gc": 48},
-            "Reims": {"pos": 9, "gf": 45, "gc": 47}, "Toulouse": {"pos": 10, "gf": 42, "gc": 45},
-            "Strasbourg": {"pos": 11, "gf": 40, "gc": 50}, "Montpellier": {"pos": 12, "gf": 43, "gc": 60},
-            "Auxerre": {"pos": 13, "gf": 35, "gc": 52}, "Nantes": {"pos": 14, "gf": 32, "gc": 48},
-            "Angers": {"pos": 15, "gf": 30, "gc": 55}, "Le Havre": {"pos": 16, "gf": 28, "gc": 50},
-            "Saint-Étienne": {"pos": 17, "gf": 26, "gc": 58}, "Brest": {"pos": 18, "gf": 38, "gc": 45}
+            "Paris Saint Germain": {"pos": 1, "gf": 70, "gc": 27}, "Lens": {"pos": 2, "gf": 62, "gc": 33},
+            "Lyon": {"pos": 3, "gf": 52, "gc": 34}, "Lille": {"pos": 4, "gf": 51, "gc": 35},
+            "Rennes": {"pos": 5, "gf": 56, "gc": 46}, "Monaco": {"pos": 6, "gf": 56, "gc": 48},
+            "Marseille": {"pos": 7, "gf": 59, "gc": 44}, "Strasbourg": {"pos": 8, "gf": 50, "gc": 41},
+            "Lorient": {"pos": 9, "gf": 44, "gc": 49}, "Toulouse": {"pos": 10, "gf": 45, "gc": 45},
+            "Paris FC": {"pos": 11, "gf": 44, "gc": 47}, "Brest": {"pos": 12, "gf": 41, "gc": 51},
+            "Angers": {"pos": 13, "gf": 27, "gc": 46}, "Le Havre": {"pos": 14, "gf": 30, "gc": 43},
+            "Nice": {"pos": 15, "gf": 36, "gc": 58}, "Auxerre": {"pos": 16, "gf": 30, "gc": 43},
+            "Nantes": {"pos": 17, "gf": 29, "gc": 52}, "Metz": {"pos": 18, "gf": 32, "gc": 72}
         }
     }
 }
 
-# --- 4. MOTOR DE CÁLCULO ---
-def calcular_cuotas_champagne(sl, sv, n):
-    f_l = (sl["gf"] / max(1, sl["gc"])) * (n - sl["pos"] + 1) * 1.15
-    f_v = (sv["gf"] / max(1, sv["gc"])) * (n - sv["pos"] + 1)
-    den = f_l + f_v + (n * 0.45)
-    p_l = f_l / den
-    p_v = f_v / den
-    p_e = 1 - p_l - p_v
-    return round(1/p_l, 2), round(1/p_e, 2), round(1/p_v, 2)
+# --- 4. MOTOR DE CÁLCULO PROFESIONAL (ESPACIO ELIMINADO) ---
+def calcular_cuotas_Champagne(sl, sv, n):
+    p_pos_l = (n - sl["pos"] + 1) / n
+    p_pos_v = (n - sv["pos"] + 1) / n
+    eff_l = sl["gf"] / max(1, sl["gc"])
+    eff_v = sv["gf"] / max(1, sv["gc"])
+    
+    f_l = (p_pos_l * 0.65 + eff_l * 0.35) * 1.12
+    f_v = (p_pos_v * 0.65 + eff_v * 0.35)
+    
+    total = f_l + f_v
+    prob_l_base = f_l / total
+    prob_v_base = f_v / total
+    
+    dif = abs(prob_l_base - prob_v_base)
+    prob_e = 0.28 - (dif * 0.10)
+    
+    p_l = prob_l_base * (1.0 - prob_e)
+    p_v = prob_v_base * (1.0 - prob_e)
+    
+    return round(1/p_l, 2), round(1/prob_e, 2), round(1/p_v, 2)
 
-# --- 5. PANEL DE CONTROL (SIDEBAR #EBF2F6) ---
+# --- 5. PANEL DE CONTROL ---
 with st.sidebar:
-    st.markdown('<p style="font-size: 20px; font-weight: 900; color: #1D3557; margin-bottom: 30px;">PANEL DE CONTROL</p>', unsafe_allow_html=True)
-    
-    st.markdown('<p class="sidebar-label">ELEGIR COMPETICIÓN</p>', unsafe_allow_html=True)
-    liga_sel = st.selectbox("", list(datos_ligas.keys()), label_visibility="collapsed")
-    
-    equipos_disponibles = sorted(list(datos_ligas[liga_sel]["equipos"].keys()))
-    
-    st.markdown('<p class="sidebar-label">EQUIPO LOCAL</p>', unsafe_allow_html=True)
-    local = st.selectbox("L", equipos_disponibles, index=0, label_visibility="collapsed")
-    
-    st.markdown('<p class="sidebar-label">EQUIPO VISITANTE</p>', unsafe_allow_html=True)
-    visitante = st.selectbox("V", equipos_disponibles, index=1, label_visibility="collapsed")
-    
+    st.markdown('<p class="sidebar-label">PANEL DE CONTROL</p>', unsafe_allow_html=True)
+    liga_sel = st.selectbox("LIGA", list(datos_ligas.keys()))
+    equipos = sorted(list(datos_ligas[liga_sel]["equipos"].keys()))
+    loc = st.selectbox("LOCAL", equipos, index=0)
+    vis = st.selectbox("VISITANTE", equipos, index=min(1, len(equipos)-1))
     st.markdown("---")
-    st.markdown('<p class="sidebar-label">CASA DE APUESTAS</p>', unsafe_allow_html=True)
-    bookie = st.selectbox("B", ["Bet365", "Winamax", "Betfair", "Bwin", "Luckia"], label_visibility="collapsed")
 
 # --- 6. INTERFAZ PRINCIPAL ---
-st.markdown("""
-    <div class="brand-header">
-        <h1 class="brand-title">Apuestas</h1>
-    </div>
-    """, unsafe_allow_html=True)
+st.markdown('<div class="brand-header"><h1 class="brand-title">Fútbol Champagne Pro</h1></div>', unsafe_allow_html=True)
 
 tab1, tab2, tab3 = st.tabs(["ANÁLISIS 1X2", "GESTIÓN DE BANCA", "INFORME TÉCNICO"])
 
+if loc != vis:
+    cl, ce, cv = calcular_cuotas_Champagne(datos_ligas[liga_sel]["equipos"][loc], datos_ligas[liga_sel]["equipos"][vis], datos_ligas[liga_sel]["total"])
+
 with tab1:
-    if local == visitante:
-        st.warning("Seleccione dos equipos distintos para proceder.")
+    if loc == vis:
+        st.warning("Seleccione equipos distintos.")
     else:
-        cl, ce, cv = calcular_cuotas_champagne(
-            datos_ligas[liga_sel]["equipos"][local], 
-            datos_ligas[liga_sel]["equipos"][visitante], 
-            datos_ligas[liga_sel]["total"]
-        )
-        
-        st.markdown(f"<h3 style='color: #1D3557;'>COMPARATIVA: {local.upper()} VS {visitante.upper()}</h3>", unsafe_allow_html=True)
-        
+        st.markdown(f"<h3 style='color: #1D3557;'>TEMPORADA 25/26: {loc.upper()} VS {vis.upper()}</h3>", unsafe_allow_html=True)
         c1, c2, c3 = st.columns(3)
-        with c1:
-            st.markdown(f'<div class="odds-card"><div class="odds-label">GANA {local.upper()}</div><div class="odds-value">{cl}</div></div>', unsafe_allow_html=True)
-        with c2:
-            st.markdown(f'<div class="odds-card"><div class="odds-label">EMPATE</div><div class="odds-value">{ce}</div></div>', unsafe_allow_html=True)
-        with c3:
-            st.markdown(f'<div class="odds-card"><div class="odds-label">GANA {visitante.upper()}</div><div class="odds-value">{cv}</div></div>', unsafe_allow_html=True)
+        c1.markdown(f'<div class="odds-card"><div style="color:#6C757D; font-weight:800; font-size:13px; margin-bottom:15px; text-transform:uppercase;">GANA {loc.upper()}</div><div class="odds-value">{cl}</div></div>', unsafe_allow_html=True)
+        c2.markdown(f'<div class="odds-card"><div style="color:#6C757D; font-weight:800; font-size:13px; margin-bottom:15px; text-transform:uppercase;">EMPATE</div><div class="odds-value">{ce}</div></div>', unsafe_allow_html=True)
+        c3.markdown(f'<div class="odds-card"><div style="color:#6C757D; font-weight:800; font-size:13px; margin-bottom:15px; text-transform:uppercase;">GANA {vis.upper()}</div><div class="odds-value">{cv}</div></div>', unsafe_allow_html=True)
 
 with tab2:
-    st.markdown(f"<h3 style='color: #1D3557;'>SIMULADOR DE BANCA: {bookie.upper()}</h3>", unsafe_allow_html=True)
-    col_money, col_res = st.columns(2)
-    
-    with col_money:
-        apuesta = st.number_input("CANTIDAD A INVERTIR (DE 5€ EN 5€)", min_value=5, value=10, step=5)
-        cuota_mercado = st.number_input(f"CUOTA ACTUAL EN {bookie.upper()}", value=cl if 'cl' in locals() else 2.0, step=0.01)
-    
-    with col_res:
-        neto = round((apuesta * cuota_mercado) - apuesta, 2)
-        st.markdown("#### BENEFICIO NETO PROYECTADO")
+    st.markdown(f"<h3 style='color: #1D3557;'>SIMULADOR DE OPERACIONES</h3>", unsafe_allow_html=True)
+    col_m, col_r = st.columns(2)
+    with col_m:
+        apuesta = st.number_input("CANTIDAD A INVERTIR (PASOS DE 5€)", min_value=5, value=10, step=5)
+        st.markdown(f"**CUOTA FIJA:** {cl}")
+    with col_r:
+        neto = round((apuesta * cl) - apuesta, 2)
+        st.markdown("#### GANANCIA NETA ESTIMADA")
         st.markdown(f"<h1 style='color: #1D3557; font-size: 60px;'>{neto} €</h1>", unsafe_allow_html=True)
 
 with tab3:
-    st.markdown("<h2 style='color: #1D3557;'>VERDICTO DEL ALGORITMO</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color: #1D3557;'>DETALLES DE LA CUOTA</h2>", unsafe_allow_html=True)
     if 'cl' in locals():
         st.markdown(f"""
-        <div style="background-color: #F8FAFC; border-left: 6px solid #1D3557; padding: 25px; border-radius: 4px;">
-            <ul style="color: #334155; line-height: 1.8;">
-                <li><b>Parámetros:</b> Cálculo basado en posición y goles históricos.</li>
-                <li><b>Ajuste:</b> Se incluye el factor campo para el equipo local.</li>
-                <li><b>Goles Marcados:</b> Análisis de efectividad ofensiva de ambos conjuntos.</li>
+        <div class="report-box">
+            <p>La cuota de <b>{cl}</b> se establece bajo los siguientes criterios de la temporada actual:</p>
+            <ul>
+                <li><b>Clasificación (65%):</b> Ponderación de la posición del <b>{loc}</b> (Puesto {datos_ligas[liga_sel]['equipos'][loc]['pos']}) frente al rival.</li>
+                <li><b>Efectividad (35%):</b> Análisis de los {datos_ligas[liga_sel]['equipos'][loc]['gf']} goles anotados frente a la defensa contraria.</li>
+                <li><b>Factor Campo:</b> Ajuste positivo de localía del 12%.</li>
+                <li><b>Paridad:</b> Ajuste dinámico de empate para reflejar la realidad del mercado profesional.</li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
 
+st.markdown("---")
+st.caption("© 2026 Fútbol Champagne Pro | Temporada 2025/2026 | +18 Juega con responsabilidad")
