@@ -25,7 +25,7 @@ if os.path.exists(ruta_logo):
         </div>
     """, unsafe_allow_html=True)
 
-st.title("🏟️ Disposición Táctica Inteligente")
+st.title("Disposición Táctica")
 st.divider()
 
 # --- 3. CARGA Y LIMPIEZA DE DATOS ---
@@ -70,6 +70,7 @@ if not df.empty:
             else: return 85 
 
         # Aseguramos que existan las columnas de coordenadas
+        # Dejamos las coordenadas como estaban
         df_equipo['coord_x'] = df_equipo['posicion'].apply(asignar_x).astype(float)
         df_equipo['coord_y'] = 50.0
         
@@ -79,50 +80,64 @@ if not df.empty:
             if n == 1:
                 y_coords = [50.0]
             else:
-                spread = min(38, n * 5) # Separación dinámica
+                spread = min(38, n * 5)
                 y_coords = np.linspace(50 - spread, 50 + spread, n)
             for i, idx in enumerate(indices):
                 df_equipo.at[idx, 'coord_y'] = float(y_coords[i])
 
-# En Equipo.py
-        def crear_link(nombre):
-            # 'Jugadores' debe ser el nombre de tu archivo en la carpeta pages/
-            # Usamos target="_top" para que refresque la app entera
-            return f'<a href="Jugadores?player={quote(str(nombre))}" target="_top" style="color:white; text-decoration:none; font-weight:bold;">{nombre}</a>'
-
-        df_equipo['link_html'] = df_equipo['jugador'].apply(crear_link)
-
-        # --- 6. DIBUJO DEL CAMPO ---
+        # --- DIBUJO DEL CAMPO (Limpio, sin enlaces rotos) ---
+        # --- 5. DIBUJO DEL CAMPO (Limpio y Preparado para clics) ---
         fig = go.Figure()
 
-        # Césped y líneas (Capas inferiores)
+        # Césped y líneas
         fig.add_shape(type="rect", x0=0, y0=0, x1=100, y1=100, line=dict(color="white", width=2), fillcolor="#2b7a2b", layer="below")
         fig.add_shape(type="line", x0=50, y0=0, x1=50, y1=100, line=dict(color="white", width=2), layer="below")
         fig.add_shape(type="circle", x0=40, y0=40, x1=60, y1=60, line=dict(color="white", width=2), layer="below")
         fig.add_shape(type="rect", x0=0, y0=20, x1=15, y1=80, line=dict(color="white", width=2), layer="below")
         fig.add_shape(type="rect", x0=85, y0=20, x1=100, y1=80, line=dict(color="white", width=2), layer="below")
 
-        # JUGADORES (Capa superior)
+        # IMPORTANTE: Metemos el nombre del jugador en 'customdata' para que Plotly 
+        # sepa exactamente a quién estamos pinchando en secreto.
         fig.add_trace(go.Scatter(
             x=df_equipo['coord_x'], 
             y=df_equipo['coord_y'],
             mode='markers+text',
-            text=df_equipo['link_html'],
+            text=df_equipo['jugador'],
+            customdata=df_equipo['jugador'], # <--- LA CLAVE TÉCNICA ESTÁ AQUÍ
             textposition="top center",
             marker=dict(size=18, color="white", line=dict(width=2, color="black")),
             textfont=dict(size=12, family="Arial Black", color="white"),
             hoverinfo="text",
-            hovertext=df_equipo['jugador']
+            hovertext=df_equipo['posicion']
         ))
 
         fig.update_layout(
             xaxis=dict(visible=False, range=[-5, 105]),
             yaxis=dict(visible=False, range=[-5, 105]),
             margin=dict(l=0, r=0, t=0, b=0),
-            height=700,
+            height=600,
             plot_bgcolor='rgba(0,0,0,0)',
             paper_bgcolor='rgba(0,0,0,0)',
-            showlegend=False
+            showlegend=False,
+            clickmode='event+select' # Activamos el modo clic
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.info("💡 **Haz clic directamente en el punto o nombre del jugador** sobre el césped para ver su Radar FIFA.")
+
+        # --- 6. LA MAGIA DEL CLIC NATIVO ---
+        # on_select="rerun" obliga a Streamlit a capturar tu clic del ratón al instante
+        evento = st.plotly_chart(fig, use_container_width=True, on_select="rerun")
+
+        # --- 7. LÓGICA DE SALTO AUTOMÁTICO ---
+        # Si Streamlit detecta que has pinchado un punto...
+        if evento and len(evento.selection.get("points", [])) > 0:
+            
+            # Extraemos el nombre del jugador al que has hecho clic
+            jugador_clicado = evento.selection["points"][0]["customdata"]
+            
+            # 1. Guardamos el jugador y la temporada en la memoria invisible
+            st.session_state['jugador_enviado'] = jugador_clicado
+            st.session_state['temporada_enviada'] = sel_temp
+            
+            # 2. Hacemos el salto de página oficial e infalible
+            st.switch_page("pages/Jugadores⚽.py")
