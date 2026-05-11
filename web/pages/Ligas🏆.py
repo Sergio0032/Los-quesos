@@ -1,144 +1,202 @@
-import streamlit as st
+from pathlib import Path
 import pandas as pd
-import os
+import streamlit as st
+import urllib.parse
+import unicodedata
 
-st.title("Ligas")
+# =========================================================================
+# 1. CONFIGURACIÓN CORE
+# =========================================================================
+st.set_page_config(page_title="Football Stats Pro", page_icon="⚽", layout="wide")
 
-st.sidebar.header("⚙️ Configuración")
+st.markdown("""
+<style>
+    [data-testid="stHeader"], footer {visibility: hidden;}
+</style>
+""", unsafe_allow_html=True)
 
-opciones_temporadas = ["2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014"] 
-opciones_ligas = ["Premier League", "La Liga", "Serie A", "Bundesliga", "Ligue 1"] 
+# =========================================================================
+# 2. ACTIVOS VISUALES (Logos Ligas y MAPEO MAESTRO API-SPORTS)
+# =========================================================================
+LOGOS_LIGAS = {
+    "Premier League": "https://media.api-sports.io/football/leagues/39.png",
+    "La Liga": "https://media.api-sports.io/football/leagues/140.png",
+    "Bundesliga": "https://media.api-sports.io/football/leagues/78.png",
+    "Serie A": "https://media.api-sports.io/football/leagues/135.png",
+    "Ligue 1": "https://media.api-sports.io/football/leagues/61.png"
+}
 
-temporada_elegida = st.sidebar.selectbox("Selecciona la temporada:", opciones_temporadas)
-liga_elegida = st.sidebar.selectbox("Selecciona la liga:", opciones_ligas)
-
-tab_clasificacion, tab_goleadores = st.tabs(["📊 Clasificación", "⚽ Goleadores"])
-
-
-with tab_clasificacion:
-    directorio_actual = os.path.dirname(os.path.abspath(__file__))
-    nombre_archivo = f"clasificacion_{temporada_elegida}.csv"
-    ruta_csv = os.path.join(directorio_actual, "..", "..", "data_clasificaciones", nombre_archivo)
+# Diccionario Maestro (Regresamos a los IDs estables de API-Sports)
+LOGOS_CLUBES = {
+    # --- LA LIGA ---
+    "real madrid": "541", "barcelona": "529", "atletico madrid": "530", 
+    "villarreal": "533", "real betis": "543", "celta vigo": "538", 
+    "getafe": "546", "real sociedad": "548", "osasuna": "727", 
+    "athletic club": "531", "athletic bilbao": "531", "rayo vallecano": "728", 
+    "valencia": "532", "elche": "730", "sevilla": "536", 
+    "espanyol": "540", "mallorca": "534", "alaves": "542", 
+    "granada": "715", "cadiz": "724", "levante": "539", 
+    "real valladolid": "712", "valladolid": "712", "eibar": "537", 
+    "girona": "547", "las palmas": "535", "almeria": "733", 
+    "leganes": "745", "malaga": "723", "deportivo la coruna": "720", 
+    "deportivo": "720", "sporting gijon": "732", "huesca": "714",
     
-    try:
-        df = pd.read_csv(ruta_csv)
-        
-        # 1. Filtramos primero usando la columna 'Liga'
-        if liga_elegida != "Todas":
-            df = df[df['Liga'] == liga_elegida]
-
-        st.markdown("### 🏆 Resumen de la Temporada")
-
-        if not df.empty:
-            campeon = df.iloc[0]['Equipo']
-            puntos_campeon = df.iloc[0]['Puntos'] 
-            st.metric(label=f"👑 Campeón ({liga_elegida})", value=campeon, delta=f"{puntos_campeon} Puntos")
-
-        st.markdown("---") 
-
-        # 2. Eliminamos las columnas 'Temporada' y 'Liga' ANTES de dar color y mostrar
-        df = df.drop(columns=['Temporada', 'Liga'], errors='ignore')
-
-        def colorear_posiciones(df_a_colorear):
-            colores = pd.DataFrame('', index=df_a_colorear.index, columns=df_a_colorear.columns)
-            total_equipos = len(df_a_colorear)
-            
-            for i in range(total_equipos):
-                if i < 4:
-                    estilo = 'background-color: #1f77b4; color: white;'
-                elif i < 6:
-                    estilo = 'background-color: #ff7f0e; color: white;'
-                elif i == 6:
-                    estilo = 'background-color: #2ca02c; color: white;'
-                elif i >= total_equipos - 3:
-                    estilo = 'background-color: #d62728; color: white;'
-                else:
-                    estilo = ''
-                colores.iloc[i] = estilo
-            return colores
-
-        df = df.reset_index(drop=True)
-        tabla_estilada = df.style.apply(colorear_posiciones, axis=None)
-
-        st.dataframe(
-            tabla_estilada,
-            hide_index=True,          
-            use_container_width=True,  
-            column_config={
-                "Puntos": st.column_config.ProgressColumn(
-                    "Puntos Obtenidos",  
-                    help="Total de puntos conseguidos en la temporada",
-                    format="%d",        
-                    min_value=0,
-                    max_value=114,       
-                ),
-            }
-        )
-
-        # Leyenda
-        col1, col2, col3, col4 = st.columns(4)
-
-        with col1:
-            st.markdown("<div style='display: flex; align-items: center;'><div style='width: 20px; height: 20px; background-color: #1f77b4; margin-right: 10px; border-radius: 3px;'></div><span>Champions League</span></div>", unsafe_allow_html=True)
-        with col2:
-            st.markdown("<div style='display: flex; align-items: center;'><div style='width: 20px; height: 20px; background-color: #ff7f0e; margin-right: 10px; border-radius: 3px;'></div><span>Europa League</span></div>", unsafe_allow_html=True)
-        with col3:
-            st.markdown("<div style='display: flex; align-items: center;'><div style='width: 20px; height: 20px; background-color: #2ca02c; margin-right: 10px; border-radius: 3px;'></div><span>Conference League</span></div>", unsafe_allow_html=True)
-        with col4:
-            st.markdown("<div style='display: flex; align-items: center;'><div style='width: 20px; height: 20px; background-color: #d62728; margin-right: 10px; border-radius: 3px;'></div><span>Descenso</span></div>", unsafe_allow_html=True)
-
-    except FileNotFoundError:
-        st.warning(f"No se encontró el archivo de clasificación para la temporada {temporada_elegida}.")
-
-
-with tab_goleadores:
-    nombre_archivo_goles = f"goleadores_{temporada_elegida}.csv"
-    ruta_goles = os.path.join(directorio_actual, "..", "..", "data_clasificaciones", nombre_archivo_goles)
+    # --- PREMIER LEAGUE ---
+    "arsenal": "42", "manchester city": "50", "liverpool": "40", 
+    "manchester united": "33", "chelsea": "49", "tottenham": "47", 
+    "aston villa": "66", "newcastle united": "34", "newcastle": "34",
+    "brighton": "51", "west ham": "48", "everton": "45", 
+    "crystal palace": "52", "fulham": "36", "brentford": "55", 
+    "nottingham forest": "65", "bournemouth": "35", "wolves": "39", 
+    "wolverhampton": "39", "leicester": "46", "southampton": "41", 
+    "leeds": "63", "burnley": "44", "sheffield united": "62", 
+    "sunderland": "73", 
     
+    # --- SERIE A ---
+    "juventus": "496", "inter": "505", "ac milan": "489", "milan": "489",
+    "napoli": "492", "roma": "497", "lazio": "487", "atalanta": "499",
+    "fiorentina": "502", "torino": "503", "sassuolo": "488", "udinese": "494",
+    "genoa": "495", "sampdoria": "498", "bologna": "500", "cagliari": "490",
+    
+    # --- BUNDESLIGA ---
+    "bayern munich": "157", "borussia dortmund": "165", "bayer leverkusen": "168",
+    "rb leipzig": "173", "leipzig": "173", "eintracht frankfurt": "169", "frankfurt": "169",
+    "wolfsburg": "161", "hoffenheim": "167", "freiburg": "160", "union berlin": "182",
+    "stuttgart": "172", "mainz 05": "164", "mainz": "164",
+    
+    # --- LIGUE 1 ---
+    "paris saint germain": "85", "psg": "85", "marseille": "81", "lyon": "80",
+    "monaco": "91", "lille": "79", "rennes": "94", "nice": "84", "lens": "116",
+    "strasbourg": "95", "montpellier": "82", "reims": "93", "toulouse": "96"
+}
+
+COLORES_FILAS = {
+    "UCL": "background-color: rgba(0, 82, 160, 0.15);",      
+    "UEL": "background-color: rgba(246, 129, 33, 0.15);",    
+    "UECL": "background-color: rgba(0, 177, 64, 0.15);",     
+    "Descenso": "background-color: rgba(211, 47, 47, 0.15);", 
+    "Nada": ""
+}
+
+# =========================================================================
+# 3. LÓGICA DE DATOS AVANZADA
+# =========================================================================
+def normalizar_nombre(nombre):
+    """Limpia el texto: elimina mayúsculas, tildes y espacios extra."""
+    nombre = str(nombre).strip().lower()
+    nombre = ''.join((c for c in unicodedata.normalize('NFD', nombre) if unicodedata.category(c) != 'Mn'))
+    return nombre
+
+def obtener_escudo(equipo):
+    """Busca el equipo normalizado y devuelve el PNG de la API estable."""
+    equipo_norm = normalizar_nombre(equipo)
+    
+    if equipo_norm in LOGOS_CLUBES:
+        id_api = LOGOS_CLUBES[equipo_norm]
+        return f"https://media.api-sports.io/football/teams/{id_api}.png"
+        
+    # Si falta algún equipo (ej. uno de 2ª división muy raro), crea un logo con iniciales
+    nombre_seguro = urllib.parse.quote(str(equipo).strip())
+    return f"https://ui-avatars.com/api/?name={nombre_seguro}&background=1A1E26&color=FFFFFF&bold=true&length=2&font-size=0.4"
+
+def asignar_estatus(pos, reglas):
+    if pos <= reglas["UCL"]: return "UCL"
+    if pos <= reglas["UCL"] + reglas["UEL"]: return "UEL"
+    if pos <= reglas["UCL"] + reglas["UEL"] + reglas["UECL"]: return "UECL"
+    if pos > (20 - reglas["Descenso"]): return "Descenso"
+    return "Nada"
+
+@st.cache_data
+def cargar_datos_historicos(temporada, liga_seleccionada):
     try:
-        df_goles = pd.read_csv(ruta_goles)
+        año = temporada.split("/")[0]
+        ruta_raiz = Path(__file__).resolve().parent.parent.parent
+        ruta_archivo = ruta_raiz / "data_clasificaciones" / f"clasificacion_{año}.csv"
         
-        st.markdown(f"### 🇪🇺 BOTA DE ORO EUROPEA ({temporada_elegida})")
-        st.caption("Máximos goleadores de todas las competiciones")
+        df = pd.read_csv(ruta_archivo)
+        df_liga = df[df['Liga'] == liga_seleccionada].copy()
+        df_liga = df_liga.sort_values(by="Puntos", ascending=False).reset_index(drop=True)
+        df_liga["Posicion"] = range(1, len(df_liga) + 1)
         
-        df_bota_oro = df_goles.sort_values(by='Goles', ascending=False).reset_index(drop=True)
+        # Elimina columnas feas de siglas si existen
+        if "Club" in df_liga.columns:
+            df_liga = df_liga.drop(columns=["Club"])
         
-        col_oro, col_plata, col_bronce = st.columns(3)
+        reglas = {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 3} 
+        df_liga["Estatus"] = df_liga["Posicion"].apply(lambda x: asignar_estatus(x, reglas))
         
-        with col_oro:
-            st.metric(label="🥇 Bota de Oro", 
-                      value=df_bota_oro.iloc[0]['Jugador'], 
-                      delta=f"{df_bota_oro.iloc[0]['Goles']} Goles ({df_bota_oro.iloc[0]['Liga']})")
-        with col_plata:
-            st.metric(label="🥈 Segundo", 
-                      value=df_bota_oro.iloc[1]['Jugador'], 
-                      delta=f"{df_bota_oro.iloc[1]['Goles']} Goles ({df_bota_oro.iloc[1]['Liga']})")
-        with col_bronce:
-            st.metric(label="🥉 Tercero", 
-                      value=df_bota_oro.iloc[2]['Jugador'], 
-                      delta=f"{df_bota_oro.iloc[2]['Goles']} Goles ({df_bota_oro.iloc[2]['Liga']})")
-            
-        st.markdown("---")
+        # Asignación visual
+        df_liga["Escudo"] = df_liga["Equipo"].apply(obtener_escudo)
+        logos_plaza = {"UCL": "🔵", "UEL": "🟠", "UECL": "🟢", "Descenso": "🔴", "Nada": "⚫"}
+        df_liga["Plaza"] = df_liga["Estatus"].map(logos_plaza)
         
-        # 1. Filtramos los datos
-        if liga_elegida == "Todas":
-            st.markdown("### 📊 Top Goleadores Generales")
-            df_goles_filtrado = df_bota_oro 
-        else:
-            st.markdown(f"### 🎯 Top Goleadores - {liga_elegida}")
-            df_goles_filtrado = df_goles[df_goles['Liga'] == liga_elegida].sort_values(by='Goles', ascending=False)
-        
-        # 2. Eliminamos las columnas 'Temporada' y 'Liga' de la copia que vamos a mostrar
-        df_goles_mostrar = df_goles_filtrado.drop(columns=['Temporada', 'Liga'], errors='ignore')
+        return df_liga, reglas
+    except Exception as e:
+        st.error(f"Error cargando datos: {e}")
+        return pd.DataFrame(), {}
 
-        subtab_grafico, subtab_tabla = st.tabs(["📊 Gráfico de Barras", "📋 Tabla Detallada"])
-        
-        with subtab_grafico:
-            st.bar_chart(df_goles_filtrado.head(10).set_index("Jugador")["Goles"])
-            
-        with subtab_tabla:
-            # 3. Mostramos el DataFrame limpio
-            st.dataframe(df_goles_mostrar, hide_index=True, use_container_width=True)
+def colorear_filas(row):
+    color = COLORES_FILAS.get(row['Estatus'], '')
+    return [color] * len(row)
 
-    except FileNotFoundError:
-        st.info(f"⏳ Falta subir el archivo de goleadores para la temporada {temporada_elegida} (ej: goleadores_{temporada_elegida}.csv)")
+# =========================================================================
+# 4. FRONTEND (INTERFAZ)
+# =========================================================================
+temporadas_disponibles = [f"{año}/{año+1}" for año in range(2025, 2014, -1)]
+
+with st.sidebar:
+    st.title("⚽ StatsPro")
+    temp_sel = st.selectbox("Temporada", temporadas_disponibles)
+    liga_sel = st.selectbox("Torneo", ["La Liga", "Premier League", "Serie A", "Bundesliga", "Ligue 1"])
+
+# --- CABECERA ---
+col_logo, col_titulo = st.columns([0.8, 8])
+with col_logo:
+    st.image(LOGOS_LIGAS.get(liga_sel, ""), width=100)
+with col_titulo:
+    st.markdown(f"<h1 style='margin-bottom: 0; padding-bottom: 0;'>{liga_sel}</h1>", unsafe_allow_html=True)
+    st.caption(f"Temporada {temp_sel} • Clasificación General Histórica")
+
+st.write("---")
+
+# --- RENDERIZADO DE TABLA ---
+df, reglas_actuales = cargar_datos_historicos(temp_sel, liga_sel)
+
+if not df.empty:
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Líder de la Liga", df.iloc[0]["Equipo"], f"{int(df.iloc[0]['Puntos'])} PTS")
+    c2.metric("Mejor xG", df.sort_values("xG_Esperado", ascending=False).iloc[0]["Equipo"])
+    c3.metric("Plazas Champions", reglas_actuales.get("UCL", 4))
+    c4.metric("Plazas Descenso", reglas_actuales.get("Descenso", 3))
+    
+    st.write("")
+
+    cols_mostrar = ["Posicion", "Plaza", "Escudo", "Equipo", "Partidos_Jugados", "Ganados", 
+                    "Empatados", "Perdidos", "Goles_a_favor", "Goles_en_contra", 
+                    "Puntos", "xG_Esperado"]
+    
+    df_styled = df.style.apply(colorear_filas, axis=1).format({
+        "xG_Esperado": "{:.2f}"
+    })
+
+    st.dataframe(
+        df_styled,
+        use_container_width=True,
+        hide_index=True,
+        height=700,
+        column_config={
+            "Posicion": st.column_config.NumberColumn("#", width="small"),
+            "Plaza": st.column_config.TextColumn("Plaza", width="small"),
+            "Escudo": st.column_config.ImageColumn("Club", width="small"), 
+            "Equipo": st.column_config.TextColumn("Equipo", width="medium"),
+            "Partidos_Jugados": st.column_config.NumberColumn("PJ"),
+            "Ganados": st.column_config.NumberColumn("G"),
+            "Empatados": st.column_config.NumberColumn("E"),
+            "Perdidos": st.column_config.NumberColumn("P"),
+            "Goles_a_favor": st.column_config.NumberColumn("GF"),
+            "Goles_en_contra": st.column_config.NumberColumn("GC"),
+            "Puntos": st.column_config.NumberColumn("PTS"),
+            "xG_Esperado": st.column_config.NumberColumn("xG", width="small")
+        },
+        column_order=cols_mostrar 
+    )
