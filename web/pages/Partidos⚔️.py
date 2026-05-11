@@ -3,6 +3,37 @@ import pandas as pd
 import os
 import streamlit.components.v1 as components
 from streamlit_calendar import calendar 
+import base64
+
+
+directorio_actual = os.path.dirname(os.path.abspath(__file__))
+ruta_logo = os.path.join(directorio_actual, "..", "logo.png")
+
+try:
+    with open(ruta_logo, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read()).decode()
+
+    # 3. Inyectamos el Banner con HTML y CSS
+    st.markdown(
+        f"""
+        <div style="
+            width: 100%;
+            height: 150px; 
+            background-color: #0B132B; /* Color de fondo oscuro. Ajusta este código HEX si no coincide exacto */
+            background-image: url('data:image/png;base64,{encoded_string}');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        "></div>
+        """,
+        unsafe_allow_html=True
+    )
+except FileNotFoundError:
+    st.error("No se encontró el archivo logo.png")
+
+st.set_page_config(page_title="Partidos", layout="wide")
 
 st.title("Partidos")
 
