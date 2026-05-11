@@ -1,173 +1,157 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import plotly.express as px
-import altair as alt
+import plotly.express as px  # Cambiamos Altair por Plotly para mayor estabilidad
 
-# --- 1. CONFIGURACIÓN DE PÁGINA ---
+# --- CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(
-    page_title="Fútbol Champagne Pro",
+    page_title="Fútbol Champagne Pro | Intelligence Suite",
     page_icon="🍾",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# --- 2. INYECCIÓN DE ESTILO (El "Look" Champagne) ---
+# --- ESTILOS CSS PERSONALIZADOS ---
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
     
+    html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
     .main { background-color: #0e1117; }
-
-    .header-container {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-        background: #1e2129;
-        padding: 25px;
-        border-radius: 20px;
-        border-bottom: 4px solid #c9ad60;
+    
+    /* Tarjetas de Métricas */
+    [data-testid="stMetric"] {
+        background: linear-gradient(135deg, #1e2129 0%, #13151a 100%);
+        border: 1px solid #31333f;
+        padding: 20px !important;
+        border-radius: 15px !important;
     }
     
+    [data-testid="stMetricValue"] { color: #c9ad60 !important; font-size: 2.2rem !important; }
+
+    /* Contenedor de Calculadora */
+    .calc-card {
+        background-color: #1e2129;
+        padding: 1.5rem;
+        border-radius: 15px;
+        border-left: 5px solid #c9ad60;
+        margin: 10px 0;
+    }
+
+    /* Título Champagne */
     .logo-text {
-        font-family: 'Plus Jakarta Sans', sans-serif;
         font-size: 48px !important;
         font-weight: 800;
-        background: linear-gradient(135deg, #ffffff 0%, #c9ad60 50%, #866d2d 100%);
+        background: -webkit-linear-gradient(#fff, #c9ad60);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        letter-spacing: -1px;
-        margin: 0;
+        margin-bottom: 0;
     }
-
-    .subtitle-text {
-        color: #9ea4b0;
-        font-size: 16px;
-        font-weight: 400;
-        margin-top: -5px;
-    }
-
-    [data-testid="stMetric"] {
-        background: #1e2129;
-        border: 1px solid #31333f;
-        padding: 15px !important;
-        border-radius: 12px !important;
-    }
-    
-    [data-testid="stMetricValue"] { color: #c9ad60 !important; }
     </style>
     """, unsafe_allow_html=True)
 
-# --- 3. LÓGICA DE CÁLCULO (Mejorada según notas) ---
-def calcular_probabilidades_premium(local_stats, visita_stats, total_equipos):
-    ventaja_local = 1.10
-    f_l = (local_stats["gf"] / max(1, local_stats["gc"])) * ventaja_local * (total_equipos - local_stats["pos"] + 1)
-    f_v = (visita_stats["gf"] / max(1, visita_stats["gc"])) * (total_equipos - visita_stats["pos"] + 1)
-    
-    total = f_l + f_v + (total_equipos * 0.2) # Factor empate
-    p_l = (f_l / total) * 100
-    p_v = (f_v / total) * 100
-    p_e = 100 - p_l - p_v
-    
-    # Generar cuotas basadas en probabilidad con margen de casa (7%)
-    c_l = round((100 / p_l) * 1.07, 2) if p_l > 0 else 0
-    c_e = round((100 / p_e) * 1.07, 2) if p_e > 0 else 0
-    c_v = round((100 / p_v) * 1.07, 2) if p_v > 0 else 0
-    
-    return p_l, p_e, p_v, c_l, c_e, c_v
-
-# --- 4. DATOS ---
-if 'user_name' not in st.session_state: st.session_state.user_name = "Analista Pro"
-
+# --- BASE DE DATOS 2026 ---
 datos_ligas = {
     "LaLiga (España)": {
         "total": 20,
         "equipos": {
-            "Real Madrid": {"pos": 1, "gf": 78, "gc": 20, "valor": "1000M€"},
-            "FC Barcelona": {"pos": 2, "gf": 74, "gc": 24, "valor": "850M€"},
-            "Villarreal": {"pos": 3, "gf": 58, "gc": 30, "valor": "210M€"},
-            "At. Madrid": {"pos": 4, "gf": 62, "gc": 28, "valor": "450M€"}
+            "Real Madrid": {"pos": 1, "pos_prev": 1, "gf": 78, "gc": 20},
+            "FC Barcelona": {"pos": 2, "pos_prev": 2, "gf": 74, "gc": 24},
+            "At. Madrid": {"pos": 3, "pos_prev": 4, "gf": 62, "gc": 28},
+            "Villarreal": {"pos": 4, "pos_prev": 8, "gf": 55, "gc": 45},
+            "Sevilla FC": {"pos": 5, "pos_prev": 14, "gf": 45, "gc": 48},
+        }
+    },
+    "Premier League (Inglaterra)": {
+        "total": 20,
+        "equipos": {
+            "Manchester City": {"pos": 1, "pos_prev": 1, "gf": 85, "gc": 28},
+            "Arsenal": {"pos": 2, "pos_prev": 2, "gf": 80, "gc": 25},
+            "Liverpool": {"pos": 3, "pos_prev": 3, "gf": 77, "gc": 32},
+            "Chelsea": {"pos": 4, "pos_prev": 6, "gf": 63, "gc": 55},
         }
     }
 }
 
-# --- 5. ENCABEZADO ---
-col_logo, col_info = st.columns([1, 4])
-with col_logo:
-    st.image("https://cdn-icons-png.flaticon.com/512/5328/5328065.png", width=120)
-with col_info:
-    st.markdown('<p class="logo-text">FÚTBOL CHAMPAGNE</p>', unsafe_allow_html=True)
-    st.markdown('<p class="subtitle-text">Elite Intelligence by Tivale Analytics</p>', unsafe_allow_html=True)
+# --- FUNCIONES DE CÁLCULO ---
+def calcular_fuerza(stats, total_eq):
+    ratio = stats["gf"] / max(1, stats["gc"])
+    ranking = (total_eq + 1 - stats["pos"]) * 1.2
+    return ratio + ranking
 
-# --- 6. SIDEBAR ---
+# --- HEADER ---
+col_logo, col_tit = st.columns([1, 5])
+with col_logo:
+    st.image("https://cdn-icons-png.flaticon.com/512/5328/5328065.png", width=100)
+with col_tit:
+    st.markdown('<p class="logo-text">FÚTBOL CHAMPAGNE</p>', unsafe_allow_html=True)
+    st.markdown("*Intelligence & Elite Analytics Suite v4.5*")
+
+st.divider()
+
+# --- SIDEBAR ---
 with st.sidebar:
     st.header("⚙️ Configuración")
-    st.session_state.user_name = st.text_input("Analista:", st.session_state.user_name)
+    analista = st.text_input("Analista:", "Champagne Master")
     liga_activa = st.selectbox("Competición:", list(datos_ligas.keys()))
     st.divider()
-    st.success(f"Sesión: {st.session_state.user_name}")
+    st.caption("Datos actualizados: Mayo 2026")
 
-# --- 7. CUERPO PRINCIPAL ---
-tab1, tab2, tab3 = st.tabs(["🏟️ Match Center", "📊 Análisis Avanzado", "💰 Calculadora de Valor"])
+# --- CUERPO PRINCIPAL ---
+tab1, tab2, tab3 = st.tabs(["🏟️ Match Center", "📊 Análisis Plotly", "📈 Mercado"])
 
+# Tab 1: Simulador
 with tab1:
     st.subheader("⚔️ Simulador de Probabilidades")
-    c1, c2, c3 = st.columns([2, 1, 2])
+    c1, c2 = st.columns(2)
+    lista = list(datos_ligas[liga_activa]["equipos"].keys())
     
-    lista_eq = list(datos_ligas[liga_activa]["equipos"].keys())
-    with c1: loc = st.selectbox("Local", lista_eq, index=0)
-    with c2: st.markdown("<h1 style='text-align: center; padding-top: 20px;'>VS</h1>", unsafe_allow_html=True)
-    with c3: vis = st.selectbox("Visitante", lista_eq, index=1)
+    with c1: loc = st.selectbox("Local:", lista, index=0)
+    with c2: vis = st.selectbox("Visitante:", [e for e in lista if e != loc], index=1)
     
-    # Ejecutar lógica de apuestas
-    p_l, p_e, p_v, cuota_l, cuota_e, cuota_v = calcular_probabilidades_premium(
-        datos_ligas[liga_activa]["equipos"][loc],
-        datos_ligas[liga_activa]["equipos"][vis],
-        datos_ligas[liga_activa]["total"]
-    )
+    # Lógica de Probabilidad
+    s_l, s_v = datos_ligas[liga_activa]["equipos"][loc], datos_ligas[liga_activa]["equipos"][vis]
+    f_l = calcular_fuerza(s_l, datos_ligas[liga_activa]["total"])
+    f_v = calcular_fuerza(s_v, datos_ligas[liga_activa]["total"])
     
-    m1, m2, m3 = st.columns(3)
-    m1.metric(f"Prob. {loc}", f"{p_l:.1f}%", f"Cuota x{cuota_l}")
-    m2.metric("Empate", f"{p_e:.1f}%", f"Cuota x{cuota_e}", delta_color="off")
-    m3.metric(f"Prob. {vis}", f"{p_v:.1f}%", f"Cuota x{cuota_v}")
+    p_l = (f_l / (f_l + f_v)) * 100
+    p_v = (f_v / (f_l + f_v)) * 100
+    c_l, c_v = round((100/p_l)*1.1, 2), round((100/p_v)*1.1, 2)
+
+    st.markdown("---")
+    m1, m2, m3 = st.columns([1, 0.5, 1])
+    m1.metric(loc, f"{p_l:.1f}%", f"Cuota x{c_l}")
+    m2.markdown("<h2 style='text-align: center; margin-top: 20px;'>VS</h2>", unsafe_allow_html=True)
+    m3.metric(vis, f"{p_v:.1f}%", f"Cuota x{c_v}")
     
-    st.progress(p_l/100, text=f"Dominio Proyectado de {loc}")
-    
-    # Pizarra Táctica
-    st.markdown("#### 🟢 Disposición Táctica Estimada")
-    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Soccer_field_empty.svg/1200px-Soccer_field_empty.svg.png", use_container_width=True)
+    st.progress(p_l/100)
+
+    # Calculadora Inversión
+    st.markdown('<div class="calc-card">', unsafe_allow_html=True)
+    st.markdown("#### 💰 Calculadora de Retorno")
+    inv = st.number_input("Inversión (€):", min_value=1, value=50)
+    gan = inv * c_l if st.radio("Apostar por:", [loc, vis]) == loc else inv * c_v
+    st.write(f"**Retorno Estimado:** {gan:.2f} € | **Beneficio Neto:** {gan-inv:.2f} €")
+    st.markdown('</div>', unsafe_allow_html=True)
 
 with tab2:
-    st.subheader("📊 Comparativa Ofensiva (GF)")
+    st.subheader("📊 Gráfico")
     df = pd.DataFrame.from_dict(datos_ligas[liga_activa]["equipos"], orient='index').reset_index()
-    df.columns = ['Equipo', 'Pos', 'GF', 'GC', 'Valor']
+    df.columns = ['Equipo', 'Pos', 'Prev', 'GF', 'GC']
     
-    fig = px.bar(df, x="Equipo", y="GF", color="GF", 
-                 color_continuous_scale="Viridis",
-                 template="plotly_dark",
-                 title="Goles a Favor por Escuadra")
+    fig = px.scatter(df, x="GF", y="GC", text="Equipo", size="GF", color="Equipo",
+                     title="Balance Ofensivo vs Defensivo",
+                     labels={"GF": "Goles a Favor", "GC": "Goles en Contra"},
+                     template="plotly_dark")
+    
+    fig.update_traces(textposition='top center')
+    fig.update_yaxes(autorange="reversed") # Menos goles en contra es mejor
+    
     st.plotly_chart(fig, use_container_width=True)
+    st.info("💡 El cuadrante inferior derecho representa el verdadero 'Fútbol Champagne'.")
 
+# Tab 3: Mercado
 with tab3:
-    st.subheader("💰 Calculadora de Inversión (Smart Betting)")
-    col_in, col_res = st.columns([1, 1])
-    
-    with col_in:
-        st.info(f"Escenario seleccionado: {loc} (Victoria)")
-        inversion = st.number_input("Cantidad a invertir (€):", min_value=1, value=100)
-        cuota_act = st.number_input("Cuota de tu casa de apuestas:", value=cuota_l)
-    
-    with col_res:
-        retorno = inversion * cuota_act
-        beneficio = retorno - inversion
-        st.metric("Retorno Estimado", f"{retorno:.2f} €", f"Beneficio: {beneficio:.2f} €")
-        
-        # Alerta de valor
-        if cuota_act > cuota_l:
-            st.success("🔥 ¡VALOR DETECTADO! Tu cuota es superior a la probabilidad real del algoritmo.")
-        else:
-            st.warning("⚠️ CUOTA BAJA. El riesgo es mayor al beneficio estadístico sugerido.")
+    st.subheader("📈 Tabla de Clasificación Inteligente")
+    st.dataframe(df.style.background_gradient(cmap='YlOrBr'), use_container_width=True)
 
-# --- 8. FOOTER ---
-st.divider()
-st.caption(f"© 2026 Fútbol Champagne Pro | {st.session_state.user_name} | Juega con responsabilidad +18")
