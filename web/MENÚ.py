@@ -104,7 +104,7 @@ with st.sidebar:
             st.session_state.logueado = False
             st.rerun()
 
-st.title("PORTADA REAL-TIME 25/26")
+st.title("Inicio")
 
 if st.session_state.logueado:
     st.markdown(f"<div class='fav-header'> SEGUIMIENTO ESPECIAL: {st.session_state.equipo.upper()} </div>", unsafe_allow_html=True)
