@@ -21,14 +21,10 @@ traductor_temporadas = {
 directorio_actual = os.path.dirname(os.path.abspath(__file__))
 nombre_limpio = liga_elegida.replace(" ", "_")
 
-# 1️⃣ CREAMOS LAS PESTAÑAS
 tab_tabla, tab_calendario = st.tabs(["📊 Tabla de Partidos", "📅 Calendario Mensual"])
 
-# =========================================================
-# PESTAÑA 1: TABLA DE PARTIDOS
-# =========================================================
+
 with tab_tabla:
-    # MOVEMOS EL SELECTOR AQUÍ (Solo se verá en esta pestaña)
     opciones_temporadas = ["2025/2026", "2024/2025","2023/2024", "2022/2023", "2021/2022"]
     temporada_elegida = st.selectbox("Selecciona la temporada para la tabla:", opciones_temporadas)
     
@@ -39,7 +35,6 @@ with tab_tabla:
     try:
         df = pd.read_csv(ruta_csv)
         
-        # --- TU LÓGICA ORIGINAL DE PARTIDOS (SIN CAMBIOS) ---
         columnas_deseadas = ['date', 'time', 'home_team', 'score', 'away_team', 'attendance', 'venue', 'referee', 'match_report']
         columnas_finales = [c for c in columnas_deseadas if c in df.columns]
         df = df[columnas_finales]
@@ -59,7 +54,6 @@ with tab_tabla:
         lista_equipos = sorted(lista_equipos)
         lista_equipos.insert(0, "Todos los equipos")
         
-        # El filtro de equipo lo dejamos en el sidebar porque sirve para ambos
         equipo_elegido = st.sidebar.selectbox("Filtra por equipo:", lista_equipos)    
 
         if equipo_elegido != "Todos los equipos":
@@ -85,13 +79,10 @@ with tab_tabla:
     except FileNotFoundError:
         st.error(f"No se encuentra el archivo: {nombre_archivo}")
 
-# =========================================================
-# PESTAÑA 2: CALENDARIO (Temporada fija 25/26)
-# =========================================================
+
 with tab_calendario:
     st.subheader("📅 Calendario Mensual")
     
-    # Aquí fijamos la temporada a la actual (25/26) para que no dependa del selector
     temp_fija = "2025/2026"
     codigo_temp_cal = "2526"
     ruta_csv_cal = os.path.join(directorio_actual, "..", "..", "datos_resultados", f"resultados_{nombre_limpio}_{codigo_temp_cal}.csv")
