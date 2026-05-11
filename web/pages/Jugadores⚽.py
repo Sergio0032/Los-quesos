@@ -60,7 +60,7 @@ else:
     st.title("Estadísticas de jugadores")
     st.divider()
 
-    st.sidebar.header("⚙️ Configuración")
+    st.sidebar.header("Configuración")
 
     temporadas = sorted(df['Temporada'].unique().tolist(), reverse=True)
     sel_temporada = st.sidebar.selectbox(
@@ -126,7 +126,7 @@ else:
         # ZONA NUEVA: GRÁFICO DE ARAÑA (FIFA)
         # ==========================================
         st.divider()
-        st.subheader("🕸️ Perfil del Jugador (Atributos FIFA)")
+        st.subheader("Perfil del Jugador (Atributos FIFA)")
 
         # Desplegable para elegir jugador
         jugadores_disponibles = df_mostrar['Jugador'].tolist()

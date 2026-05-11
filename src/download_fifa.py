@@ -1,7 +1,11 @@
 import os
 
-username = input("Introduce tu 'username' (ej: sergiogarcia): ").strip()
-key = input("Introduce tu 'key' (la cadena larga de letras y números): ").strip()
+print("--- INICIANDO DESCARGA DE BASE DE DATOS EA FC 24 ---")
+print("Ve a tu perfil de Kaggle -> Settings -> 'Create New Token'.")
+print("Abre el archivo kaggle.json que se te descarga con el bloc de notas.\n")
+
+username = input("Introduce tu 'username': ").strip()
+key = input("Introduce tu 'key' (la cadena larga): ").strip()
 
 os.environ['KAGGLE_USERNAME'] = username
 os.environ['KAGGLE_KEY'] = key
@@ -20,12 +24,12 @@ try:
     api = KaggleApi()
     api.authenticate()
     
-    dataset = "stefanoleone992/fifa-23-complete-player-dataset"
-    print(f"Descargando archivos en {carpeta_destino} (puede tardar un poco)...")
+    dataset = "stefanoleone992/ea-sports-fc-24-complete-player-dataset"
+    print(f"Descargando archivos en {carpeta_destino}...")
     
     api.dataset_download_files(dataset, path=carpeta_destino, unzip=True)
     
-    print(f"\n✅ ¡Éxito! Datos descargados y descomprimidos en: {carpeta_destino}")
+    print(f"\n✅ ¡Éxito! Datos de EA FC 24 descargados en: {carpeta_destino}")
 
 except Exception as e:
     print(f"\n❌ Error al descargar: {e}")
