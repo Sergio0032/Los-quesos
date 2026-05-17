@@ -80,30 +80,19 @@ with tab_tabla:
                 elif texto.startswith('/'): return f"https://fbref.com{texto}"
                 return None if texto in ['Sin reporte', 'nan'] or pd.isna(url) else texto
             df['match_report'] = df['match_report'].apply(limpiar_enlace)
-
-            df = df.rename(columns={
-                'date': 'Fecha',
-                'time': 'Hora',
-                'home_team': 'Local',
-                'score': 'Resultado',
-                'away_team': 'Visitante',
-                'attendance': 'Asistencia',
-                'venue': 'Estadio',
-                'referee': 'Árbitro',
-                'match_report': 'Reporte'
-            })
-        lista_equipos = pd.concat([df['Local'], df['Visitante']]).dropna().unique()
+        
+        lista_equipos = pd.concat([df['home_team'], df['away_team']]).dropna().unique()
         lista_equipos = sorted(lista_equipos)
         lista_equipos.insert(0, "Todos los equipos")
         
         equipo_elegido = st.sidebar.selectbox("Filtra por equipo:", lista_equipos)    
 
         if equipo_elegido != "Todos los equipos":
-            df = df[(df['Local'] == equipo_elegido) | (df['Visitante'] == equipo_elegido)]
+            df = df[(df['home_team'] == equipo_elegido) | (df['away_team'] == equipo_elegido)]
         
         def resaltar_resultados(row):
             estilo_local = estilo_visitante = estilo_score = ''
-            score = str(row.get('Resultado', '')) 
+            score = str(row.get('score', ''))
             sep = '–' if '–' in score else '-'
             if sep in score:
                 try:
@@ -114,11 +103,9 @@ with tab_tabla:
                     else: estilo_local = estilo_visitante = 'background-color: #fff3cd; color: #856404'
                     estilo_score = 'font-weight: bold'
                 except: pass
-            
-            return [estilo_local if col == 'Local' else estilo_visitante if col == 'Visitante' else estilo_score if col == 'Resultado' else '' for col in row.index]
+            return [estilo_local if col == 'home_team' else estilo_visitante if col == 'away_team' else estilo_score if col == 'score' else '' for col in row.index]
 
-        st.dataframe(df.style.apply(resaltar_resultados, axis=1), column_config={"Reporte": st.column_config.LinkColumn("Reporte", display_text="Ver"), "Asistencia": st.column_config.NumberColumn("Asistencia", format="%d")}, hide_index=True)
-
+        st.dataframe(df.style.apply(resaltar_resultados, axis=1), column_config={"match_report": st.column_config.LinkColumn("Reporte", display_text="Ver"), "attendance": st.column_config.NumberColumn("Asistencia", format="%d")}, hide_index=True)
 
     except FileNotFoundError:
         st.error(f"No se encuentra el archivo: {nombre_archivo}")
