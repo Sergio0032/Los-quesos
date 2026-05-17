@@ -183,6 +183,7 @@ else:
                         ''', unsafe_allow_html=True)
                         
                     with col_datos:
+                        # 1. Datos físicos
                         c1, c2, c3 = st.columns(3)
                         c1.metric("Edad", f"{datos_fifa.get('age', '-')} años")
                         c2.metric("Altura", f"{datos_fifa.get('height_cm', '-')} cm")
@@ -190,6 +191,7 @@ else:
                         
                         st.divider()
                         
+                        # 2. Precio de Mercado (Una única vez)
                         valor_mercado = datos_fifa.get('value_eur', 0)
                         if pd.isna(valor_mercado) or valor_mercado == 0:
                             st.markdown("### Precio de Mercado: 💰 Desconocido")
@@ -197,9 +199,11 @@ else:
                             millones = float(valor_mercado) / 1000000
                             st.markdown(f"### Precio de Mercado: 💰 € {millones:,.1f} M")
                             
-                        st.markdown("**Trayectoria Profesional:**")
-                        trayectoria_csv = datos_fifa.get('Trayectoria', 'Sin datos de trayectoria')
-                        st.info(trayectoria_csv)
+                        st.write("") # Un pequeño espacio en blanco para que respire
+                            
+                        # 3. Equipo Actual (Caja azul limpia, sin trayectorias)
+                        st.markdown("**Equipo Actual:**")
+                        st.info(f"➔ {equipo}")
 
                     st.divider()
 
