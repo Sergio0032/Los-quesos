@@ -44,14 +44,19 @@ def load_all_data():
 df = load_all_data()
 
 if not df.empty:
+
     st.sidebar.header("⚙️ Configuración")
-    
-    sel_temp = st.sidebar.selectbox("📅 Temporada", sorted(df['temporada'].unique().tolist(), reverse=True))
-    df_temp = df[df['temporada'] == sel_temp]
+
+    temporadas_disponibles = [f"{año}/{año+1}" for año in range(2025, 2014, -1)]
+
+    sel_temp = st.sidebar.selectbox("🗓️ Temporada", temporadas_disponibles)
+    temp_corto = sel_temp[2:4] + sel_temp[7:9]
+    df_temp = df[(df['temporada'] == temp_corto) | (df['temporada'] == int(temp_corto))]
     sel_liga = st.sidebar.selectbox("🏆 Liga", sorted(df_temp['liga'].unique().tolist()))
     df_liga = df_temp[df_temp['liga'] == sel_liga]
+
     sel_equipo = st.sidebar.selectbox("🛡️ Equipo", sorted(df_liga['equipo'].unique().tolist()))
-    
+        
     df_equipo = df_liga[df_liga['equipo'] == sel_equipo].copy()
 
     if not df_equipo.empty:
