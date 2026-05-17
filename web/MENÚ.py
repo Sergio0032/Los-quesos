@@ -140,24 +140,18 @@ if st.session_state.logueado:
         equipo_fav = st.session_state.equipo
         st.markdown(f"<div class='fav-header'> SEGUIMIENTO ESPECIAL: {equipo_fav.upper()} </div>", unsafe_allow_html=True)
         
-        st.write("") # Un pequeño espacio visual
-
-        # --- 1. FILTRADO DE DATOS ---
+        st.write("") 
         
         # Filtrar clasificación del equipo 
-        # (Asegúrate de que 'Equipo' es el nombre correcto en tu df_clasif)
         if not df_clasif.empty:
             datos_clasif = df_clasif[df_clasif['Equipo'] == equipo_fav]
         else:
             datos_clasif = pd.DataFrame()
 
-        # Filtrar partidos usando LAS COLUMNAS REALES DE TU CSV
         if not df_partidos.empty:
             partidos_equipo = df_partidos[(df_partidos['home_team'] == equipo_fav) | (df_partidos['away_team'] == equipo_fav)]
             
-            # Separar jugados de próximos usando la columna 'score'.
-            # Para evitar que salgan partidos jugados (con resultado ej: "1-1") como si fueran próximos, 
-            # comprobamos que no sea nulo y que no sea un texto vacío.
+
             jugados_mask = partidos_equipo['score'].notna() & (partidos_equipo['score'] != "") & (partidos_equipo['score'] != " ")
             
             partidos_jugados = partidos_equipo[jugados_mask]
@@ -166,22 +160,17 @@ if st.session_state.logueado:
             partidos_jugados = pd.DataFrame()
             partidos_proximos = pd.DataFrame()
 
-        # --- 2. MOSTRAR EN PANTALLA (3 Columnas) ---
         col1, col2, col3 = st.columns(3)
 
         with col1:
             st.markdown("###  Últimos Resultados")
             if not partidos_jugados.empty:
-                # Mostramos los últimos 3 partidos jugados
                 for _, row in partidos_jugados.tail(3).iterrows():
-                    # Formateamos la fecha para que salga como DD/MM
                     fecha_limpia = pd.to_datetime(row['date']).strftime('%d/%m')
                     st.write(f"{fecha_limpia} | {row['home_team']} **{row['score']}** {row['away_team']}")
         with col2:
             st.markdown("### Clasificación")
             if not datos_clasif.empty:
-                # OJO: Asumo que en df_clasif las columnas se llaman Posicion y Puntos.
-                # Si se llaman distinto en tu CSV de clasificación (ej: 'Rank', 'Points'), cámbialas aquí:
                 pos = datos_clasif['Posicion'].values[0] if 'Posicion' in datos_clasif.columns else "-"
                 pts = datos_clasif['Puntos'].values[0] if 'Puntos' in datos_clasif.columns else "-"   
                 
@@ -192,9 +181,7 @@ if st.session_state.logueado:
         with col3:
             st.markdown("### Próximos Partidos")
             if not partidos_proximos.empty:
-                # Mostramos los próximos 3 partidos
                 for _, row in partidos_proximos.head(3).iterrows():
-                    # Formateamos la fecha igual
                     fecha_limpia = pd.to_datetime(row['date']).strftime('%d/%m')
                     st.write(f"{fecha_limpia} | {row['home_team']} **vs** {row['away_team']}")
         
