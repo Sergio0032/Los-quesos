@@ -5,7 +5,7 @@ import os
 import base64
 
 
-st.set_page_config(page_title="StatsPro", page_icon="⚽", layout="wide")
+st.set_page_config(page_title="Clasificaciones", page_icon="⚽", layout="wide")
 directorio_actual = os.path.dirname(os.path.abspath(__file__))
 ruta_logo = os.path.join(directorio_actual, "..", "logo.png")
 
@@ -20,7 +20,7 @@ if os.path.exists(ruta_logo):
         </div>
     """, unsafe_allow_html=True)
 
-st.title("Ligas")
+st.title("Clasificaciones")
 st.divider()
 
 
