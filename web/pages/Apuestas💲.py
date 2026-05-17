@@ -1,13 +1,12 @@
 import streamlit as st
 import pandas as pd
 
-# --- 1. CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(
     page_title="Fútbol Champagne Pro | 25-26",
     layout="wide"
 )
 
-# --- 2. ESTILO INSTITUCIONAL (MODO CLARO Y BARRA #EBF2F6) ---
+# ESTILO
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&display=swap');
@@ -84,7 +83,6 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- 3. BASE DE DATOS MAESTRA 2025/2026 ---
 datos_ligas = {
     "Premier League": {
         "total": 20, "equipos": {
@@ -156,7 +154,6 @@ datos_ligas = {
     }
 }
 
-# --- 4. MOTOR DE CÁLCULO PROFESIONAL (ESPACIO ELIMINADO) ---
 def calcular_cuotas_Champagne(sl, sv, n):
     p_pos_l = (n - sl["pos"] + 1) / n
     p_pos_v = (n - sv["pos"] + 1) / n
@@ -178,7 +175,6 @@ def calcular_cuotas_Champagne(sl, sv, n):
     
     return round(1/p_l, 2), round(1/prob_e, 2), round(1/p_v, 2)
 
-# --- 5. PANEL DE CONTROL ---
 with st.sidebar:
     st.markdown('<p class="sidebar-label">PANEL DE CONTROL</p>', unsafe_allow_html=True)
     liga_sel = st.selectbox("LIGA", list(datos_ligas.keys()))
@@ -187,7 +183,7 @@ with st.sidebar:
     vis = st.selectbox("VISITANTE", equipos, index=min(1, len(equipos)-1))
     st.markdown("---")
 
-# --- 6. INTERFAZ PRINCIPAL ---
+# INTERFAZ PRINCIPAL 
 st.markdown('<div class="brand-header"><h1 class="brand-title">Fútbol Champagne Pro</h1></div>', unsafe_allow_html=True)
 
 tab1, tab2, tab3 = st.tabs(["ANÁLISIS 1X2", "GESTIÓN DE BANCA", "INFORME TÉCNICO"])

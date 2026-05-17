@@ -137,8 +137,54 @@ with st.sidebar:
 st.title("Inicio")
 
 if st.session_state.logueado:
-    st.markdown(f"<div class='fav-header'> SEGUIMIENTO ESPECIAL: {st.session_state.equipo.upper()} </div>", unsafe_allow_html=True)
+        equipo_fav = st.session_state.equipo
+        st.markdown(f"<div class='fav-header'> SEGUIMIENTO ESPECIAL: {equipo_fav.upper()} </div>", unsafe_allow_html=True)
+        
+        st.write("") 
+        
+        # Filtrar clasificación del equipo 
+        if not df_clasif.empty:
+            datos_clasif = df_clasif[df_clasif['Equipo'] == equipo_fav]
+        else:
+            datos_clasif = pd.DataFrame()
 
+        if not df_partidos.empty:
+            partidos_equipo = df_partidos[(df_partidos['home_team'] == equipo_fav) | (df_partidos['away_team'] == equipo_fav)]
+            
+
+            jugados_mask = partidos_equipo['score'].notna() & (partidos_equipo['score'] != "") & (partidos_equipo['score'] != " ")
+            
+            partidos_jugados = partidos_equipo[jugados_mask]
+            partidos_proximos = partidos_equipo[~jugados_mask]
+        else:
+            partidos_jugados = pd.DataFrame()
+            partidos_proximos = pd.DataFrame()
+
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            st.markdown("###  Últimos Resultados")
+            if not partidos_jugados.empty:
+                for _, row in partidos_jugados.tail(3).iterrows():
+                    fecha_limpia = pd.to_datetime(row['date']).strftime('%d/%m')
+                    st.write(f"{fecha_limpia} | {row['home_team']} **{row['score']}** {row['away_team']}")
+        with col2:
+            st.markdown("### Clasificación")
+            if not datos_clasif.empty:
+                pos = datos_clasif['Posicion'].values[0] if 'Posicion' in datos_clasif.columns else "-"
+                pts = datos_clasif['Puntos'].values[0] if 'Puntos' in datos_clasif.columns else "-"   
+                
+                st.metric(label="Posición actual en Liga", value=f"{pos}º", delta=f"{pts} puntos", delta_color="off")
+            else:
+                st.info("Datos de clasificación no disponibles.")
+
+        with col3:
+            st.markdown("### Próximos Partidos")
+            if not partidos_proximos.empty:
+                for _, row in partidos_proximos.head(3).iterrows():
+                    fecha_limpia = pd.to_datetime(row['date']).strftime('%d/%m')
+                    st.write(f"{fecha_limpia} | {row['home_team']} **vs** {row['away_team']}")
+        
 st.markdown("---")
 
 if df_clasif.empty:
