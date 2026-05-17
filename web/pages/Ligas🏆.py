@@ -6,6 +6,23 @@ import base64
 
 
 st.set_page_config(page_title="StatsPro", page_icon="⚽", layout="wide")
+directorio_actual = os.path.dirname(os.path.abspath(__file__))
+ruta_logo = os.path.join(directorio_actual, "..", "logo.png")
+
+if os.path.exists(ruta_logo):
+    with open(ruta_logo, "rb") as f:
+        data = base64.b64encode(f.read()).decode()
+    st.markdown(f"""
+        <div style="width: 100%; height: 150px; background-color: #0B132B; 
+             background-image: url('data:image/png;base64,{data}');
+             background-size: contain; background-repeat: no-repeat; background-position: center;
+             border-radius: 10px; margin-bottom: 20px;">
+        </div>
+    """, unsafe_allow_html=True)
+
+st.title("Ligas")
+st.divider()
+
 
 st.markdown("""
     <style>
