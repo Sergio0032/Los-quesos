@@ -1,23 +1,78 @@
-from pathlib import Path
-import pandas as pd
 import streamlit as st
-import urllib.parse
+import pandas as pd
 import unicodedata
 
-# =========================================================================
-# 1. CONFIGURACIÓN CORE
-# =========================================================================
-st.set_page_config(page_title="Football Stats Pro", page_icon="⚽", layout="wide")
+
+st.set_page_config(page_title="StatsPro", page_icon="⚽", layout="wide")
 
 st.markdown("""
-<style>
+    <style>
     [data-testid="stHeader"], footer {visibility: hidden;}
-</style>
+    .stDataFrame { padding-top: 10px; }
+    </style>
 """, unsafe_allow_html=True)
 
-# =========================================================================
-# 2. ACTIVOS VISUALES (Logos Ligas y MAPEO MAESTRO API-SPORTS)
-# =========================================================================
+LOGOS_MAESTROS = {
+    # --- ESPAÑA ---
+  "real madrid": "541",
+    "barcelona": "529",
+    "atletico madrid": "530",
+    "sevilla": "536",        
+    "sevilla fc": "536",      
+    "villarreal": "533",
+    "real sociedad": "548",
+    "athletic club": "531",
+    "real betis": "543",
+    "valencia": "532",
+    "getafe": "546",
+    "osasuna": "727",
+    "rayo vallecano": "728",
+    "girona": "547",
+    "celta vigo": "538",
+    "alaves": "542",
+    "las palmas": "534",
+    "granada": "715",
+    "cadiz": "724",
+    "leganes": "537",
+    "valladolid": "712",
+    "espanyol": "540",
+    "levante": "539",
+    "huesca": "714",
+    "cordoba": "718",
+    "deportivo la coruña": "720",
+    "dep la coruna": "720",
+    "malaga": "535",
+    
+    # --- INGLATERRA ---
+    "manchester city": "50", "arsenal": "42", "liverpool": "40", "aston villa": "66",
+    "tottenham hotspur": "47", "chelsea": "49", "newcastle united": "34", "manchester utd": "33",
+    "west ham united": "48", "brighton": "51", "bournemouth": "35", "crystal palace": "52",
+    "fulham": "36", "everton": "45", "brentford": "55", "nottingham forest": "65",
+    "luton town": "1359", "burnley": "44", "sheffield united": "62", "leicester city": "46",
+    "leeds united": "63", "southampton": "41", "wolverhampton": "39", "wolves": "39",
+    
+    # --- ITALIA ---
+    "inter": "505", "milan": "489", "juventus": "496", "atalanta": "499",
+    "roma": "497", "lazio": "487", "fiorentina": "502", "napoli": "492",
+    "torino": "503", "genoa": "495", "lecce": "867",
+    "bologna": "500", "udinese": "494", "verona": "504", "empoli": "511",
+    "frosinone": "512", "sassuolo": "488", "cagliari": "490", "parma": "523", "venezia": "517",
+    
+    # --- ALEMANIA ---
+    "bayer leverkusen": "168", "bayern munich": "157", "stuttgart": "172", "rb leipzig": "173",
+    "dortmund": "165", "eintracht frankfurt": "169", "hoffenheim": "167", "freiburg": "160",
+    "heidenheim": "188", "werder bremen": "162", "wolfsburg": "161", "augsburg": "170",
+    "mainz 05": "164", "monchengladbach": "163", "union berlin": "182", "bochum": "176",
+    "koeln": "161", "darmstadt 98": "178", "schalke 04": "174", "hertha bsc": "174",
+
+    # --- FRANCIA ---
+    "paris saint-germain": "85", "monaco": "91", "lille": "79", "brest": "106",
+    "nice": "84", "lyon": "80", "lens": "116", "marseille": "81",
+    "reims": "93", "rennes": "94", "toulouse": "96", "montpellier": "82",
+    "strasbourg": "95", "nantes": "83", "lorient": "97",
+    "metz": "112", "clermont foot": "99"
+}
+
 LOGOS_LIGAS = {
     "Premier League": "https://media.api-sports.io/football/leagues/39.png",
     "La Liga": "https://media.api-sports.io/football/leagues/140.png",
@@ -26,177 +81,120 @@ LOGOS_LIGAS = {
     "Ligue 1": "https://media.api-sports.io/football/leagues/61.png"
 }
 
-# Diccionario Maestro (Regresamos a los IDs estables de API-Sports)
-LOGOS_CLUBES = {
-    # --- LA LIGA ---
-    "real madrid": "541", "barcelona": "529", "atletico madrid": "530", 
-    "villarreal": "533", "real betis": "543", "celta vigo": "538", 
-    "getafe": "546", "real sociedad": "548", "osasuna": "727", 
-    "athletic club": "531", "athletic bilbao": "531", "rayo vallecano": "728", 
-    "valencia": "532", "elche": "730", "sevilla": "536", 
-    "espanyol": "540", "mallorca": "534", "alaves": "542", 
-    "granada": "715", "cadiz": "724", "levante": "539", 
-    "real valladolid": "712", "valladolid": "712", "eibar": "537", 
-    "girona": "547", "las palmas": "535", "almeria": "733", 
-    "leganes": "745", "malaga": "723", "deportivo la coruna": "720", 
-    "deportivo": "720", "sporting gijon": "732", "huesca": "714",
-    
-    # --- PREMIER LEAGUE ---
-    "arsenal": "42", "manchester city": "50", "liverpool": "40", 
-    "manchester united": "33", "chelsea": "49", "tottenham": "47", 
-    "aston villa": "66", "newcastle united": "34", "newcastle": "34",
-    "brighton": "51", "west ham": "48", "everton": "45", 
-    "crystal palace": "52", "fulham": "36", "brentford": "55", 
-    "nottingham forest": "65", "bournemouth": "35", "wolves": "39", 
-    "wolverhampton": "39", "leicester": "46", "southampton": "41", 
-    "leeds": "63", "burnley": "44", "sheffield united": "62", 
-    "sunderland": "73", 
-    
-    # --- SERIE A ---
-    "juventus": "496", "inter": "505", "ac milan": "489", "milan": "489",
-    "napoli": "492", "roma": "497", "lazio": "487", "atalanta": "499",
-    "fiorentina": "502", "torino": "503", "sassuolo": "488", "udinese": "494",
-    "genoa": "495", "sampdoria": "498", "bologna": "500", "cagliari": "490",
-    
-    # --- BUNDESLIGA ---
-    "bayern munich": "157", "borussia dortmund": "165", "bayer leverkusen": "168",
-    "rb leipzig": "173", "leipzig": "173", "eintracht frankfurt": "169", "frankfurt": "169",
-    "wolfsburg": "161", "hoffenheim": "167", "freiburg": "160", "union berlin": "182",
-    "stuttgart": "172", "mainz 05": "164", "mainz": "164",
-    
-    # --- LIGUE 1 ---
-    "paris saint germain": "85", "psg": "85", "marseille": "81", "lyon": "80",
-    "monaco": "91", "lille": "79", "rennes": "94", "nice": "84", "lens": "116",
-    "strasbourg": "95", "montpellier": "82", "reims": "93", "toulouse": "96"
-}
-
 COLORES_FILAS = {
-    "UCL": "background-color: rgba(0, 82, 160, 0.15);",      
-    "UEL": "background-color: rgba(246, 129, 33, 0.15);",    
-    "UECL": "background-color: rgba(0, 177, 64, 0.15);",     
-    "Descenso": "background-color: rgba(211, 47, 47, 0.15);", 
+    "UCL": "background-color: rgba(0, 82, 160, 0.12);",      
+    "UEL": "background-color: rgba(246, 129, 33, 0.12);",    
+    "UECL": "background-color: rgba(0, 177, 64, 0.12);",  
+    "Playoff_Descenso": "background-color: rgba(255, 193, 7, 0.15);",
+    "Descenso": "background-color: rgba(211, 47, 47, 0.12);", 
     "Nada": ""
 }
 
-# =========================================================================
-# 3. LÓGICA DE DATOS AVANZADA
-# =========================================================================
-def normalizar_nombre(nombre):
-    """Limpia el texto: elimina mayúsculas, tildes y espacios extra."""
-    nombre = str(nombre).strip().lower()
-    nombre = ''.join((c for c in unicodedata.normalize('NFD', nombre) if unicodedata.category(c) != 'Mn'))
-    return nombre
+LOGOS_COMPETICIONES = {
+    "UCL": "https://media.api-sports.io/football/leagues/2.png",
+    "UEL": "https://media.api-sports.io/football/leagues/3.png",
+    "UECL": "https://media.api-sports.io/football/leagues/848.png",
+    "Playoff_Descenso": "https://cdn-icons-png.flaticon.com/128/6897/6897039.png", 
+    "Descenso": "https://cdn-icons-png.flaticon.com/128/9502/9502124.png",
+    "Nada": "https://upload.wikimedia.org/wikipedia/commons/c/ca/1x1.png"
+}
 
-def obtener_escudo(equipo):
-    """Busca el equipo normalizado y devuelve el PNG de la API estable."""
-    equipo_norm = normalizar_nombre(equipo)
+
+
+def normalizar(txt):
+    import unicodedata
+    return ''.join((c for c in unicodedata.normalize('NFD', str(txt).lower().strip()) if unicodedata.category(c) != 'Mn'))
+
+def obtener_reglas(liga, b_ucl, b_uel):
+    reglas = {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0}
     
-    if equipo_norm in LOGOS_CLUBES:
-        id_api = LOGOS_CLUBES[equipo_norm]
-        return f"https://media.api-sports.io/football/teams/{id_api}.png"
+    if liga == "Ligue 1": 
+        reglas["UCL"] = 3
+        reglas["Descenso"] = 2
+        reglas["Playoff_Descenso"] = 1
+    elif liga == "Bundesliga":
+        reglas["Descenso"] = 2
+        reglas["Playoff_Descenso"] = 1
         
-    # Si falta algún equipo (ej. uno de 2ª división muy raro), crea un logo con iniciales
-    nombre_seguro = urllib.parse.quote(str(equipo).strip())
-    return f"https://ui-avatars.com/api/?name={nombre_seguro}&background=1A1E26&color=FFFFFF&bold=true&length=2&font-size=0.4"
+    reglas["UCL"] += b_ucl
+    reglas["UEL"] += b_uel
+    return reglas
 
-def asignar_estatus(pos, reglas):
+def asignar_estatus(pos, reglas, total_equipos):
     if pos <= reglas["UCL"]: return "UCL"
-    if pos <= reglas["UCL"] + reglas["UEL"]: return "UEL"
-    if pos <= reglas["UCL"] + reglas["UEL"] + reglas["UECL"]: return "UECL"
-    if pos > (20 - reglas["Descenso"]): return "Descenso"
+    if pos <= (reglas["UCL"] + reglas["UEL"]): return "UEL"
+    if pos <= (reglas["UCL"] + reglas["UEL"] + reglas["UECL"]): return "UECL"
+    
+   
+    if pos > (total_equipos - reglas["Descenso"]): 
+        return "Descenso"
+    if pos > (total_equipos - reglas["Descenso"] - reglas["Playoff_Descenso"]): 
+        return "Playoff_Descenso"
+        
     return "Nada"
 
-@st.cache_data
-def cargar_datos_historicos(temporada, liga_seleccionada):
-    try:
-        año = temporada.split("/")[0]
-        ruta_raiz = Path(__file__).resolve().parent.parent.parent
-        ruta_archivo = ruta_raiz / "data_clasificaciones" / f"clasificacion_{año}.csv"
-        
-        df = pd.read_csv(ruta_archivo)
-        df_liga = df[df['Liga'] == liga_seleccionada].copy()
-        df_liga = df_liga.sort_values(by="Puntos", ascending=False).reset_index(drop=True)
-        df_liga["Posicion"] = range(1, len(df_liga) + 1)
-        
-        # Elimina columnas feas de siglas si existen
-        if "Club" in df_liga.columns:
-            df_liga = df_liga.drop(columns=["Club"])
-        
-        reglas = {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 3} 
-        df_liga["Estatus"] = df_liga["Posicion"].apply(lambda x: asignar_estatus(x, reglas))
-        
-        # Asignación visual
-        df_liga["Escudo"] = df_liga["Equipo"].apply(obtener_escudo)
-        logos_plaza = {"UCL": "🔵", "UEL": "🟠", "UECL": "🟢", "Descenso": "🔴", "Nada": "⚫"}
-        df_liga["Plaza"] = df_liga["Estatus"].map(logos_plaza)
-        
-        return df_liga, reglas
-    except Exception as e:
-        st.error(f"Error cargando datos: {e}")
-        return pd.DataFrame(), {}
-
-def colorear_filas(row):
-    color = COLORES_FILAS.get(row['Estatus'], '')
-    return [color] * len(row)
-
-# =========================================================================
-# 4. FRONTEND (INTERFAZ)
-# =========================================================================
-temporadas_disponibles = [f"{año}/{año+1}" for año in range(2025, 2014, -1)]
 
 with st.sidebar:
-    st.title("⚽ StatsPro")
-    temp_sel = st.selectbox("Temporada", temporadas_disponibles)
-    liga_sel = st.selectbox("Torneo", ["La Liga", "Premier League", "Serie A", "Bundesliga", "Ligue 1"])
+    st.title("🏆 Selecciona tu Liga")
+    temporada = st.selectbox("Temporada", [f"{a}/{a+1}" for a in range(2025, 2014, -1)])
+    liga_sel = st.selectbox("Liga", ["La Liga", "Premier League", "Serie A", "Bundesliga", "Ligue 1"])
+    st.write("---")
+    bonus_ucl = st.number_input("Bonus Champions", 0, 2, 0)
+    bonus_uel = st.number_input("Bonus Europa League", 0, 2, 0)
 
-# --- CABECERA ---
-col_logo, col_titulo = st.columns([0.8, 8])
-with col_logo:
-    st.image(LOGOS_LIGAS.get(liga_sel, ""), width=100)
-with col_titulo:
-    st.markdown(f"<h1 style='margin-bottom: 0; padding-bottom: 0;'>{liga_sel}</h1>", unsafe_allow_html=True)
-    st.caption(f"Temporada {temp_sel} • Clasificación General Histórica")
 
-st.write("---")
-
-# --- RENDERIZADO DE TABLA ---
-df, reglas_actuales = cargar_datos_historicos(temp_sel, liga_sel)
-
-if not df.empty:
-    c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Líder de la Liga", df.iloc[0]["Equipo"], f"{int(df.iloc[0]['Puntos'])} PTS")
-    c2.metric("Mejor xG", df.sort_values("xG_Esperado", ascending=False).iloc[0]["Equipo"])
-    c3.metric("Plazas Champions", reglas_actuales.get("UCL", 4))
-    c4.metric("Plazas Descenso", reglas_actuales.get("Descenso", 3))
+try:
+    año = temporada.split("/")[0]
+    from pathlib import Path
+    ruta_csv = Path(__file__).resolve().parent.parent.parent / "data_clasificaciones" / f"clasificacion_{año}.csv"
     
+    df = pd.read_csv(ruta_csv)
+    df = df[df['Liga'] == liga_sel].copy().reset_index(drop=True)
+    df["Posicion"] = range(1, len(df) + 1)
+
+    # Lógica de Plazas
+    reglas = obtener_reglas(liga_sel, bonus_ucl, bonus_uel)
+    total_equipos = len(df)
+    df["Estatus"] = df["Posicion"].apply(lambda x: asignar_estatus(x, reglas, total_equipos))
+
+    def buscar_escudo(nombre):
+        n = normalizar(nombre)
+        team_id = LOGOS_MAESTROS.get(n)
+        if team_id:
+            return f"https://media.api-sports.io/football/teams/{team_id}.png"
+        return f"https://ui-avatars.com/api/?name={n[:2].upper()}&background=1A1E26&color=fff"
+
+    df["Club"] = df["Equipo"].apply(buscar_escudo)
+
+
+    url_logo = LOGOS_LIGAS.get(liga_sel, "")
+    
+    
+    st.markdown(f"""
+        <div style="display: flex; align-items: center; margin-bottom: 5px;">
+            <img src="{url_logo}" width="80" style="margin-right: 15px;">
+            <h1 style="margin: 0; padding: 0; font-size: 2.5rem;">{liga_sel}</h1>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    st.caption(f"Temporada {temporada} • Configuración de plazas manual")
     st.write("")
 
-    cols_mostrar = ["Posicion", "Plaza", "Escudo", "Equipo", "Partidos_Jugados", "Ganados", 
-                    "Empatados", "Perdidos", "Goles_a_favor", "Goles_en_contra", 
-                    "Puntos", "xG_Esperado"]
-    
-    df_styled = df.style.apply(colorear_filas, axis=1).format({
-        "xG_Esperado": "{:.2f}"
-    })
+    df_styled = df.style.apply(lambda r: [COLORES_FILAS.get(r['Estatus'], '')]*len(r), axis=1).format({"xG_Esperado": "{:.2f}"})
 
     st.dataframe(
         df_styled,
         use_container_width=True,
         hide_index=True,
-        height=700,
+        height=750,
         column_config={
             "Posicion": st.column_config.NumberColumn("#", width="small"),
-            "Plaza": st.column_config.TextColumn("Plaza", width="small"),
-            "Escudo": st.column_config.ImageColumn("Club", width="small"), 
-            "Equipo": st.column_config.TextColumn("Equipo", width="medium"),
-            "Partidos_Jugados": st.column_config.NumberColumn("PJ"),
-            "Ganados": st.column_config.NumberColumn("G"),
-            "Empatados": st.column_config.NumberColumn("E"),
-            "Perdidos": st.column_config.NumberColumn("P"),
-            "Goles_a_favor": st.column_config.NumberColumn("GF"),
-            "Goles_en_contra": st.column_config.NumberColumn("GC"),
-            "Puntos": st.column_config.NumberColumn("PTS"),
-            "xG_Esperado": st.column_config.NumberColumn("xG", width="small")
+            "Plaza": st.column_config.ImageColumn("🏆", width="small"),
+            "Club": st.column_config.ImageColumn("Escudo", width="small"),
+            "xG_Esperado": st.column_config.NumberColumn("xG")
         },
-        column_order=cols_mostrar 
+        column_order=["Posicion", "Plaza", "Club", "Equipo", "Partidos_Jugados", "Ganados", "Empatados", "Perdidos", "Puntos", "xG_Esperado"]
     )
+
+except Exception as e:
+    st.error(f"Error al cargar los datos: {e}")
