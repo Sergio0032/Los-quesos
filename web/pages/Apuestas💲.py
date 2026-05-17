@@ -1,173 +1,231 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
-import plotly.express as px
-import altair as alt
 
-# --- 1. CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(
-    page_title="Fútbol Champagne Pro",
-    page_icon="🍾",
-    layout="wide",
-    initial_sidebar_state="expanded"
+    page_title="Fútbol Champagne Pro | 25-26",
+    layout="wide"
 )
 
-# --- 2. INYECCIÓN DE ESTILO (El "Look" Champagne) ---
+# ESTILO
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;900&display=swap');
     
-    .main { background-color: #0e1117; }
-
-    .header-container {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-        background: #1e2129;
-        padding: 25px;
-        border-radius: 20px;
-        border-bottom: 4px solid #c9ad60;
+    html, body, [class*="css"] {
+        font-family: 'Outfit', sans-serif;
+        background-color: #FFFFFF;
+        color: #333333;
     }
-    
-    .logo-text {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-size: 48px !important;
-        font-weight: 800;
-        background: linear-gradient(135deg, #ffffff 0%, #c9ad60 50%, #866d2d 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        letter-spacing: -1px;
+
+    .brand-header {
+        padding: 40px 0 10px 0;
+        border-bottom: 5px solid #1D3557; 
+        margin-bottom: 40px;
+    }
+    .brand-title {
+        font-size: 52px;
+        font-weight: 900;
+        letter-spacing: -1.5px;
+        color: #333333;
+        text-transform: uppercase;
         margin: 0;
     }
 
-    .subtitle-text {
-        color: #9ea4b0;
-        font-size: 16px;
-        font-weight: 400;
-        margin-top: -5px;
+    /* BARRA LATERAL: COLOR #EBF2F6 */
+    [data-testid="stSidebar"] {
+        background-color: #EBF2F6 !important;
+        border-right: 1px solid #DDE4E9;
+    }
+    [data-testid="stSidebar"] > div:first-child {
+        background-color: #EBF2F6 !important;
     }
 
-    [data-testid="stMetric"] {
-        background: #1e2129;
-        border: 1px solid #31333f;
-        padding: 15px !important;
-        border-radius: 12px !important;
+    .sidebar-label {
+        font-size: 15px;
+        font-weight: 800;
+        color: #1D3557;
+        text-transform: uppercase;
+        margin-top: 15px;
+        margin-bottom: 5px;
     }
-    
-    [data-testid="stMetricValue"] { color: #c9ad60 !important; }
+
+    .stTabs [data-baseweb="tab-list"] { gap: 30px; }
+    .stTabs [data-baseweb="tab"] {
+        font-size: 17px;
+        font-weight: 700;
+        color: #6C757D !important;
+        text-transform: uppercase;
+    }
+    .stTabs [aria-selected="true"] {
+        color: #E63946 !important;
+        border-bottom: 4px solid #E63946 !important;
+    }
+
+    .odds-card {
+        background: #F8FAFC;
+        border: 1px solid #E2E8F0;
+        padding: 40px;
+        border-radius: 8px;
+        text-align: center;
+    }
+    .odds-value {
+        color: #D4AF37; 
+        font-size: 54px;
+        font-weight: 900;
+    }
+
+    .report-box {
+        background-color: #F8FAFC;
+        border-left: 6px solid #1D3557;
+        padding: 25px;
+        border-radius: 4px;
+    }
     </style>
     """, unsafe_allow_html=True)
 
-# --- 3. LÓGICA DE CÁLCULO (Mejorada según notas) ---
-def calcular_probabilidades_premium(local_stats, visita_stats, total_equipos):
-    ventaja_local = 1.10
-    f_l = (local_stats["gf"] / max(1, local_stats["gc"])) * ventaja_local * (total_equipos - local_stats["pos"] + 1)
-    f_v = (visita_stats["gf"] / max(1, visita_stats["gc"])) * (total_equipos - visita_stats["pos"] + 1)
-    
-    total = f_l + f_v + (total_equipos * 0.2) # Factor empate
-    p_l = (f_l / total) * 100
-    p_v = (f_v / total) * 100
-    p_e = 100 - p_l - p_v
-    
-    # Generar cuotas basadas en probabilidad con margen de casa (7%)
-    c_l = round((100 / p_l) * 1.07, 2) if p_l > 0 else 0
-    c_e = round((100 / p_e) * 1.07, 2) if p_e > 0 else 0
-    c_v = round((100 / p_v) * 1.07, 2) if p_v > 0 else 0
-    
-    return p_l, p_e, p_v, c_l, c_e, c_v
-
-# --- 4. DATOS ---
-if 'user_name' not in st.session_state: st.session_state.user_name = "Analista Pro"
-
 datos_ligas = {
-    "LaLiga (España)": {
-        "total": 20,
-        "equipos": {
-            "Real Madrid": {"pos": 1, "gf": 78, "gc": 20, "valor": "1000M€"},
-            "FC Barcelona": {"pos": 2, "gf": 74, "gc": 24, "valor": "850M€"},
-            "Villarreal": {"pos": 3, "gf": 58, "gc": 30, "valor": "210M€"},
-            "At. Madrid": {"pos": 4, "gf": 62, "gc": 28, "valor": "450M€"}
+    "Premier League": {
+        "total": 20, "equipos": {
+            "Arsenal": {"pos": 1, "gf": 67, "gc": 26}, "Manchester City": {"pos": 2, "gf": 72, "gc": 32},
+            "Manchester United": {"pos": 3, "gf": 63, "gc": 48}, "Liverpool": {"pos": 4, "gf": 60, "gc": 48},
+            "Aston Villa": {"pos": 5, "gf": 48, "gc": 44}, "Bournemouth": {"pos": 6, "gf": 56, "gc": 52},
+            "Brighton": {"pos": 7, "gf": 52, "gc": 42}, "Brentford": {"pos": 8, "gf": 52, "gc": 49},
+            "Chelsea": {"pos": 9, "gf": 55, "gc": 49}, "Everton": {"pos": 10, "gf": 44, "gc": 44},
+            "Fulham": {"pos": 11, "gf": 44, "gc": 50}, "Sunderland": {"pos": 12, "gf": 37, "gc": 46},
+            "Newcastle United": {"pos": 13, "gf": 49, "gc": 51}, "Leeds": {"pos": 14, "gf": 47, "gc": 52},
+            "Crystal Palace": {"pos": 15, "gf": 36, "gc": 42}, "Nottingham Forest": {"pos": 16, "gf": 44, "gc": 46},
+            "Tottenham": {"pos": 17, "gf": 45, "gc": 54}, "West Ham": {"pos": 18, "gf": 42, "gc": 61},
+            "Burnley": {"pos": 19, "gf": 35, "gc": 71}, "Wolverhampton Wanderers": {"pos": 20, "gf": 25, "gc": 66}
+        }
+    },
+    "La Liga": {
+        "total": 20, "equipos": {
+            "Barcelona": {"pos": 1, "gf": 89, "gc": 31}, "Real Madrid": {"pos": 2, "gf": 70, "gc": 31},
+            "Villarreal": {"pos": 3, "gf": 64, "gc": 39}, "Atletico Madrid": {"pos": 4, "gf": 58, "gc": 38},
+            "Real Betis": {"pos": 5, "gf": 54, "gc": 43}, "Celta Vigo": {"pos": 6, "gf": 49, "gc": 44},
+            "Real Sociedad": {"pos": 7, "gf": 54, "gc": 55}, "Getafe": {"pos": 8, "gf": 28, "gc": 36},
+            "Athletic Club": {"pos": 9, "gf": 40, "gc": 50}, "Osasuna": {"pos": 10, "gf": 42, "gc": 45},
+            "Rayo Vallecano": {"pos": 11, "gf": 35, "gc": 41}, "Sevilla": {"pos": 12, "gf": 43, "gc": 56},
+            "Elche": {"pos": 13, "gf": 46, "gc": 54}, "Valencia": {"pos": 14, "gf": 37, "gc": 50},
+            "Espanyol": {"pos": 15, "gf": 38, "gc": 53}, "Mallorca": {"pos": 16, "gf": 42, "gc": 51},
+            "Girona": {"pos": 17, "gf": 36, "gc": 51}, "Alaves": {"pos": 18, "gf": 41, "gc": 54},
+            "Levante": {"pos": 19, "gf": 41, "gc": 57}, "Real Oviedo": {"pos": 20, "gf": 26, "gc": 54}
+        }
+    },
+    "Serie A": {
+        "total": 20, "equipos": {
+            "Inter": {"pos": 1, "gf": 85, "gc": 31}, "Napoli": {"pos": 2, "gf": 52, "gc": 33},
+            "Juventus": {"pos": 3, "gf": 59, "gc": 30}, "AC Milan": {"pos": 4, "gf": 48, "gc": 29},
+            "Roma": {"pos": 5, "gf": 52, "gc": 29}, "Como": {"pos": 6, "gf": 59, "gc": 28},
+            "Atalanta": {"pos": 7, "gf": 47, "gc": 32}, "Lazio": {"pos": 8, "gf": 39, "gc": 37},
+            "Udinese": {"pos": 9, "gf": 45, "gc": 46}, "Bologna": {"pos": 10, "gf": 42, "gc": 41},
+            "Sassuolo": {"pos": 11, "gf": 44, "gc": 46}, "Torino": {"pos": 12, "gf": 41, "gc": 59},
+            "Parma Calcio 1913": {"pos": 13, "gf": 25, "gc": 42}, "Genoa": {"pos": 14, "gf": 40, "gc": 48},
+            "Fiorentina": {"pos": 15, "gf": 38, "gc": 49}, "Cagliari": {"pos": 16, "gf": 36, "gc": 51},
+            "Lecce": {"pos": 17, "gf": 24, "gc": 48}, "Cremonese": {"pos": 18, "gf": 27, "gc": 53},
+            "Verona": {"pos": 19, "gf": 24, "gc": 57}, "Pisa": {"pos": 20, "gf": 25, "gc": 63}
+        }
+    },
+    "Bundesliga": {
+        "total": 18, "equipos": {
+            "Bayern Munich": {"pos": 1, "gf": 117, "gc": 35}, "Borussia Dortmund": {"pos": 2, "gf": 68, "gc": 34},
+            "RB Leipzig": {"pos": 3, "gf": 65, "gc": 43}, "VfB Stuttgart": {"pos": 4, "gf": 69, "gc": 47},
+            "Hoffenheim": {"pos": 5, "gf": 65, "gc": 48}, "Bayer Leverkusen": {"pos": 6, "gf": 67, "gc": 46},
+            "Freiburg": {"pos": 7, "gf": 45, "gc": 53}, "Eintracht Frankfurt": {"pos": 8, "gf": 59, "gc": 63},
+            "Augsburg": {"pos": 9, "gf": 45, "gc": 57}, "Mainz 05": {"pos": 10, "gf": 41, "gc": 50},
+            "Borussia M.Gladbach": {"pos": 11, "gf": 38, "gc": 53}, "Hamburger SV": {"pos": 12, "gf": 36, "gc": 51},
+            "Union Berlin": {"pos": 13, "gf": 37, "gc": 57}, "FC Cologne": {"pos": 14, "gf": 47, "gc": 55},
+            "Werder Bremen": {"pos": 15, "gf": 37, "gc": 58}, "Wolfsburg": {"pos": 16, "gf": 42, "gc": 68},
+            "St. Pauli": {"pos": 17, "gf": 28, "gc": 57}, "FC Heidenheim": {"pos": 18, "gf": 38, "gc": 69}
+        }
+    },
+    "Ligue 1": {
+        "total": 18, "equipos": {
+            "Paris Saint Germain": {"pos": 1, "gf": 70, "gc": 27}, "Lens": {"pos": 2, "gf": 62, "gc": 33},
+            "Lyon": {"pos": 3, "gf": 52, "gc": 34}, "Lille": {"pos": 4, "gf": 51, "gc": 35},
+            "Rennes": {"pos": 5, "gf": 56, "gc": 46}, "Monaco": {"pos": 6, "gf": 56, "gc": 48},
+            "Marseille": {"pos": 7, "gf": 59, "gc": 44}, "Strasbourg": {"pos": 8, "gf": 50, "gc": 41},
+            "Lorient": {"pos": 9, "gf": 44, "gc": 49}, "Toulouse": {"pos": 10, "gf": 45, "gc": 45},
+            "Paris FC": {"pos": 11, "gf": 44, "gc": 47}, "Brest": {"pos": 12, "gf": 41, "gc": 51},
+            "Angers": {"pos": 13, "gf": 27, "gc": 46}, "Le Havre": {"pos": 14, "gf": 30, "gc": 43},
+            "Nice": {"pos": 15, "gf": 36, "gc": 58}, "Auxerre": {"pos": 16, "gf": 30, "gc": 43},
+            "Nantes": {"pos": 17, "gf": 29, "gc": 52}, "Metz": {"pos": 18, "gf": 32, "gc": 72}
         }
     }
 }
 
-# --- 5. ENCABEZADO ---
-col_logo, col_info = st.columns([1, 4])
-with col_logo:
-    st.image("https://cdn-icons-png.flaticon.com/512/5328/5328065.png", width=120)
-with col_info:
-    st.markdown('<p class="logo-text">FÚTBOL CHAMPAGNE</p>', unsafe_allow_html=True)
-    st.markdown('<p class="subtitle-text">Elite Intelligence by Tivale Analytics</p>', unsafe_allow_html=True)
+def calcular_cuotas_Champagne(sl, sv, n):
+    p_pos_l = (n - sl["pos"] + 1) / n
+    p_pos_v = (n - sv["pos"] + 1) / n
+    eff_l = sl["gf"] / max(1, sl["gc"])
+    eff_v = sv["gf"] / max(1, sv["gc"])
+    
+    f_l = (p_pos_l * 0.65 + eff_l * 0.35) * 1.12
+    f_v = (p_pos_v * 0.65 + eff_v * 0.35)
+    
+    total = f_l + f_v
+    prob_l_base = f_l / total
+    prob_v_base = f_v / total
+    
+    dif = abs(prob_l_base - prob_v_base)
+    prob_e = 0.28 - (dif * 0.10)
+    
+    p_l = prob_l_base * (1.0 - prob_e)
+    p_v = prob_v_base * (1.0 - prob_e)
+    
+    return round(1/p_l, 2), round(1/prob_e, 2), round(1/p_v, 2)
 
-# --- 6. SIDEBAR ---
 with st.sidebar:
-    st.header("⚙️ Configuración")
-    st.session_state.user_name = st.text_input("Analista:", st.session_state.user_name)
-    liga_activa = st.selectbox("Competición:", list(datos_ligas.keys()))
-    st.divider()
-    st.success(f"Sesión: {st.session_state.user_name}")
+    st.markdown('<p class="sidebar-label">PANEL DE CONTROL</p>', unsafe_allow_html=True)
+    liga_sel = st.selectbox("LIGA", list(datos_ligas.keys()))
+    equipos = sorted(list(datos_ligas[liga_sel]["equipos"].keys()))
+    loc = st.selectbox("LOCAL", equipos, index=0)
+    vis = st.selectbox("VISITANTE", equipos, index=min(1, len(equipos)-1))
+    st.markdown("---")
 
-# --- 7. CUERPO PRINCIPAL ---
-tab1, tab2, tab3 = st.tabs(["🏟️ Match Center", "📊 Análisis Avanzado", "💰 Calculadora de Valor"])
+# INTERFAZ PRINCIPAL 
+st.markdown('<div class="brand-header"><h1 class="brand-title">Fútbol Champagne Pro</h1></div>', unsafe_allow_html=True)
+
+tab1, tab2, tab3 = st.tabs(["ANÁLISIS 1X2", "GESTIÓN DE BANCA", "INFORME TÉCNICO"])
+
+if loc != vis:
+    cl, ce, cv = calcular_cuotas_Champagne(datos_ligas[liga_sel]["equipos"][loc], datos_ligas[liga_sel]["equipos"][vis], datos_ligas[liga_sel]["total"])
 
 with tab1:
-    st.subheader("⚔️ Simulador de Probabilidades")
-    c1, c2, c3 = st.columns([2, 1, 2])
-    
-    lista_eq = list(datos_ligas[liga_activa]["equipos"].keys())
-    with c1: loc = st.selectbox("Local", lista_eq, index=0)
-    with c2: st.markdown("<h1 style='text-align: center; padding-top: 20px;'>VS</h1>", unsafe_allow_html=True)
-    with c3: vis = st.selectbox("Visitante", lista_eq, index=1)
-    
-    # Ejecutar lógica de apuestas
-    p_l, p_e, p_v, cuota_l, cuota_e, cuota_v = calcular_probabilidades_premium(
-        datos_ligas[liga_activa]["equipos"][loc],
-        datos_ligas[liga_activa]["equipos"][vis],
-        datos_ligas[liga_activa]["total"]
-    )
-    
-    m1, m2, m3 = st.columns(3)
-    m1.metric(f"Prob. {loc}", f"{p_l:.1f}%", f"Cuota x{cuota_l}")
-    m2.metric("Empate", f"{p_e:.1f}%", f"Cuota x{cuota_e}", delta_color="off")
-    m3.metric(f"Prob. {vis}", f"{p_v:.1f}%", f"Cuota x{cuota_v}")
-    
-    st.progress(p_l/100, text=f"Dominio Proyectado de {loc}")
-    
-    # Pizarra Táctica
-    st.markdown("#### 🟢 Disposición Táctica Estimada")
-    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Soccer_field_empty.svg/1200px-Soccer_field_empty.svg.png", use_container_width=True)
+    if loc == vis:
+        st.warning("Seleccione equipos distintos.")
+    else:
+        st.markdown(f"<h3 style='color: #1D3557;'>TEMPORADA 25/26: {loc.upper()} VS {vis.upper()}</h3>", unsafe_allow_html=True)
+        c1, c2, c3 = st.columns(3)
+        c1.markdown(f'<div class="odds-card"><div style="color:#6C757D; font-weight:800; font-size:13px; margin-bottom:15px; text-transform:uppercase;">GANA {loc.upper()}</div><div class="odds-value">{cl}</div></div>', unsafe_allow_html=True)
+        c2.markdown(f'<div class="odds-card"><div style="color:#6C757D; font-weight:800; font-size:13px; margin-bottom:15px; text-transform:uppercase;">EMPATE</div><div class="odds-value">{ce}</div></div>', unsafe_allow_html=True)
+        c3.markdown(f'<div class="odds-card"><div style="color:#6C757D; font-weight:800; font-size:13px; margin-bottom:15px; text-transform:uppercase;">GANA {vis.upper()}</div><div class="odds-value">{cv}</div></div>', unsafe_allow_html=True)
 
 with tab2:
-    st.subheader("📊 Comparativa Ofensiva (GF)")
-    df = pd.DataFrame.from_dict(datos_ligas[liga_activa]["equipos"], orient='index').reset_index()
-    df.columns = ['Equipo', 'Pos', 'GF', 'GC', 'Valor']
-    
-    fig = px.bar(df, x="Equipo", y="GF", color="GF", 
-                 color_continuous_scale="Viridis",
-                 template="plotly_dark",
-                 title="Goles a Favor por Escuadra")
-    st.plotly_chart(fig, use_container_width=True)
+    st.markdown(f"<h3 style='color: #1D3557;'>SIMULADOR DE OPERACIONES</h3>", unsafe_allow_html=True)
+    col_m, col_r = st.columns(2)
+    with col_m:
+        apuesta = st.number_input("CANTIDAD A INVERTIR (PASOS DE 5€)", min_value=5, value=10, step=5)
+        st.markdown(f"**CUOTA FIJA:** {cl}")
+    with col_r:
+        neto = round((apuesta * cl) - apuesta, 2)
+        st.markdown("#### GANANCIA NETA ESTIMADA")
+        st.markdown(f"<h1 style='color: #1D3557; font-size: 60px;'>{neto} €</h1>", unsafe_allow_html=True)
 
 with tab3:
-    st.subheader("💰 Calculadora de Inversión (Smart Betting)")
-    col_in, col_res = st.columns([1, 1])
-    
-    with col_in:
-        st.info(f"Escenario seleccionado: {loc} (Victoria)")
-        inversion = st.number_input("Cantidad a invertir (€):", min_value=1, value=100)
-        cuota_act = st.number_input("Cuota de tu casa de apuestas:", value=cuota_l)
-    
-    with col_res:
-        retorno = inversion * cuota_act
-        beneficio = retorno - inversion
-        st.metric("Retorno Estimado", f"{retorno:.2f} €", f"Beneficio: {beneficio:.2f} €")
-        
-        # Alerta de valor
-        if cuota_act > cuota_l:
-            st.success("🔥 ¡VALOR DETECTADO! Tu cuota es superior a la probabilidad real del algoritmo.")
-        else:
-            st.warning("⚠️ CUOTA BAJA. El riesgo es mayor al beneficio estadístico sugerido.")
+    st.markdown("<h2 style='color: #1D3557;'>DETALLES DE LA CUOTA</h2>", unsafe_allow_html=True)
+    if 'cl' in locals():
+        st.markdown(f"""
+        <div class="report-box">
+            <p>La cuota de <b>{cl}</b> se establece bajo los siguientes criterios de la temporada actual:</p>
+            <ul>
+                <li><b>Clasificación (65%):</b> Ponderación de la posición del <b>{loc}</b> (Puesto {datos_ligas[liga_sel]['equipos'][loc]['pos']}) frente al rival.</li>
+                <li><b>Efectividad (35%):</b> Análisis de los {datos_ligas[liga_sel]['equipos'][loc]['gf']} goles anotados frente a la defensa contraria.</li>
+                <li><b>Factor Campo:</b> Ajuste positivo de localía del 12%.</li>
+                <li><b>Paridad:</b> Ajuste dinámico de empate para reflejar la realidad del mercado profesional.</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
 
-# --- 8. FOOTER ---
-st.divider()
-st.caption(f"© 2026 Fútbol Champagne Pro | {st.session_state.user_name} | Juega con responsabilidad +18")
+st.markdown("---")
+st.caption("© 2026 Fútbol Champagne Pro | Temporada 2025/2026 | +18 Juega con responsabilidad")

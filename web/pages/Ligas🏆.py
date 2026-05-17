@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import unicodedata
+import os
+import base64
 
 
 st.set_page_config(page_title="StatsPro", page_icon="⚽", layout="wide")
