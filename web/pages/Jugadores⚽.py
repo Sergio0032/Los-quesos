@@ -4,10 +4,10 @@ import pandas as pd
 import os
 import plotly.graph_objects as go
 import base64
-from urllib.parse import unquote
 import re
 
-st.set_page_config(page_title="Rendimiento de Jugadores", layout="wide")
+# CONFIGURACIÓN DE PÁGINA 
+st.set_page_config(page_title="Jugadores", layout="wide")
 
 st.markdown("""
     <style>
@@ -16,7 +16,6 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- CAPTURA DE MEMORIA (Jugador y Temporada) ---
 jugador_enviado = st.session_state.get('jugador_enviado', None)
 temporada_enviada = st.session_state.get('temporada_enviada', None)
 
@@ -35,47 +34,27 @@ try:
         </div>
     """, unsafe_allow_html=True)
 except FileNotFoundError:
-    st.error("No se encontró el archivo logo.png")
+    pass 
 
-# --- CARGA DE DATOS REALES ---
+# --- CARGA DE DATOS ---
 @st.cache_data
 def load_all_data():
-    directorio_actual = os.path.dirname(os.path.abspath(__file__))
-    path = os.path.join(directorio_actual, '..', '..', 'data_jugadores') 
-    path = os.path.abspath(path)
-    
-    if not os.path.exists(path):
-        return pd.DataFrame()
-    
+    path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data_jugadores'))
+    if not os.path.exists(path): return pd.DataFrame()
     all_files = [os.path.join(path, f) for f in os.listdir(path) if f.endswith('.csv')]
-    if not all_files:
-        return pd.DataFrame()
-    
-    df_list = []
-    for filename in all_files:
-        df_temp = pd.read_csv(filename)
-        df_list.append(df_temp)
-    
-    return pd.concat(df_list, axis=0, ignore_index=True)
+    if not all_files: return pd.DataFrame()
+    return pd.concat([pd.read_csv(f) for f in all_files], axis=0, ignore_index=True)
 
-# --- CARGA DE DATOS FIFA ---
 @st.cache_data
 def load_fifa_data():
-    directorio_actual = os.path.dirname(os.path.abspath(__file__))
-    path = os.path.join(directorio_actual, '..', '..', 'data_fifa', 'fifa_top5_ligas.csv') 
-    path = os.path.abspath(path)
-    
-    if os.path.exists(path):
-        return pd.read_csv(path)
+    path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data_fifa', 'fifa_top5_ligas.csv'))
+    if os.path.exists(path): return pd.read_csv(path)
     return pd.DataFrame()
 
 def mostrar_formato_temporada(valor_raw):
     v = str(valor_raw)
-    if len(v) == 4:
-        return f"20{v[:2]}-20{v[2:]}"
-    return v
+    return f"20{v[:2]}-20{v[2:]}" if len(v) == 4 else v
 
-# --- INICIO DE LA APLICACIÓN ---
 df = load_all_data()
 df_fifa = load_fifa_data()
 
@@ -85,125 +64,104 @@ else:
     st.title("Estadísticas de jugadores")
     st.divider()
 
-    st.sidebar.header("Configuración")
+    temp_idx, liga_idx, equipo_idx = 0, 0, 0
+    
+    list_temp = sorted(df['Temporada'].unique().tolist(), reverse=True)
 
-    temporadas = sorted(df['Temporada'].unique().tolist(), reverse=True)
-    sel_temporada = st.sidebar.selectbox(
-        "📅 Temporada", 
-        temporadas, 
-        format_func=mostrar_formato_temporada
-    )
-
-    df_temp = df[df['Temporada'] == sel_temporada]
-
-    ligas = sorted(df_temp['Liga'].unique().tolist())
-    sel_liga = st.sidebar.selectbox("🏆 Liga", ligas)
-
-    df_liga = df_temp[df_temp['Liga'] == sel_liga]
-
-    equipos = ["Ver toda la Liga"] + sorted(df_liga['Equipo'].unique().tolist())
-    sel_equipo = st.sidebar.selectbox("⚽ Equipo", equipos)
-
-    if sel_equipo == "Ver toda la Liga":
-        df_final = df_liga
+    if temporada_enviada and temporada_enviada in list_temp:
+        temp_idx = list_temp.index(temporada_enviada)
+        p_temp = temporada_enviada
+    elif jugador_enviado:
+        datos_p = df[df['Jugador'] == jugador_enviado]
+        p_temp = datos_p.iloc[0]['Temporada'] if not datos_p.empty else list_temp[0]
+        if p_temp in list_temp: temp_idx = list_temp.index(p_temp)
     else:
-        df_final = df_liga[df_liga['Equipo'] == sel_equipo]
+        p_temp = list_temp[0]
+
+    if jugador_enviado:
+        datos_p = df[(df['Jugador'] == jugador_enviado) & (df['Temporada'] == p_temp)]
+        if not datos_p.empty:
+            p_liga, p_equipo = datos_p.iloc[0]['Liga'], datos_p.iloc[0]['Equipo']
+            
+            list_liga = sorted(df[df['Temporada'] == p_temp]['Liga'].unique().tolist())
+            if p_liga in list_liga: liga_idx = list_liga.index(p_liga)
+            
+            list_equi = ["Ver toda la Liga"] + sorted(df[(df['Temporada'] == p_temp) & (df['Liga'] == p_liga)]['Equipo'].unique().tolist())
+            if p_equipo in list_equi: equipo_idx = list_equi.index(p_equipo)
+
+    # --- SIDEBAR ---
+    st.sidebar.header("Configuración")
+    sel_temporada = st.sidebar.selectbox("📅 Temporada", list_temp, index=temp_idx, format_func=mostrar_formato_temporada)
+    
+    df_temp = df[df['Temporada'] == sel_temporada]
+    sel_liga = st.sidebar.selectbox("🏆 Liga", sorted(df_temp['Liga'].unique().tolist()), index=liga_idx)
+    
+    df_liga = df_temp[df_temp['Liga'] == sel_liga]
+    equipos = ["Ver toda la Liga"] + sorted(df_liga['Equipo'].unique().tolist())
+    sel_equipo = st.sidebar.selectbox("⚽ Equipo", equipos, index=equipo_idx)
+
+    df_final = df_liga if sel_equipo == "Ver toda la Liga" else df_liga[df_liga['Equipo'] == sel_equipo]
     
     if not df_final.empty:
-        
-        m1, m2, m3 = st.columns(3)
-        m1.metric("Total Jugadores", len(df_final))
-        
-        if 'Goles' in df_final.columns:
-            m2.metric("Goles Totales", df_final['Goles'].sum())
-            max_gol_idx = df_final['Goles'].idxmax()
-            m3.metric("Máximo Goleador", f"{df_final.loc[max_gol_idx, 'Jugador']}")
+        tab1, tab2 = st.tabs(["📊 Estadísticas Generales", "⚽ Máximos Goleadores"])
 
-        if 'Goles' in df_final.columns:
-            df_mostrar = df_final.sort_values(by="Goles", ascending=False)
-        else:
-            df_mostrar = df_final
+        with tab1:
+            # --- TABLA Y MÉTRICAS BÁSICAS ---
+            m1, m2, m3 = st.columns(3)
+            m1.metric("Total Jugadores", len(df_final))
+            if 'Goles' in df_final.columns:
+                m2.metric("Goles Totales", int(df_final['Goles'].sum()))
+                m3.metric("Máximo Goleador", f"{df_final.loc[df_final['Goles'].idxmax(), 'Jugador']}")
 
-        columnas_ok = [
-            'Jugador', 'Equipo', 'Posicion', 'Partidos_Jugados', 
-            'Goles', 'Asistencias', 'Tarjetas_Amarillas', 'Tarjetas_Rojas'
-        ]
-        
-        cols_finales = [c for c in columnas_ok if c in df_mostrar.columns]
-        df_mostrar = df_mostrar[cols_finales]
+            df_mostrar = df_final.sort_values(by="Goles", ascending=False) if 'Goles' in df_final.columns else df_final
+            cols_ok = ['Jugador', 'Equipo', 'Posicion', 'Partidos_Jugados', 'Goles', 'Asistencias']
+            st.dataframe(df_mostrar[[c for c in cols_ok if c in df_mostrar.columns]].astype(str), use_container_width=True, hide_index=True)
 
-        df_mostrar = df_mostrar.rename(columns={
-            'Partidos_Jugados': 'PJ',
-            'Tarjetas_Amarillas': 'Amarillas',
-            'Tarjetas_Rojas': 'Rojas'
-        })
+            # FICHA DEL JUGADOR 
 
-        st.dataframe(
-            df_mostrar.astype(str),
-            use_container_width=True,
-            hide_index=True
-        )
-        
-        csv = df_final.to_csv(index=False).encode('utf-8')
-        st.download_button("Descargar CSV", csv, "jugadores.csv", "text/csv")
+            st.divider()
+            st.subheader("💳 Ficha del Jugador")
 
-        # ==========================================
-        # ZONA NUEVA: GRÁFICO DE ARAÑA (FIFA)
-        # ==========================================
-        # ==========================================
-        # ZONA NUEVA: FICHA DEL JUGADOR (TIPO CROMO)
-        # ==========================================
-        st.divider()
-        st.subheader("💳 Ficha del Jugador")
+            jugadores_disponibles = df_mostrar['Jugador'].tolist()
+            idx_jug_final = jugadores_disponibles.index(jugador_enviado) if jugador_enviado in jugadores_disponibles else 0
+            jugador_seleccionado = st.selectbox("Elige un jugador para ver su ficha:", jugadores_disponibles, index=idx_jug_final)
 
-        jugadores_disponibles = df_mostrar['Jugador'].tolist()
-        jugador_seleccionado = st.selectbox("Elige un jugador para ver su ficha:", jugadores_disponibles)
-
-        if jugador_seleccionado:
-            if not df_fifa.empty:
-                busqueda = jugador_seleccionado.lower().strip()
-                nombres_cortos = df_fifa['short_name'].astype(str).str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.lower()
+            if jugador_seleccionado and not df_fifa.empty:
+                # Búsqueda en el CSV de FIFA
+                busqueda_clean = jugador_seleccionado.lower().strip()
+                match = pd.DataFrame()
+                cols_texto = df_fifa.select_dtypes(include=['object', 'string']).columns
                 
-                if 'long_name' in df_fifa.columns:
-                    nombres_largos = df_fifa['long_name'].astype(str).str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.lower()
-                else:
-                    nombres_largos = nombres_cortos
-                
-                busqueda_limpia = pd.Series([busqueda]).str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.lower()[0]
-                match = df_fifa[(nombres_cortos == busqueda_limpia) | (nombres_largos == busqueda_limpia)]
+                partes = re.split(r'[\s\-]+', busqueda_clean)
+                palabras_clave = sorted([p for p in partes if len(p) > 3], key=len, reverse=True)
+
+                for col in cols_texto:
+                    col_limpia = df_fifa[col].astype(str).str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.lower()
+                    temp_match = df_fifa[col_limpia.str.contains(busqueda_clean, na=False)]
+                    if not temp_match.empty:
+                        match = temp_match
+                        break
 
                 if match.empty:
-                    match = df_fifa[nombres_cortos.str.contains(busqueda_limpia, na=False) | nombres_largos.str.contains(busqueda_limpia, na=False)]
+                    for palabra in palabras_clave:
+                        for col in cols_texto:
+                            col_limpia = df_fifa[col].astype(str).str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.lower()
+                            temp_match = df_fifa[col_limpia.str.contains(palabra, na=False)]
+                            if not temp_match.empty:
+                                match = temp_match
+                                break
+                        if not match.empty: break
 
-                if match.empty:
-                    partes = busqueda_limpia.replace("-", " ").split()
-                    for palabra in reversed(partes):
-                        if len(palabra) > 3:  
-                            match_temp = df_fifa[nombres_cortos.str.contains(palabra, na=False) | nombres_largos.str.contains(palabra, na=False)]
-                            if not match_temp.empty:
-                                match = match_temp
-                                break 
-
+                # Si encontramos al jugador, maquetamos la ficha
                 if not match.empty:
-                    datos_fifa = match.iloc[0] 
+                    datos_fifa = match.iloc[0]
                     nombre_real = datos_fifa.get('short_name', jugador_seleccionado)
+                    equipo = datos_fifa.get('club_name', '')
                     
-                    # 1. SOLUCIÓN AL ERROR: Extraer ID de forma segura sin que pete el programa
-                    # 1. SOLUCIÓN AL ERROR: Extraer ID de forma segura
-                    if not match.empty:
-                        datos_fifa = match.iloc[0] 
-                    nombre_real = datos_fifa.get('short_name', jugador_seleccionado)
-                    
-                    # ==========================================
-                    # 1. BÚSQUEDA DE IMAGEN EN INTERNET EN TIEMPO REAL
-                    # 1. BÚSQUEDA DE IMAGEN EN INTERNET EN TIEMPO REAL
-                    # ==========================================
+                    # Búsqueda de imagen
                     url_foto = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
-                    
                     try:
-                        equipo = datos_fifa.get('club_name', '')
                         busqueda_web = f"{nombre_real} {equipo} football player"
-                        
                         with DDGS() as ddgs:
                             resultados = list(ddgs.images(busqueda_web, max_results=1))
                             if resultados:
@@ -211,9 +169,6 @@ else:
                     except Exception:
                         pass 
 
-                    # ==========================================
-                    # 2. MAQUETACIÓN DE LA FICHA
-                    # ==========================================
                     col_foto, col_datos = st.columns([1, 2])
                     
                     with col_foto:
@@ -242,48 +197,62 @@ else:
                             millones = float(valor_mercado) / 1000000
                             st.markdown(f"### Precio de Mercado: 💰 € {millones:,.1f} M")
                             
-                        st.markdown("**Equipo Actual:**")
-                        st.info(f"➔ {equipo}")
+                        st.markdown("**Trayectoria Profesional:**")
+                        trayectoria_csv = datos_fifa.get('Trayectoria', 'Sin datos de trayectoria')
+                        st.info(trayectoria_csv)
 
                     st.divider()
 
-                    if pd.isna(datos_fifa.get('pace')) or pd.isna(datos_fifa.get('shooting')):
-                        st.warning(f"⚠️ {nombre_real} no tiene estadísticas de jugador de campo (portero).")
-                    else:
-                            millones = float(valor_mercado) / 1000000
-                            st.markdown(f"### Precio de Mercado: 💰 € {millones:,.1f} M")
-                            
-                        # AQUÍ ESTÁ EL CAMBIO: Lee la trayectoria de tu CSV
-                    st.markdown("**Trayectoria Profesional:**")
-                    trayectoria_csv = datos_fifa.get('Trayectoria', 'Sin datos de trayectoria')
-                    st.info(trayectoria_csv)
-
-                    st.divider()
+                    # Gráfico de Araña / Radar
+                    columnas_csv_lower = {c.lower(): c for c in df_fifa.columns}
+                    cats = ['Ritmo', 'Tiro', 'Pase', 'Regate', 'Defensa', 'Físico']
+                    stats_campo = ['pace', 'shooting', 'passing', 'dribbling', 'defending', 'physic']
                     
-                    # 3. El Gráfico de Araña
-                    if pd.isna(datos_fifa.get('pace')) or pd.isna(datos_fifa.get('shooting')):
-                        st.warning(f"⚠️ {nombre_real} no tiene estadísticas de jugador de campo (portero).")
-                    else:
-                        categorias = ['Ritmo', 'Tiro', 'Pase', 'Regate', 'Defensa', 'Físico']
-                        valores = [
-                            float(datos_fifa.get('pace', 0)), float(datos_fifa.get('shooting', 0)),
-                            float(datos_fifa.get('passing', 0)), float(datos_fifa.get('dribbling', 0)),
-                            float(datos_fifa.get('defending', 0)), float(datos_fifa.get('physic', 0))
-                        ]
-                        categorias.append(categorias[0])
-                        valores.append(valores[0])
+                    valores = []
+                    for stat in stats_campo:
+                        nombre_col_real = columnas_csv_lower.get(stat)
+                        if nombre_col_real:
+                            val = datos_fifa.get(nombre_col_real, 0)
+                            try: valores.append(float(val) if pd.notnull(val) else 0.0)
+                            except: valores.append(0.0)
+                        else: 
+                            valores.append(0.0)
 
-                        fig = go.Figure()
-                        fig.add_trace(go.Scatterpolar(
-                            r=valores, theta=categorias, fill='toself',
-                            name=nombre_real, line_color='#1f77b4', fillcolor='rgba(31, 119, 180, 0.4)'
+                    if sum(valores) == 0:
+                        st.warning(f"⚠️ **{nombre_real}** es portero o no tiene estadísticas de jugador de campo en FIFA.")
+                    else:
+                        fig = go.Figure(go.Scatterpolar(
+                            r=valores + [valores[0]], 
+                            theta=cats + [cats[0]], 
+                            fill='toself', 
+                            line_color='#1f77b4', 
+                            name=nombre_real
                         ))
                         fig.update_layout(
                             polar=dict(radialaxis=dict(visible=True, range=[0, 100])),
-                            showlegend=False, height=450, margin=dict(t=20, b=20, l=20, r=20)
+                            showlegend=False, 
+                            height=450, 
+                            margin=dict(t=40, b=40)
                         )
                         st.plotly_chart(fig, use_container_width=True)
                 else:
-                    st.info(f"No hemos encontrado las estadísticas FIFA para '{jugador_seleccionado}'.")
-            else:
-                st.error("No se ha podido cargar el archivo 'fifa_top5_ligas.csv'.")
+                    st.info(f"No se encontró la ficha detallada para '{jugador_seleccionado}' en la base de datos de FIFA.")
+
+        with tab2:
+            # TOP 3 GOLEADORES 
+            st.subheader(f"🏆 Top 3 Goleadores - {sel_liga}")
+            if 'Goles' in df_liga.columns:
+                df_goles = df_liga.dropna(subset=['Goles']).copy()
+                df_goles['Goles'] = pd.to_numeric(df_goles['Goles'], errors='coerce').fillna(0)
+                top_3 = df_goles.sort_values(by="Goles", ascending=False).head(3)
+                if not top_3.empty:
+                    fig_bar = go.Figure(go.Bar(
+                        x=top_3['Jugador'], y=top_3['Goles'], text=top_3['Goles'],
+                        textposition='auto', marker_color=['#FFD700', '#C0C0C0', '#CD7F32'][:len(top_3)]
+                    ))
+                    fig_bar.update_layout(xaxis_title="Jugador", yaxis_title="Goles", height=450, plot_bgcolor='rgba(0,0,0,0)')
+                    st.plotly_chart(fig_bar, use_container_width=True)
+
+# Limpieza de memoria
+if 'jugador_enviado' in st.session_state: del st.session_state['jugador_enviado']
+if 'temporada_enviada' in st.session_state: del st.session_state['temporada_enviada']
