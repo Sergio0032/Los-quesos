@@ -29,9 +29,9 @@ Temporada,Liga,Posicion,Equipo,Partidos_Jugados,Ganados,Empatados,Perdidos,Goles
 2017/2018,La Liga,8,Getafe,38,15,10,13,42,33,55,49.03
 2017/2018,La Liga,9,Eibar,38,14,9,15,44,50,51,41.42
 2017/2018,La Liga,10,Girona,38,14,9,15,50,59,51,52.1
-2017/2018,La Liga,11,Real Sociedad,38,14,7,17,66,59,49,56.35
-2017/2018,La Liga,12,Celta Vigo,38,13,10,15,59,60,49,54.59
-2017/2018,La Liga,13,Espanyol,38,12,13,13,36,42,49,41.58
+2017/2018,La Liga,11,Espanyol,38,12,13,13,36,42,49,41.58
+2017/2018,La Liga,12,Real Sociedad,38,14,7,17,66,59,49,56.35
+2017/2018,La Liga,13,Celta Vigo,38,13,10,15,59,60,49,54.59
 2017/2018,La Liga,14,Alaves,38,15,2,21,40,50,47,37.88
 2017/2018,La Liga,15,Levante,38,11,13,14,44,58,46,44.2
 2017/2018,La Liga,16,Athletic Club,38,10,13,15,41,49,43,51.79
@@ -42,8 +42,8 @@ Temporada,Liga,Posicion,Equipo,Partidos_Jugados,Ganados,Empatados,Perdidos,Goles
 2017/2018,Serie A,1,Juventus,38,30,5,3,86,24,95,59.23
 2017/2018,Serie A,2,Napoli,38,28,7,3,77,29,91,70.45
 2017/2018,Serie A,3,Roma,38,23,8,7,61,28,77,65.63
-2017/2018,Serie A,4,Lazio,38,21,9,8,89,49,72,66.51
-2017/2018,Serie A,5,Inter,38,20,12,6,66,30,72,60.83
+2017/2018,Serie A,4,Inter,38,20,12,6,66,30,72,60.83
+2017/2018,Serie A,5,Lazio,38,21,9,8,89,49,72,66.51
 2017/2018,Serie A,6,AC Milan,38,18,10,10,56,42,64,50.88
 2017/2018,Serie A,7,Atalanta,38,16,12,10,57,39,60,64.29
 2017/2018,Serie A,8,Fiorentina,38,16,9,13,54,46,57,54.12
@@ -51,8 +51,8 @@ Temporada,Liga,Posicion,Equipo,Partidos_Jugados,Ganados,Empatados,Perdidos,Goles
 2017/2018,Serie A,10,Sampdoria,38,16,6,16,56,60,54,53.14
 2017/2018,Serie A,11,Sassuolo,38,11,10,17,29,59,43,47.15
 2017/2018,Serie A,12,Genoa,38,11,8,19,33,43,41,42.21
-2017/2018,Serie A,13,Udinese,38,12,4,22,48,63,40,45.17
-2017/2018,Serie A,14,Chievo,38,10,10,18,36,59,40,34.34
+2017/2018,Serie A,13,Chievo,38,10,10,18,36,59,40,34.34
+2017/2018,Serie A,14,Udinese,38,12,4,22,48,63,40,45.17
 2017/2018,Serie A,15,Bologna,38,11,6,21,40,52,39,36.11
 2017/2018,Serie A,16,Cagliari,38,11,6,21,33,61,39,38.27
 2017/2018,Serie A,17,SPAL 2013,38,8,14,16,39,59,38,34.61
