@@ -7,7 +7,8 @@ from urllib.parse import quote
 import base64
 
 st.set_page_config(page_title="Táctica de Equipo", layout="wide")
-st.markdown("<style>.main { background-color: #ffffff; }</style>", unsafe_allow_html=True)
+
+st.markdown("<style>.main { }</style>", unsafe_allow_html=True)
 
 directorio_actual = os.path.dirname(os.path.abspath(__file__))
 ruta_logo = os.path.join(directorio_actual, "..", "logo.png")
@@ -26,7 +27,6 @@ if os.path.exists(ruta_logo):
 st.title("Disposición Táctica")
 st.divider()
 
-# --- CARGA Y LIMPIEZA DE DATOS ---
 @st.cache_data
 def load_all_data():
     path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data_jugadores'))
@@ -87,7 +87,6 @@ def calcular_radar_equipo(df_fifa, equipo):
     return ata, med, dfn
 
 
-# --- LÓGICA PRINCIPAL ---
 if not df.empty:
 
     st.sidebar.header("⚙️ Configuración")
@@ -97,10 +96,29 @@ if not df.empty:
     sel_temp = st.sidebar.selectbox("🗓️ Temporada", temporadas_disponibles)
     temp_corto = sel_temp[2:4] + sel_temp[7:9]
     df_temp = df[(df['temporada'] == temp_corto) | (df['temporada'] == int(temp_corto))]
-    sel_liga = st.sidebar.selectbox("🏆 Liga", sorted(df_temp['liga'].unique().tolist()))
+    
+    #  AUTO-SELECCIÓN DE LIGA Y EQUIPO
+    equipo_fav = st.session_state.get('equipo', None)
+    lista_ligas = sorted(df_temp['liga'].unique().tolist())
+    
+    index_liga = 0
+    if equipo_fav:
+        # Buscamos en qué liga juega el equipo favorito esta temporada
+        ligas_del_equipo = df_temp[df_temp['equipo'] == equipo_fav]['liga'].unique()
+        if len(ligas_del_equipo) > 0:
+            liga_fav = ligas_del_equipo[0]
+            if liga_fav in lista_ligas:
+                index_liga = lista_ligas.index(liga_fav)
+
+    sel_liga = st.sidebar.selectbox("🏆 Liga", lista_ligas, index=index_liga)
     df_liga = df_temp[df_temp['liga'] == sel_liga]
 
-    sel_equipo = st.sidebar.selectbox("🛡️ Equipo", sorted(df_liga['equipo'].unique().tolist()))
+    lista_equipos = sorted(df_liga['equipo'].unique().tolist())
+    index_equipo = 0
+    if equipo_fav and equipo_fav in lista_equipos:
+        index_equipo = lista_equipos.index(equipo_fav)
+
+    sel_equipo = st.sidebar.selectbox("🛡️ Equipo", lista_equipos, index=index_equipo)
         
     df_equipo = df_liga[df_liga['equipo'] == sel_equipo].copy()
 
@@ -167,7 +185,6 @@ if not df.empty:
 
         evento = st.plotly_chart(fig, use_container_width=True, on_select="rerun")
 
-        # --- DIBUJO DEL RADAR DEL EQUIPO (NUEVO) ---
         if not df_fifa.empty:
             ata, med, dfn = calcular_radar_equipo(df_fifa, sel_equipo)
             
@@ -175,7 +192,6 @@ if not df.empty:
                 st.divider()
                 st.subheader(f"Nivel de Plantilla del {sel_equipo} (FIFA)")
                 
-                # Lo metemos en una columna central para que no ocupe todo el ancho de la pantalla y quede estético
                 c_izq, c_cen, c_der = st.columns([1, 2, 1])
                 
                 with c_cen:
@@ -194,7 +210,7 @@ if not df.empty:
                     
                     fig_radar.update_layout(
                         polar=dict(
-                            radialaxis=dict(visible=True, range=[50, 100]) # Empezamos en 50 para exagerar y ver mejor las diferencias de líneas
+                            radialaxis=dict(visible=True, range=[50, 100]) 
                         ),
                         showlegend=False,
                         height=400,
@@ -204,13 +220,11 @@ if not df.empty:
                     )
                     st.plotly_chart(fig_radar, use_container_width=True)
                     
-                    # Pequeñas métricas debajo del triángulo para que quede redondo
                     m1, m2, m3 = st.columns(3)
                     m1.metric("Ataque", f"{ata}")
                     m2.metric("Medio", f"{med}")
                     m3.metric("Defensa", f"{dfn}")
 
-        # SALTO AUTOMÁTICO A JUGADORES 
         if evento and len(evento.selection.get("points", [])) > 0:
             jugador_clicado = evento.selection["points"][0]["customdata"]
             st.session_state['jugador_enviado'] = jugador_clicado

@@ -12,7 +12,6 @@ try:
     with open(ruta_logo, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read()).decode()
 
-    # 3. Inyectamos el Banner con HTML y CSS
     st.markdown(
         f"""
         <div style="
@@ -68,22 +67,44 @@ if equipo_fav:
         if liga_formateada in ligas:
             index_liga_fav = ligas.index(liga_formateada)
 
-# --- SIDEBAR (Configuración) ---
+# --- SIDEBAR (Configuración Global) ---
 st.sidebar.header("⚙️ Configuración")
 
 liga_elegida = st.sidebar.selectbox("Selecciona la liga:", ligas, index=index_liga_fav)
+nombre_limpio = liga_elegida.replace(" ", "_")
 
-# Definimos el diccionario de temporadas aquí para que ambos apartados puedan usarlo
+# Extraemos la lista de equipos leyendo el archivo de la liga seleccionada
+lista_equipos = ["Todos los equipos"]
+ruta_base_csv = os.path.join(directorio_actual, "..", "..", "datos_resultados", f"resultados_{nombre_limpio}_2526.csv")
+try:
+    df_base = pd.read_csv(ruta_base_csv, on_bad_lines='skip')
+    if 'home_team' in df_base.columns:
+        df_base = df_base[df_base['home_team'] != 'home_team']
+        equipos_unicos = pd.concat([df_base['home_team'], df_base['away_team']]).dropna().unique()
+        equipos_unicos = sorted(equipos_unicos)
+        lista_equipos.extend(equipos_unicos)
+except:
+    pass
+
+# Seleccionamos el equipo automáticamente si está logueado
+index_equipo_fav = 0
+if equipo_fav and equipo_fav in lista_equipos:
+    index_equipo_fav = lista_equipos.index(equipo_fav)
+    
+equipo_elegido = st.sidebar.selectbox("Filtra por equipo:", lista_equipos, index=index_equipo_fav)
+
+# Definimos el diccionario de temporadas
 traductor_temporadas = {
     "2021/2022": "2122", "2022/2023": "2223", "2023/2024": "2324",
     "2024/2025": "2425", "2025/2026": "2526"
 }
 
-nombre_limpio = liga_elegida.replace(" ", "_")
 
-tab_tabla, tab_calendario = st.tabs(["📊 Tabla de Partidos", "📅 Calendario Mensual"])
+st.write("")
+vista = st.radio("Selecciona qué deseas ver:", ["📊 Tabla de Partidos", "📅 Calendario Mensual"], horizontal=True, label_visibility="collapsed")
+st.divider()
 
-with tab_tabla:
+if vista == "📊 Tabla de Partidos":
     opciones_temporadas = ["2025/2026", "2024/2025","2023/2024", "2022/2023", "2021/2022"]
     temporada_elegida = st.selectbox("Selecciona la temporada para la tabla:", opciones_temporadas)
     
@@ -109,16 +130,7 @@ with tab_tabla:
                 return None if texto in ['Sin reporte', 'nan'] or pd.isna(url) else texto
             df['match_report'] = df['match_report'].apply(limpiar_enlace)
         
-        lista_equipos = pd.concat([df['home_team'], df['away_team']]).dropna().unique()
-        lista_equipos = sorted(lista_equipos)
-        lista_equipos.insert(0, "Todos los equipos")
-        
-        index_equipo_fav = 0
-        if equipo_fav and equipo_fav in lista_equipos:
-            index_equipo_fav = lista_equipos.index(equipo_fav)
-            
-        equipo_elegido = st.sidebar.selectbox("Filtra por equipo:", lista_equipos, index=index_equipo_fav)    
-
+        # Aplicamos el filtro elegido en la barra lateral
         if equipo_elegido != "Todos los equipos":
             df = df[(df['home_team'] == equipo_elegido) | (df['away_team'] == equipo_elegido)]
         
@@ -142,8 +154,7 @@ with tab_tabla:
     except FileNotFoundError:
         st.error(f"No se encuentra el archivo: {nombre_archivo}")
 
-
-with tab_calendario:
+else:
     st.subheader("📅 Calendario Mensual")
     
     temp_fija = "2025/2026"
@@ -170,7 +181,7 @@ with tab_calendario:
         df_cal['date'] = pd.to_datetime(df_cal['date'].apply(fecha_para_calendario), errors='coerce')
         df_cal = df_cal.dropna(subset=['date'])
 
-        if 'equipo_elegido' in locals() and equipo_elegido != "Todos los equipos":
+        if equipo_elegido != "Todos los equipos":
             df_equipo = df_cal[(df_cal['home_team'] == equipo_elegido) | (df_cal['away_team'] == equipo_elegido)].copy()
             eventos = []
             for _, row in df_equipo.iterrows():
