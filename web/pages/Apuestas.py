@@ -1,5 +1,5 @@
 import streamlit as st
-import pandas as pd                                                    
+import pandas as pd                                                
 import os
 import plotly.graph_objects as go
 import numpy as np
@@ -18,23 +18,13 @@ st.markdown("""
     
     html, body, [class*="css"] {
         font-family: 'Outfit', sans-serif;
-        background-color: #FFFFFF;
-        color: #333333;
-    }
-
-    /* BARRA LATERAL: COLOR #EBF2F6 */
-    [data-testid="stSidebar"] {
-        background-color: #EBF2F6 !important;
-        border-right: 1px solid #DDE4E9;
-    }
-    [data-testid="stSidebar"] > div:first-child {
-        background-color: #EBF2F6 !important;
+        /* Hemos quitado el color blanco forzado para que Streamlit mande */
     }
 
     .sidebar-label {
         font-size: 15px;
         font-weight: 800;
-        color: #1D3557;
+        color: var(--text-color); /* Se adapta al modo oscuro */
         text-transform: uppercase;
         margin-top: 15px;
         margin-bottom: 5px;
@@ -44,7 +34,7 @@ st.markdown("""
     .stTabs [data-baseweb="tab"] {
         font-size: 17px;
         font-weight: 700;
-        color: #6C757D !important;
+        color: gray !important;
         text-transform: uppercase;
     }
     .stTabs [aria-selected="true"] {
@@ -53,8 +43,8 @@ st.markdown("""
     }
 
     .odds-card {
-        background: #F8FAFC;
-        border: 1px solid #E2E8F0;
+        background: var(--secondary-background-color); /* Gris en claro, gris oscuro en oscuro */
+        border: 1px solid var(--secondary-background-color);
         padding: 40px;
         border-radius: 8px;
         text-align: center;
@@ -66,8 +56,8 @@ st.markdown("""
     }
 
     .report-box {
-        background-color: #F8FAFC;
-        border-left: 6px solid #1D3557;
+        background-color: var(--secondary-background-color);
+        border-left: 6px solid #E63946; /* Cambiado a rojo para que destaque en ambos modos */
         padding: 25px;
         border-radius: 4px;
     }
@@ -110,46 +100,37 @@ datos_ligas = descargar_datos_en_vivo()
 if not datos_ligas:
     st.error("⚠️ No se ha encontrado el archivo 'clasificacion_2025.csv' o está vacío. Revisa la carpeta 'data_clasificaciones'.")
 else:
-    # --- 3. MOTOR DE CÁLCULO PROFESIONAL ---
+    # Cálculo cuotas
     def calcular_cuotas_Champagne(sl, sv, n):
-    # 1. Fuerza bruta bruta del equipo
         p_pos_l = (n - sl["pos"] + 1) / n
         p_pos_v = (n - sv["pos"] + 1) / n
         eff_l = sl["gf"] / max(1, sl["gc"])
         eff_v = sv["gf"] / max(1, sv["gc"])
         
-        # 2. NORMALIZACIÓN (La magia para que el 65/35 funcione)
-        # Comparamos su fuerza solo respecto a la del partido actual (escala de 0 a 1)
         p_pos_l_norm = p_pos_l / (p_pos_l + p_pos_v)
         p_pos_v_norm = p_pos_v / (p_pos_l + p_pos_v)
         
         eff_l_norm = eff_l / (eff_l + eff_v)
         eff_v_norm = eff_v / (eff_l + eff_v)
         
-        # 3. Ahora sí podemos aplicar los pesos con total fiabilidad matemática
-        f_l = (p_pos_l_norm * 0.65 + eff_l_norm * 0.35) * 1.12 # +12% factor cancha
+        f_l = (p_pos_l_norm * 0.65 + eff_l_norm * 0.35) * 1.12 
         f_v = (p_pos_v_norm * 0.65 + eff_v_norm * 0.35)
         
-        # 4. Probabilidades base (sin empate)
         total = f_l + f_v
         prob_l_base = f_l / total
         prob_v_base = f_v / total
         
-        # 5. Probabilidad de Empate dinámica
         dif = abs(prob_l_base - prob_v_base)
         prob_e = 0.28 - (dif * 0.10)
         
-        # 6. Reparto final exacto al 100%
         p_l = prob_l_base * (1.0 - prob_e)
         p_v = prob_v_base * (1.0 - prob_e)
         
-        # Retornamos las cuotas (1 / probabilidad)
         return round(1/p_l, 2), round(1/prob_e, 2), round(1/p_v, 2)
 
     with st.sidebar:
         st.markdown('<p class="sidebar-label">PANEL DE CONTROL</p>', unsafe_allow_html=True)
         
-        # Detectar automáticamente la liga del equipo favorito
         index_liga_fav = 0
         if "equipo" in st.session_state and st.session_state.equipo:
             for i, (liga, info) in enumerate(datos_ligas.items()):
@@ -160,7 +141,6 @@ else:
         liga_sel = st.selectbox("LIGA", list(datos_ligas.keys()), index=index_liga_fav)
         equipos = sorted(list(datos_ligas[liga_sel]["equipos"].keys()))
         
-        # Detectar la posición del equipo favorito en la lista de la liga seleccionada
         index_equipo_fav = 0
         if "equipo" in st.session_state and st.session_state.equipo in equipos:
             index_equipo_fav = equipos.index(st.session_state.equipo)
@@ -207,17 +187,17 @@ else:
         if loc == vis:
             st.warning("Seleccione equipos diferentes en la barra de control lateral.")
         else:
-            st.markdown(f"<h3 style='color: #1D3557;'>JORNADA ANALIZADA: {loc.upper()} VS {vis.upper()}</h3>", unsafe_allow_html=True)
+            st.markdown(f"<h3 style='color: var(--text-color);'>JORNADA ANALIZADA: {loc.upper()} VS {vis.upper()}</h3>", unsafe_allow_html=True)
             c1, c2, c3 = st.columns(3)
-            c1.markdown(f'<div class="odds-card"><div style="color:#6C757D; font-weight:800; font-size:13px; margin-bottom:15px; text-transform:uppercase;">GANA {loc.upper()}</div><div class="odds-value">{cl}</div></div>', unsafe_allow_html=True)
-            c2.markdown(f'<div class="odds-card"><div style="color:#6C757D; font-weight:800; font-size:13px; margin-bottom:15px; text-transform:uppercase;">EMPATE</div><div class="odds-value">{ce}</div></div>', unsafe_allow_html=True)
-            c3.markdown(f'<div class="odds-card"><div style="color:#6C757D; font-weight:800; font-size:13px; margin-bottom:15px; text-transform:uppercase;">GANA {vis.upper()}</div><div class="odds-value">{cv}</div></div>', unsafe_allow_html=True)
+            c1.markdown(f'<div class="odds-card"><div style="color:gray; font-weight:800; font-size:13px; margin-bottom:15px; text-transform:uppercase;">GANA {loc.upper()}</div><div class="odds-value">{cl}</div></div>', unsafe_allow_html=True)
+            c2.markdown(f'<div class="odds-card"><div style="color:gray; font-weight:800; font-size:13px; margin-bottom:15px; text-transform:uppercase;">EMPATE</div><div class="odds-value">{ce}</div></div>', unsafe_allow_html=True)
+            c3.markdown(f'<div class="odds-card"><div style="color:gray; font-weight:800; font-size:13px; margin-bottom:15px; text-transform:uppercase;">GANA {vis.upper()}</div><div class="odds-value">{cv}</div></div>', unsafe_allow_html=True)
 
     with tab2:
         if loc == vis:
             st.info("Modifique las selecciones para desbloquear la pestaña financiera.")
         else:
-            st.markdown(f"<h3 style='color: #1D3557;'>SIMULADOR DE CUPÓN DE APUESTAS</h3>", unsafe_allow_html=True)
+            st.markdown(f"<h3 style='color: var(--text-color);'>SIMULADOR DE CUPÓN DE APUESTAS</h3>", unsafe_allow_html=True)
             
             col_slip, col_payout = st.columns(2)
             
@@ -246,16 +226,16 @@ else:
                 beneficio_neto = round(pago_bruto - dinero_apostado, 2)
                 
                 st.markdown(f"""
-                <div style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
-                    <span style="color:#6C757D; font-weight:800; font-size:12px; text-transform:uppercase;">PRONÓSTICO TICKET</span>
-                    <h4 style="color: #1D3557; margin: 5px 0; font-weight: 700;">{texto_ticket.upper()}</h4>
+                <div style="background: var(--secondary-background-color); border: 1px solid var(--secondary-background-color); padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+                    <span style="color:gray; font-weight:800; font-size:12px; text-transform:uppercase;">PRONÓSTICO TICKET</span>
+                    <h4 style="color: var(--text-color); margin: 5px 0; font-weight: 700;">{texto_ticket.upper()}</h4>
                 </div>
                 <div style="background: #1D3557; border: 1px solid #1D3557; padding: 22px; border-radius: 8px; margin-bottom: 15px; color: white;">
                     <span style="color:#A8DADC; font-weight:800; font-size:12px; text-transform:uppercase;">PAGO POTENCIAL TOTAL</span>
                     <h1 style="color: #FFFFFF; margin: 5px 0 0 0; font-size: 50px; font-weight: 900;">{pago_bruto} €</h1>
                 </div>
-                <div style="background: #F8FAFC; border: 1px solid #E2E8F0; padding: 15px; border-radius: 8px;">
-                    <span style="color:#6C757D; font-weight:800; font-size:11px; text-transform:uppercase;">BENEFICIO NETO (GANANCIA REAL)</span>
+                <div style="background: var(--secondary-background-color); border: 1px solid var(--secondary-background-color); padding: 15px; border-radius: 8px;">
+                    <span style="color:gray; font-weight:800; font-size:11px; text-transform:uppercase;">BENEFICIO NETO (GANANCIA REAL)</span>
                     <h3 style="color: #2A9D8F; margin: 5px 0 0 0; font-size: 24px; font-weight: 700;">+{beneficio_neto} €</h3>
                 </div>
                 """, unsafe_allow_html=True)
@@ -264,7 +244,7 @@ else:
         if loc == vis:
             st.info("Desglose técnico no disponible.")
         else:
-            st.markdown("<h2 style='color: #1D3557;'>MÉTRICAS MATEMÁTICAS APLICADAS</h2>", unsafe_allow_html=True)
+            st.markdown("<h2 style='color: var(--text-color);'>MÉTRICAS MATEMÁTICAS APLICADAS</h2>", unsafe_allow_html=True)
             st.markdown(f"""
             <div class="report-box">
                 <p>Las cuotas reflejan el estado de forma exacto en esta liga (<b>{liga_sel}</b>) mediante un modelo de <b>fuerza normalizada</b>:</p>
