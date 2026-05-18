@@ -91,19 +91,19 @@ else:
 
     # --- SIDEBAR ---
     st.sidebar.header("Configuración")
-    sel_temporada = st.sidebar.selectbox("📅 Temporada", list_temp, index=temp_idx, format_func=mostrar_formato_temporada)
+    sel_temporada = st.sidebar.selectbox(" Temporada", list_temp, index=temp_idx, format_func=mostrar_formato_temporada)
     
     df_temp = df[df['Temporada'] == sel_temporada]
     sel_liga = st.sidebar.selectbox("🏆 Liga", sorted(df_temp['Liga'].unique().tolist()), index=liga_idx)
     
     df_liga = df_temp[df_temp['Liga'] == sel_liga]
     equipos = ["Ver toda la Liga"] + sorted(df_liga['Equipo'].unique().tolist())
-    sel_equipo = st.sidebar.selectbox("⚽ Equipo", equipos, index=equipo_idx)
+    sel_equipo = st.sidebar.selectbox(" Equipo", equipos, index=equipo_idx)
 
     df_final = df_liga if sel_equipo == "Ver toda la Liga" else df_liga[df_liga['Equipo'] == sel_equipo]
     
     if not df_final.empty:
-        tab1, tab2 = st.tabs(["📊 Estadísticas Generales", "⚽ Máximos Goleadores"])
+        tab1, tab2 = st.tabs([" Estadísticas Generales", " Máximos Goleadores"])
 
         with tab1:
             # --- TABLA Y MÉTRICAS BÁSICAS ---
@@ -127,31 +127,28 @@ else:
             jugador_seleccionado = st.selectbox("Elige un jugador para ver su ficha:", jugadores_disponibles, index=idx_jug_final)
 
             if jugador_seleccionado and not df_fifa.empty:
-                # Búsqueda en el CSV de FIFA
-                busqueda_clean = jugador_seleccionado.lower().strip()
-                match = pd.DataFrame()
-                cols_texto = df_fifa.select_dtypes(include=['object', 'string']).columns
+                # Búsqueda en el CSV de FIFA blindada contra acentos
+                # Búsqueda ultra rápida blindada contra acentos y segundos nombres
+                import unicodedata
+                def limpiar_string(t):
+                    return "".join(c for c in unicodedata.normalize('NFD', str(t)) if unicodedata.category(c) != 'Mn').lower().replace("-", " ").strip()
                 
-                partes = re.split(r'[\s\-]+', busqueda_clean)
-                palabras_clave = sorted([p for p in partes if len(p) > 3], key=len, reverse=True)
-
-                for col in cols_texto:
-                    col_limpia = df_fifa[col].astype(str).str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.lower()
-                    temp_match = df_fifa[col_limpia.str.contains(busqueda_clean, na=False)]
-                    if not temp_match.empty:
-                        match = temp_match
-                        break
-
-                if match.empty:
-                    for palabra in palabras_clave:
-                        for col in cols_texto:
-                            col_limpia = df_fifa[col].astype(str).str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.lower()
-                            temp_match = df_fifa[col_limpia.str.contains(palabra, na=False)]
-                            if not temp_match.empty:
-                                match = temp_match
-                                break
-                        if not match.empty: break
-
+                nombre_buscado = limpiar_string(jugador_seleccionado)
+                
+                # Creamos copias limpias de los nombres del FIFA en baja definición para comparar rápido
+                long_name_limpio = df_fifa['long_name'].astype(str).str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.lower().str.replace("-", " ")
+                short_name_limpio = df_fifa['short_name'].astype(str).str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.lower().str.replace("-", " ")
+                
+                # 1. Intentamos coincidencia exacta o contenida del nombre completo
+                match = df_fifa[long_name_limpio == nombre_buscado]
+                if match.empty: match = df_fifa[short_name_limpio == nombre_buscado]
+                if match.empty: match = df_fifa[long_name_limpio.str.contains(nombre_buscado, na=False)]
+                if match.empty: match = df_fifa[short_name_limpio.str.contains(nombre_buscado, na=False)]
+                    
+                # 2. Si no lo encuentra (caso de Gyökeres que se llama 'Viktor Einar Gyökeres'), busca solo por el APELLIDO
+                if match.empty and len(nombre_buscado.split()) > 1:
+                    apellido = nombre_buscado.split()[-1]
+                    match = df_fifa[long_name_limpio.str.contains(apellido, na=False) | short_name_limpio.str.contains(apellido, na=False)]
                 # Si encontramos al jugador, maquetamos la ficha
                 if not match.empty:
                     datos_fifa = match.iloc[0]
@@ -194,10 +191,10 @@ else:
                         # 2. Precio de Mercado (Una única vez)
                         valor_mercado = datos_fifa.get('value_eur', 0)
                         if pd.isna(valor_mercado) or valor_mercado == 0:
-                            st.markdown("### Precio de Mercado: 💰 Desconocido")
+                            st.markdown("### Precio de Mercado:  Desconocido")
                         else:
                             millones = float(valor_mercado) / 1000000
-                            st.markdown(f"### Precio de Mercado: 💰 € {millones:,.1f} M")
+                            st.markdown(f"### Precio de Mercado:  € {millones:,.1f} M")
                             
                         st.write("") # Un pequeño espacio en blanco para que respire
                             
@@ -244,7 +241,7 @@ else:
 
         with tab2:
             # TOP 3 GOLEADORES 
-            st.subheader(f"🏆 Top 3 Goleadores - {sel_liga}")
+            st.subheader(f"Top 3 Goleadores - {sel_liga}")
             if 'Goles' in df_liga.columns:
                 df_goles = df_liga.dropna(subset=['Goles']).copy()
                 df_goles['Goles'] = pd.to_numeric(df_goles['Goles'], errors='coerce').fillna(0)
