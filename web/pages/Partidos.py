@@ -5,7 +5,6 @@ import streamlit.components.v1 as components
 from streamlit_calendar import calendar 
 import base64
 
-
 directorio_actual = os.path.dirname(os.path.abspath(__file__))
 ruta_logo = os.path.join(directorio_actual, "..", "logo.png")
 
@@ -19,7 +18,7 @@ try:
         <div style="
             width: 100%;
             height: 150px; 
-            background-color: #0B132B; /* Color de fondo oscuro. Ajusta este código HEX si no coincide exacto */
+            background-color: #0B132B; 
             background-image: url('data:image/png;base64,{encoded_string}');
             background-size: contain;
             background-repeat: no-repeat;
@@ -34,14 +33,45 @@ except FileNotFoundError:
     st.error("No se encontró el archivo logo.png")
 
 st.set_page_config(page_title="Partidos", layout="wide")
-
 st.title("Partidos")
 
-# --- SIDEBAR (Solo cosas generales: Liga y Equipo) ---
-st.sidebar.header("⚙️ Configuración")
+equipo_fav = st.session_state.get('equipo', None)
+
+@st.cache_data
+def obtener_liga_de_equipo(equipo):
+    if not equipo: return None
+    ruta_clasif = os.path.abspath(os.path.join(directorio_actual, "..", "..", "data_clasificaciones", "clasificacion_2025.csv"))
+    try:
+        df_c = pd.read_csv(ruta_clasif)
+        fila = df_c[df_c['Equipo'] == equipo]
+        if not fila.empty:
+            return fila.iloc[0]['Liga']
+    except:
+        pass
+    return None
+
+mapa_ligas = {
+    "Premier League": "ENG-Premier League",
+    "La Liga": "ESP-La Liga",
+    "Bundesliga": "GER-Bundesliga",
+    "Serie A": "ITA-Serie A",
+    "Ligue 1": "FRA-Ligue 1"
+}
 
 ligas = ["ENG-Premier League", "ESP-La Liga", "GER-Bundesliga", "ITA-Serie A", "FRA-Ligue 1"]
-liga_elegida = st.sidebar.selectbox("Selecciona la liga:", ligas)
+index_liga_fav = 0
+
+if equipo_fav:
+    liga_base = obtener_liga_de_equipo(equipo_fav)
+    if liga_base in mapa_ligas:
+        liga_formateada = mapa_ligas[liga_base]
+        if liga_formateada in ligas:
+            index_liga_fav = ligas.index(liga_formateada)
+
+# --- SIDEBAR (Configuración) ---
+st.sidebar.header("⚙️ Configuración")
+
+liga_elegida = st.sidebar.selectbox("Selecciona la liga:", ligas, index=index_liga_fav)
 
 # Definimos el diccionario de temporadas aquí para que ambos apartados puedan usarlo
 traductor_temporadas = {
@@ -49,11 +79,9 @@ traductor_temporadas = {
     "2024/2025": "2425", "2025/2026": "2526"
 }
 
-directorio_actual = os.path.dirname(os.path.abspath(__file__))
 nombre_limpio = liga_elegida.replace(" ", "_")
 
 tab_tabla, tab_calendario = st.tabs(["📊 Tabla de Partidos", "📅 Calendario Mensual"])
-
 
 with tab_tabla:
     opciones_temporadas = ["2025/2026", "2024/2025","2023/2024", "2022/2023", "2021/2022"]
@@ -85,7 +113,11 @@ with tab_tabla:
         lista_equipos = sorted(lista_equipos)
         lista_equipos.insert(0, "Todos los equipos")
         
-        equipo_elegido = st.sidebar.selectbox("Filtra por equipo:", lista_equipos)    
+        index_equipo_fav = 0
+        if equipo_fav and equipo_fav in lista_equipos:
+            index_equipo_fav = lista_equipos.index(equipo_fav)
+            
+        equipo_elegido = st.sidebar.selectbox("Filtra por equipo:", lista_equipos, index=index_equipo_fav)    
 
         if equipo_elegido != "Todos los equipos":
             df = df[(df['home_team'] == equipo_elegido) | (df['away_team'] == equipo_elegido)]
