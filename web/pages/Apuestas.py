@@ -16,32 +16,33 @@ def poner_fondo_futbol(nombre_archivo_fondo):
         st.markdown(
             f"""
             <style>
+            /* Quitamos el fondo al contenedor principal */
             .stApp {{
+                background-color: transparent;
+            }}
+            
+            /* Pasamos la imagen a esta capa fantasma y le damos transparencia */
+            .stApp::before {{
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
                 background-image: url("data:image/jpeg;base64,{encoded_string}");
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
-                background-attachment: fixed;
-            }}
-            
-            .stApp::before {{
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5); 
+                
+                /* Magia de la marca de agua */
+                opacity: 0.15; 
+                
                 z-index: -1;
             }}
             
+            /* Cabeceras transparentes */
             [data-testid="stHeader"], [data-testid="stToolbar"] {{
                 background-color: rgba(0,0,0,0) !important;
-            }}
-            
-            .odds-card, .report-box, .stDataFrame {{
-                background-color: var(--secondary-background-color) !important;
-                border: 1px solid var(--divider-color) !important;
             }}
             </style>
             """,
@@ -50,14 +51,29 @@ def poner_fondo_futbol(nombre_archivo_fondo):
     except FileNotFoundError:
         st.warning(f"No se encontró la imagen de fondo: {nombre_archivo_fondo}")
 
-poner_fondo_futbol("temaa.jpg")
-
 st.set_page_config(
     page_title="Apuestas",
     layout="wide"
 )
+
+# Aplicamos el fondo
+poner_fondo_futbol("temaa.jpg")
+
+directorio_actual = os.path.dirname(os.path.abspath(__file__))
+ruta_logo = os.path.join(directorio_actual, "..", "logo.png")
+
+if os.path.exists(ruta_logo):
+    with open(ruta_logo, "rb") as f:
+        data = base64.b64encode(f.read()).decode()
+    st.markdown(f"""
+        <div style="width: 100%; height: 150px; background-color: #0B132B; 
+             background-image: url('data:image/png;base64,{data}');
+             background-size: contain; background-repeat: no-repeat; background-position: center;
+             border-radius: 10px; margin-bottom: 20px;">
+        </div>
+    """, unsafe_allow_html=True)
+
 st.title("Apuestas")
-st.divider()
 
 st.markdown("""
     <style>
@@ -65,13 +81,12 @@ st.markdown("""
     
     html, body, [class*="css"] {
         font-family: 'Outfit', sans-serif;
-        /* Hemos quitado el color blanco forzado para que Streamlit mande */
     }
 
     .sidebar-label {
         font-size: 15px;
         font-weight: 800;
-        color: var(--text-color); /* Se adapta al modo oscuro */
+        color: var(--text-color); 
         text-transform: uppercase;
         margin-top: 15px;
         margin-bottom: 5px;
@@ -89,24 +104,50 @@ st.markdown("""
         border-bottom: 4px solid #E63946 !important;
     }
 
+    /* CAJITAS PARA LAS CUOTAS (1X2) */
     .odds-card {
-        background: var(--secondary-background-color); /* Gris en claro, gris oscuro en oscuro */
-        border: 1px solid var(--secondary-background-color);
-        padding: 40px;
-        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.85);
+        padding: 30px 20px;
+        border-radius: 12px;
         text-align: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        border-bottom: 5px solid #1D3557;
+        transition: transform 0.2s;
+    }
+    .odds-card:hover {
+        transform: translateY(-5px);
     }
     .odds-value {
         color: #D4AF37; 
         font-size: 54px;
         font-weight: 900;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     }
 
-    .report-box {
-        background-color: var(--secondary-background-color);
-        border-left: 6px solid #E63946; /* Cambiado a rojo para que destaque en ambos modos */
+    /* CAJITAS PARA LOS REPORTES Y TICKETS */
+    .report-box, .tarjeta-ticket {
+        background-color: rgba(255, 255, 255, 0.85);
+        border-left: 6px solid #E63946;
         padding: 25px;
-        border-radius: 4px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        color: #1D3557;
+        margin-bottom: 15px;
+    }
+    
+    .tarjeta-ticket {
+        border-left: 5px solid #1D3557;
+    }
+
+    /* ADAPTACIÓN AL MODO OSCURO */
+    @media (prefers-color-scheme: dark) {
+        .odds-card, .report-box, .tarjeta-ticket {
+            background-color: rgba(30, 30, 30, 0.85);
+            color: #f0f2f6;
+        }
+        .odds-card { border-bottom: 5px solid #4a90e2; }
+        .report-box { border-left: 6px solid #E63946; color: #f0f2f6; }
+        .tarjeta-ticket { border-left: 5px solid #4a90e2; }
     }
     </style>
     """, unsafe_allow_html=True)
@@ -196,29 +237,8 @@ else:
         vis = st.selectbox("VISITANTE", equipos, index=min(1, len(equipos)-1))
         st.markdown("---")
 
-    directorio_actual = os.path.dirname(os.path.abspath(__file__))
-    ruta_logo = os.path.join(directorio_actual, "..", "logo.png")
 
-    if os.path.exists(ruta_logo):
-        with open(ruta_logo, "rb") as f:
-            data = base64.b64encode(f.read()).decode()
-        st.markdown(f"""
-            <div style="width: 100%; height: 150px; background-color: #0B132B; 
-                 background-image: url('data:image/png;base64,{data}');
-                 background-size: contain; background-repeat: no-repeat; background-position: center;
-                 border-radius: 10px; margin-bottom: 20px;">
-            </div>
-            """, unsafe_allow_html=True)
-    else:
-        st.markdown("""
-            <div style="width: 100%; height: 120px; background-color: #0B132B; 
-                 display: flex; align-items: center; justify-content: center;
-                 border-radius: 10px; margin-bottom: 20px;">
-                 <h1 style="color: #FFFFFF; font-family: 'Outfit', sans-serif; font-weight: 900; margin: 0; text-transform: uppercase; letter-spacing: 2px; font-size:36px;">FÚTBOL CHAMPAGNE PRO</h1>
-            </div>
-            """, unsafe_allow_html=True)
-
-    # --- 6. INTERFAZ GRÁFICA PRINCIPAL ---
+    # INTERFAZ GRÁFICA
     tab1, tab2, tab3 = st.tabs(["ANÁLISIS 1X2", "GESTIÓN DE BANCA", "INFORME TÉCNICO"])
 
     if loc != vis:
@@ -273,15 +293,15 @@ else:
                 beneficio_neto = round(pago_bruto - dinero_apostado, 2)
                 
                 st.markdown(f"""
-                <div style="background: var(--secondary-background-color); border: 1px solid var(--secondary-background-color); padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+                <div class="tarjeta-ticket">
                     <span style="color:gray; font-weight:800; font-size:12px; text-transform:uppercase;">PRONÓSTICO TICKET</span>
-                    <h4 style="color: var(--text-color); margin: 5px 0; font-weight: 700;">{texto_ticket.upper()}</h4>
+                    <h4 style="margin: 5px 0; font-weight: 700;">{texto_ticket.upper()}</h4>
                 </div>
-                <div style="background: #1D3557; border: 1px solid #1D3557; padding: 22px; border-radius: 8px; margin-bottom: 15px; color: white;">
+                <div style="background: #1D3557; border: 1px solid #1D3557; padding: 22px; border-radius: 8px; margin-bottom: 15px; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
                     <span style="color:#A8DADC; font-weight:800; font-size:12px; text-transform:uppercase;">PAGO POTENCIAL TOTAL</span>
                     <h1 style="color: #FFFFFF; margin: 5px 0 0 0; font-size: 50px; font-weight: 900;">{pago_bruto} €</h1>
                 </div>
-                <div style="background: var(--secondary-background-color); border: 1px solid var(--secondary-background-color); padding: 15px; border-radius: 8px;">
+                <div class="tarjeta-ticket" style="border-left-color: #2A9D8F;">
                     <span style="color:gray; font-weight:800; font-size:11px; text-transform:uppercase;">BENEFICIO NETO (GANANCIA REAL)</span>
                     <h3 style="color: #2A9D8F; margin: 5px 0 0 0; font-size: 24px; font-weight: 700;">+{beneficio_neto} €</h3>
                 </div>
@@ -295,7 +315,7 @@ else:
             st.markdown(f"""
             <div class="report-box">
                 <p>Las cuotas reflejan el estado de forma exacto en esta liga (<b>{liga_sel}</b>) mediante un modelo de <b>fuerza normalizada</b>:</p>
-                <ul>
+                <ul style="margin-top: 10px; line-height: 1.6;">
                     <li><b>Normalización Relativa:</b> Los datos de ambos equipos se miden estrictamente frente a frente (escala 0 a 1) para garantizar que los porcentajes de peso matemático sean 100% precisos y justos.</li>
                     <li><b>Clasificación Dinámica (65%):</b> Peso principal basado en la posición actual de <b>{loc}</b> (Puesto {datos_ligas[liga_sel]['equipos'][loc]['pos']} de {datos_ligas[liga_sel]['total']}) frente a <b>{vis}</b> (Puesto {datos_ligas[liga_sel]['equipos'][vis]['pos']}).</li>
                     <li><b>Eficacia Goleadora (35%):</b> Ratio de rendimiento puro (Goles a Favor / Goles en Contra) equilibrado contra la eficacia exacta del rival.</li>

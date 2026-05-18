@@ -268,7 +268,6 @@ if st.session_state.logueado:
                         </div>
                     """, unsafe_allow_html=True)
         
-st.markdown("---")
 
 if df_clasif.empty:
     st.warning("No hay datos disponibles en los CSV.")

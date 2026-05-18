@@ -9,12 +9,52 @@ import re
 # CONFIGURACIÓN DE PÁGINA 
 st.set_page_config(page_title="Jugadores", layout="wide")
 
-st.markdown("""
-    <style>
-    .main { background-color: #f5f7f9; }
-    .stDataFrame { border: 1px solid #e6e9ef; border-radius: 10px; }
-    </style>
-    """, unsafe_allow_html=True)
+def poner_fondo_futbol(nombre_archivo_fondo):
+    directorio_actual = os.path.dirname(os.path.abspath(__file__))
+    ruta_fondo = os.path.join(directorio_actual, nombre_archivo_fondo)
+    
+    try:
+        with open(ruta_fondo, "rb") as image_file:
+            encoded_string = base64.b64encode(image_file.read()).decode()
+        
+        st.markdown(
+            f"""
+            <style>
+            .stApp {{
+                background-color: transparent;
+            }}
+
+            .stApp::before {{
+                content: "";
+                position: fixed; 
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-image: url("data:image/jpeg;base64,{encoded_string}");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                opacity: 0.15; 
+                z-index: -1;
+            }}
+            
+            [data-testid="stHeader"], [data-testid="stToolbar"] {{
+                background-color: rgba(0,0,0,0) !important;
+            }}
+            
+            .odds-card, .report-box, .stDataFrame {{
+                background-color: var(--secondary-background-color) !important;
+                border: 1px solid var(--divider-color) !important;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+    except FileNotFoundError:
+        st.warning(f"No se encontró la imagen de fondo: {nombre_archivo_fondo}")
+
+poner_fondo_futbol("temaa.jpg")
 
 jugador_enviado = st.session_state.get('jugador_enviado', None)
 temporada_enviada = st.session_state.get('temporada_enviada', None)
@@ -62,7 +102,6 @@ if df.empty:
     st.warning("No hay datos en la carpeta 'data_jugadores'.")
 else:
     st.title("Estadísticas de jugadores")
-    st.divider()
 
     temp_idx, liga_idx, equipo_idx = 0, 0, 0
     
