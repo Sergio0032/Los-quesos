@@ -17,29 +17,36 @@ def poner_fondo_futbol(nombre_archivo_fondo):
         st.markdown(
             f"""
             <style>
+            /* 1. Quitamos el fondo al contenedor principal */
             .stApp {{
+                background-color: transparent;
+            }}
+            
+            /* 2. Pasamos la imagen a esta capa fantasma y le damos la transparencia */
+            .stApp::before {{
+                content: "";
+                position: fixed; /* Fijo para que no se corte al hacer scroll */
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
                 background-image: url("data:image/jpeg;base64,{encoded_string}");
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
-                background-attachment: fixed;
-            }}
-            
-            .stApp::before {{
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5); 
+                
+                /* ✨ AQUÍ AJUSTAS LA TRANSPARENCIA ✨ */
+                opacity: 0.15; /* Sube a 0.25 si quieres que se vea más la foto, baja a 0.08 si quieres que se vea menos */
+                
                 z-index: -1;
             }}
             
+            /* 3. Mantenemos las cabeceras transparentes */
             [data-testid="stHeader"], [data-testid="stToolbar"] {{
                 background-color: rgba(0,0,0,0) !important;
             }}
             
+            /* 4. Mantenemos tus tarjetas de apuestas/informes intactas */
             .odds-card, .report-box, .stDataFrame {{
                 background-color: var(--secondary-background-color) !important;
                 border: 1px solid var(--divider-color) !important;

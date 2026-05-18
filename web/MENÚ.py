@@ -20,21 +20,23 @@ def poner_fondo_futbol(nombre_archivo_fondo):
             f"""
             <style>
             .stApp {{
-                background-image: url("data:image/jpeg;base64,{encoded_string}");
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                background-attachment: fixed;
+                background-color: transparent;
             }}
             
             .stApp::before {{
                 content: "";
-                position: absolute;
+                position: fixed; 
                 top: 0;
                 left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5); 
+                width: 100vw;
+                height: 100vh;
+                background-image: url("data:image/jpeg;base64,{encoded_string}");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                
+                opacity: 0.15; /* Sube a 0.25 si quieres que se vea más la foto, baja a 0.08 si quieres que se vea menos */
+                
                 z-index: -1;
             }}
             

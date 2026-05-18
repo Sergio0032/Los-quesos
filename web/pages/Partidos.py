@@ -17,21 +17,23 @@ def poner_fondo_futbol(nombre_archivo_fondo):
             f"""
             <style>
             .stApp {{
+                background-color: transparent;
+            }}
+          
+            .stApp::before {{
+                content: "";
+                position: fixed; 
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
                 background-image: url("data:image/jpeg;base64,{encoded_string}");
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
-                background-attachment: fixed;
-            }}
-            
-            .stApp::before {{
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5); 
+                
+                opacity: 0.15; /* 0.15 es muy transparente. Si lo quieres más invisible pon 0.08, si quieres más fuerza pon 0.30 */
+                
                 z-index: -1;
             }}
             
@@ -39,7 +41,6 @@ def poner_fondo_futbol(nombre_archivo_fondo):
                 background-color: rgba(0,0,0,0) !important;
             }}
             
-            /* ESTILO PARA LAS NUEVAS CAJITAS DE PARTIDOS */
             .tarjeta-partido {{
                 background-color: rgba(255, 255, 255, 0.85);
                 color: #1f3b73;
