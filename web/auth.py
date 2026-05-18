@@ -1,7 +1,6 @@
 import pandas as pd
 import os
 
-# Nombre del archivo donde se guardarán los datos
 ARCHIVO_CSV = 'usuarios.csv'
 
 def crear_archivo_si_no_existe():
@@ -15,11 +14,9 @@ def registrar_usuario(user, password, equipo):
     crear_archivo_si_no_existe()
     df = pd.read_csv(ARCHIVO_CSV)
     
-    # Comprobar si el nombre de usuario ya está cogido
     if user in df['username'].values:
-        return False # Fallo: El usuario ya existe
+        return False 
         
-    # Añadir el nuevo usuario al final de la tabla
     nuevo_usuario = pd.DataFrame([{
         'username': user, 
         'password': str(password), 
@@ -29,7 +26,7 @@ def registrar_usuario(user, password, equipo):
     df = pd.concat([df, nuevo_usuario], ignore_index=True)
     df.to_csv(ARCHIVO_CSV, index=False)
     
-    return True # Éxito: Usuario registrado
+    return True
 
 def verificar_usuario(user, password):
     """Comprueba si el usuario y la contraseña coinciden. Si es así, devuelve su equipo."""
@@ -38,12 +35,10 @@ def verificar_usuario(user, password):
         
     df = pd.read_csv(ARCHIVO_CSV)
     
-    # Buscamos la fila exacta que coincida con usuario Y contraseña
     match = df[(df['username'] == user) & (df['password'] == str(password))]
     
     if not match.empty:
-        # Si hay coincidencia, devolvemos el nombre de su equipo favorito
         equipo = match.iloc[0]['equipo_favorito']
         return equipo
         
-    return None # Fallo: Usuario o contraseña incorrectos
+    return None 

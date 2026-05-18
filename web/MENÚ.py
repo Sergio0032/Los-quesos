@@ -6,9 +6,6 @@ import pandas as pd
 import glob
 from datetime import datetime
 import base64
-
-# --- NUEVA IMPORTACIÓN DEL SISTEMA CSV ---
-# (Asegúrate de tener el archivo auth.py en la misma carpeta que este MENU.py)
 from auth import registrar_usuario, verificar_usuario
 
 directorio_actual = os.path.dirname(os.path.abspath(__file__))
@@ -125,7 +122,6 @@ with st.sidebar:
                 lista_eq = sorted(df_clasif['Equipo'].unique().tolist()) if not df_clasif.empty else ["Real Madrid"]
                 fav_e = st.selectbox("Tu Equipo", lista_eq)
                 if st.form_submit_button("Registrar", use_container_width=True):
-                    # --- AQUÍ APLICAMOS EL REGISTRO CSV ---
                     if registrar_usuario(new_u, new_p, fav_e): 
                         st.success("Cuenta creada. ¡Ya puedes iniciar sesión!")
                     else: 
@@ -145,7 +141,6 @@ if st.session_state.logueado:
         
         st.write("") 
         
-        # Filtrar clasificación del equipo 
         if not df_clasif.empty:
             datos_clasif = df_clasif[df_clasif['Equipo'] == equipo_fav]
         else:
