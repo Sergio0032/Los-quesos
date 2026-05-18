@@ -120,7 +120,7 @@ else:
             # FICHA DEL JUGADOR 
 
             st.divider()
-            st.subheader("💳 Ficha del Jugador")
+            st.subheader("Ficha del Jugador")
 
             jugadores_disponibles = df_mostrar['Jugador'].tolist()
             idx_jug_final = jugadores_disponibles.index(jugador_enviado) if jugador_enviado in jugadores_disponibles else 0

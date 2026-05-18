@@ -5,9 +5,8 @@ import streamlit as st
 import pandas as pd
 import glob
 from datetime import datetime
-import streamlit as st
-import os
 import base64
+from auth import registrar_usuario, verificar_usuario
 
 directorio_actual = os.path.dirname(os.path.abspath(__file__))
 ruta_logo = os.path.join(directorio_actual, "logo.png")
@@ -21,7 +20,7 @@ try:
         <div style="
             width: 100%;
             height: 150px; 
-            background-color: #0B132B; /* Color de fondo oscuro. Ajusta este código HEX si no coincide exacto */
+            background-color: #0B132B; 
             background-image: url('data:image/png;base64,{encoded_string}');
             background-size: contain;
             background-repeat: no-repeat;
@@ -40,10 +39,7 @@ root_path = str(Path(__file__).resolve().parent.parent)
 if root_path not in sys.path:
     sys.path.append(root_path)
 
-from src.database import crear_tabla, registrar_usuario, verificar_usuario
-
 st.set_page_config(page_title="Futbol Champagne", layout="wide", page_icon="⚽")
-crear_tabla()
 
 st.markdown("""
     <style>
@@ -111,13 +107,14 @@ with st.sidebar:
                 u = st.text_input("Usuario")
                 p = st.text_input("Pass", type="password")
                 if st.form_submit_button("Entrar", use_container_width=True):
-                    res = verificar_usuario(u, p)
-                    if res:
+                    # --- AQUÍ APLICAMOS LA VERIFICACIÓN CSV ---
+                    equipo_usuario = verificar_usuario(u, p)
+                    if equipo_usuario:
                         st.session_state.logueado = True
                         st.session_state.user = u
-                        st.session_state.equipo = res[0]
+                        st.session_state.equipo = equipo_usuario # Ya no hace falta el [0]
                         st.rerun()
-                    else: st.error("Fallo")
+                    else: st.error("Usuario o contraseña incorrectos")
         else:
             with st.form("reg"):
                 new_u = st.text_input("Nuevo Usuario")
@@ -125,8 +122,10 @@ with st.sidebar:
                 lista_eq = sorted(df_clasif['Equipo'].unique().tolist()) if not df_clasif.empty else ["Real Madrid"]
                 fav_e = st.selectbox("Tu Equipo", lista_eq)
                 if st.form_submit_button("Registrar", use_container_width=True):
-                    if registrar_usuario(new_u, new_p, fav_e): st.success("OK")
-                    else: st.error("Ya existe")
+                    if registrar_usuario(new_u, new_p, fav_e): 
+                        st.success("Cuenta creada. ¡Ya puedes iniciar sesión!")
+                    else: 
+                        st.error("Ese usuario ya existe. Elige otro.")
     else:
         st.success(f"Hola, {st.session_state.user}")
         st.info(f"Fan del {st.session_state.equipo}")
@@ -142,7 +141,6 @@ if st.session_state.logueado:
         
         st.write("") 
         
-        # Filtrar clasificación del equipo 
         if not df_clasif.empty:
             datos_clasif = df_clasif[df_clasif['Equipo'] == equipo_fav]
         else:
