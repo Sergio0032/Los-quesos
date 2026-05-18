@@ -1,5 +1,5 @@
 import streamlit as st
-import pandas as pd
+import pandas as pd                                                    
 import os
 import plotly.graph_objects as go
 import numpy as np
@@ -145,11 +145,27 @@ else:
         
         # Retornamos las cuotas (1 / probabilidad)
         return round(1/p_l, 2), round(1/prob_e, 2), round(1/p_v, 2)
+
     with st.sidebar:
         st.markdown('<p class="sidebar-label">PANEL DE CONTROL</p>', unsafe_allow_html=True)
-        liga_sel = st.selectbox("LIGA", list(datos_ligas.keys()))
+        
+        # Detectar automáticamente la liga del equipo favorito
+        index_liga_fav = 0
+        if "equipo" in st.session_state and st.session_state.equipo:
+            for i, (liga, info) in enumerate(datos_ligas.items()):
+                if st.session_state.equipo in info["equipos"]:
+                    index_liga_fav = i
+                    break
+
+        liga_sel = st.selectbox("LIGA", list(datos_ligas.keys()), index=index_liga_fav)
         equipos = sorted(list(datos_ligas[liga_sel]["equipos"].keys()))
-        loc = st.selectbox("LOCAL", equipos, index=0)
+        
+        # Detectar la posición del equipo favorito en la lista de la liga seleccionada
+        index_equipo_fav = 0
+        if "equipo" in st.session_state and st.session_state.equipo in equipos:
+            index_equipo_fav = equipos.index(st.session_state.equipo)
+
+        loc = st.selectbox("LOCAL", equipos, index=index_equipo_fav)
         vis = st.selectbox("VISITANTE", equipos, index=min(1, len(equipos)-1))
         st.markdown("---")
 
