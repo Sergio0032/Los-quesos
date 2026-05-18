@@ -5,6 +5,53 @@ import plotly.graph_objects as go
 import numpy as np
 import base64
 
+def poner_fondo_futbol(nombre_archivo_fondo):
+    directorio_actual = os.path.dirname(os.path.abspath(__file__))
+    ruta_fondo = os.path.join(directorio_actual, nombre_archivo_fondo)
+    
+    try:
+        with open(ruta_fondo, "rb") as image_file:
+            encoded_string = base64.b64encode(image_file.read()).decode()
+        
+        st.markdown(
+            f"""
+            <style>
+            .stApp {{
+                background-image: url("data:image/jpeg;base64,{encoded_string}");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }}
+            
+            .stApp::before {{
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5); 
+                z-index: -1;
+            }}
+            
+            [data-testid="stHeader"], [data-testid="stToolbar"] {{
+                background-color: rgba(0,0,0,0) !important;
+            }}
+            
+            .odds-card, .report-box, .stDataFrame {{
+                background-color: var(--secondary-background-color) !important;
+                border: 1px solid var(--divider-color) !important;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+    except FileNotFoundError:
+        st.warning(f"No se encontró la imagen de fondo: {nombre_archivo_fondo}")
+
+poner_fondo_futbol("temaa.jpg")
+
 st.set_page_config(
     page_title="Apuestas",
     layout="wide"

@@ -5,6 +5,82 @@ import streamlit.components.v1 as components
 from streamlit_calendar import calendar 
 import base64
 
+def poner_fondo_futbol(nombre_archivo_fondo):
+    directorio_actual = os.path.dirname(os.path.abspath(__file__))
+    ruta_fondo = os.path.join(directorio_actual, nombre_archivo_fondo)
+    
+    try:
+        with open(ruta_fondo, "rb") as image_file:
+            encoded_string = base64.b64encode(image_file.read()).decode()
+        
+        st.markdown(
+            f"""
+            <style>
+            .stApp {{
+                background-image: url("data:image/jpeg;base64,{encoded_string}");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }}
+            
+            .stApp::before {{
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5); 
+                z-index: -1;
+            }}
+            
+            [data-testid="stHeader"], [data-testid="stToolbar"] {{
+                background-color: rgba(0,0,0,0) !important;
+            }}
+            
+            /* ESTILO PARA LAS NUEVAS CAJITAS DE PARTIDOS */
+            .tarjeta-partido {{
+                background-color: rgba(255, 255, 255, 0.85);
+                color: #1f3b73;
+                padding: 15px 20px;
+                border-radius: 8px;
+                margin-bottom: 12px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+                border-left: 5px solid #1f3b73;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }}
+            
+            .tarjeta-info-partido {{
+                font-size: 16px;
+                font-weight: 500;
+            }}
+            
+            .tarjeta-extra-info {{
+                font-size: 13px;
+                color: #666;
+                text-align: right;
+            }}
+
+            @media (prefers-color-scheme: dark) {{
+                .tarjeta-partido {{
+                    background-color: rgba(30, 30, 30, 0.85);
+                    color: #f0f2f6;
+                    border-left: 5px solid #4a90e2;
+                }}
+                .tarjeta-extra-info {{ color: #aaa; }}
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+    except FileNotFoundError:
+        st.warning(f"No se encontró la imagen de fondo: {nombre_archivo_fondo}")
+
+poner_fondo_futbol("temaa.jpg")
+
 directorio_actual = os.path.dirname(os.path.abspath(__file__))
 ruta_logo = os.path.join(directorio_actual, "..", "logo.png")
 
@@ -101,12 +177,12 @@ traductor_temporadas = {
 
 
 st.write("")
-vista = st.radio("Selecciona qué deseas ver:", ["📊 Tabla de Partidos", "📅 Calendario Mensual"], horizontal=True, label_visibility="collapsed")
+vista = st.radio("Selecciona qué deseas ver:", ["📊 Lista de Partidos", "📅 Calendario Mensual"], horizontal=True, label_visibility="collapsed")
 st.divider()
 
-if vista == "📊 Tabla de Partidos":
+if vista == "📊 Lista de Partidos":
     opciones_temporadas = ["2025/2026", "2024/2025","2023/2024", "2022/2023", "2021/2022"]
-    temporada_elegida = st.selectbox("Selecciona la temporada para la tabla:", opciones_temporadas)
+    temporada_elegida = st.selectbox("Selecciona la temporada:", opciones_temporadas)
     
     codigo_temp = traductor_temporadas[temporada_elegida]
     nombre_archivo = f"resultados_{nombre_limpio}_{codigo_temp}.csv"
@@ -134,28 +210,65 @@ if vista == "📊 Tabla de Partidos":
         if equipo_elegido != "Todos los equipos":
             df = df[(df['home_team'] == equipo_elegido) | (df['away_team'] == equipo_elegido)]
         
-        def resaltar_resultados(row):
-            estilo_local = estilo_visitante = estilo_score = ''
-            score = str(row.get('score', ''))
-            sep = '–' if '–' in score else '-'
-            if sep in score:
-                try:
-                    goles = score.split(sep)
-                    g_l, g_v = int(goles[0]), int(goles[1])
-                    if g_l > g_v: estilo_local, estilo_visitante = 'background-color: #d4edda; color: #155724', 'background-color: #f8d7da; color: #721c24'
-                    elif g_v > g_l: estilo_local, estilo_visitante = 'background-color: #f8d7da; color: #721c24', 'background-color: #d4edda; color: #155724'
-                    else: estilo_local = estilo_visitante = 'background-color: #fff3cd; color: #856404'
-                    estilo_score = 'font-weight: bold'
-                except: pass
-            return [estilo_local if col == 'home_team' else estilo_visitante if col == 'away_team' else estilo_score if col == 'score' else '' for col in row.index]
+        # --- AHORA PINTAMOS CADA PARTIDO EN SU CAJITA ---
+        # --- AHORA PINTAMOS CADA PARTIDO EN SU CAJITA ---
+        for _, fila in df.iterrows():
+            fecha = fila.get('date', '--')
+            hora = fila.get('time', '--')
+            local = fila.get('home_team', '??')
+            visi = fila.get('away_team', '??')
+            resultado = str(fila.get('score', ' vs ')).strip()
+            estadio = fila.get('venue', 'Estadio desconocido')
+            asistencia = fila.get('attendance', '??')
+            reporte = fila.get('match_report', None)
 
-        st.dataframe(df.style.apply(resaltar_resultados, axis=1), column_config={"match_report": st.column_config.LinkColumn("Reporte", display_text="Ver"), "attendance": st.column_config.NumberColumn("Asistencia", format="%d")}, hide_index=True)
+            # Lógica para colorear a los equipos
+            color_l = "inherit" # Color por defecto
+            color_v = "inherit" # Color por defecto
+            
+            sep = '–' if '–' in resultado else '-' if '-' in resultado else None
+            
+            if sep:
+                try:
+                    goles = resultado.split(sep)
+                    g_l, g_v = int(goles[0]), int(goles[1])
+                    if g_l > g_v:
+                        color_l, color_v = "#28a745", "#dc3545" # Local verde, Visitante rojo
+                    elif g_v > g_l:
+                        color_l, color_v = "#dc3545", "#28a745" # Local rojo, Visitante verde
+                    else:
+                        color_l = color_v = "#fd7e14" # Empate: Naranja para los dos
+                except:
+                    pass # Si hay algún error leyendo los goles, se quedan con el color normal
+
+            # Formateo del centro (el resultado en sí)
+            if not sep: 
+                 res_html = f"<span style='color: gray; padding: 0 10px;'>vs</span>"
+            else:
+                 res_html = f"<span style='color: var(--text-color); font-weight: 900; font-size: 20px; padding: 0 15px;'>{resultado}</span>"
+
+            enlace_html = f"<a href='{reporte}' target='_blank' style='color: #4a90e2; text-decoration: none;'>📄 Reporte</a>" if reporte else ""
+
+            # Inyectamos el HTML de la cajita individual con los colores aplicados
+            st.markdown(f"""
+                <div class="tarjeta-partido">
+                    <div class="tarjeta-info-partido">
+                        <span style="color: gray; margin-right: 15px;"> {fecha} ({hora})</span>
+                        <b style="color: {color_l};">{local}</b> {res_html} <b style="color: {color_v};">{visi}</b>
+                    </div>
+                    <div class="tarjeta-extra-info">
+                        🏟️ {estadio} <br>
+                        👥 {asistencia} <br>
+                        {enlace_html}
+                    </div>
+                </div>
+            """, unsafe_allow_html=True)
 
     except FileNotFoundError:
         st.error(f"No se encuentra el archivo: {nombre_archivo}")
 
 else:
-    st.subheader("📅 Calendario Mensual")
+    st.subheader(" Calendario Mensual")
     
     temp_fija = "2025/2026"
     codigo_temp_cal = "2526"

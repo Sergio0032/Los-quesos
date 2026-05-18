@@ -8,6 +8,53 @@ from datetime import datetime
 import base64
 from auth import registrar_usuario, verificar_usuario
 
+def poner_fondo_futbol(nombre_archivo_fondo):
+    directorio_actual = os.path.dirname(os.path.abspath(__file__))
+    ruta_fondo = os.path.join(directorio_actual, nombre_archivo_fondo)
+    
+    try:
+        with open(ruta_fondo, "rb") as image_file:
+            encoded_string = base64.b64encode(image_file.read()).decode()
+        
+        st.markdown(
+            f"""
+            <style>
+            .stApp {{
+                background-image: url("data:image/jpeg;base64,{encoded_string}");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }}
+            
+            .stApp::before {{
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5); 
+                z-index: -1;
+            }}
+            
+            [data-testid="stHeader"], [data-testid="stToolbar"] {{
+                background-color: rgba(0,0,0,0) !important;
+            }}
+            
+            .odds-card, .report-box, .stDataFrame {{
+                background-color: var(--secondary-background-color) !important;
+                border: 1px solid var(--divider-color) !important;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+    except FileNotFoundError:
+        st.warning(f"No se encontró la imagen de fondo: {nombre_archivo_fondo}")
+
+poner_fondo_futbol("temaa.jpg")
+
 directorio_actual = os.path.dirname(os.path.abspath(__file__))
 ruta_logo = os.path.join(directorio_actual, "logo.png")
 
@@ -41,11 +88,33 @@ if root_path not in sys.path:
 
 st.set_page_config(page_title="Futbol Champagne", layout="wide", page_icon="⚽")
 
+# --- ESTILOS DE LAS CAJITAS (GLASSMORPHISM) ---
 st.markdown("""
     <style>
-    .liga-header { background-color: #1f3b73; color: white; padding: 8px 15px; border-radius: 5px; margin-bottom: 10px; font-weight: bold; }
-    .fav-header { background-color: #FFD700; color: #1f3b73; padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 2px solid #1f3b73; text-align: center; font-weight: bold; }
+    .liga-header { background-color: rgba(31, 59, 115, 0.9); color: white; padding: 8px 15px; border-radius: 5px; margin-bottom: 10px; font-weight: bold; }
+    .fav-header { background-color: rgba(255, 215, 0, 0.9); color: #1f3b73; padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 2px solid #1f3b73; text-align: center; font-weight: bold; }
     h4 { margin-bottom: 0px; padding-bottom: 5px; }
+    
+    /* Cajitas para cada dato individual */
+    .tarjeta-dato {
+        background-color: rgba(255, 255, 255, 0.85); /* Fondo blanco semitransparente */
+        color: #1f3b73;
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        border-left: 4px solid #1f3b73;
+        font-size: 14.5px;
+    }
+    
+    /* Cajitas adaptadas al modo oscuro */
+    @media (prefers-color-scheme: dark) {
+        .tarjeta-dato {
+            background-color: rgba(30, 30, 30, 0.85); /* Fondo negro semitransparente */
+            color: #f0f2f6;
+            border-left: 4px solid #4a90e2;
+        }
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -107,12 +176,11 @@ with st.sidebar:
                 u = st.text_input("Usuario")
                 p = st.text_input("Pass", type="password")
                 if st.form_submit_button("Entrar", use_container_width=True):
-                    # --- AQUÍ APLICAMOS LA VERIFICACIÓN CSV ---
                     equipo_usuario = verificar_usuario(u, p)
                     if equipo_usuario:
                         st.session_state.logueado = True
                         st.session_state.user = u
-                        st.session_state.equipo = equipo_usuario # Ya no hace falta el [0]
+                        st.session_state.equipo = equipo_usuario 
                         st.rerun()
                     else: st.error("Usuario o contraseña incorrectos")
         else:
@@ -149,7 +217,6 @@ if st.session_state.logueado:
         if not df_partidos.empty:
             partidos_equipo = df_partidos[(df_partidos['home_team'] == equipo_fav) | (df_partidos['away_team'] == equipo_fav)]
             
-
             jugados_mask = partidos_equipo['score'].notna() & (partidos_equipo['score'] != "") & (partidos_equipo['score'] != " ")
             
             partidos_jugados = partidos_equipo[jugados_mask]
@@ -161,27 +228,43 @@ if st.session_state.logueado:
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            st.markdown("###  Últimos Resultados")
+            st.markdown("<h3 style='color: white; text-shadow: 1px 1px 2px black;'>Últimos Resultados</h3>", unsafe_allow_html=True)
             if not partidos_jugados.empty:
                 for _, row in partidos_jugados.tail(3).iterrows():
                     fecha_limpia = pd.to_datetime(row['date']).strftime('%d/%m')
-                    st.write(f"{fecha_limpia} | {row['home_team']} **{row['score']}** {row['away_team']}")
+                    st.markdown(f"""
+                        <div class='tarjeta-dato'>
+                            <small style='color: gray;'>{fecha_limpia}</small><br>
+                            <b>{row['home_team']}</b> <span style='color:#E63946; font-weight:900;'>{row['score']}</span> <b>{row['away_team']}</b>
+                        </div>
+                    """, unsafe_allow_html=True)
         with col2:
-            st.markdown("### Clasificación")
+            st.markdown("<h3 style='color: white; text-shadow: 1px 1px 2px black;'>Clasificación</h3>", unsafe_allow_html=True)
             if not datos_clasif.empty:
                 pos = datos_clasif['Posicion'].values[0] if 'Posicion' in datos_clasif.columns else "-"
                 pts = datos_clasif['Puntos'].values[0] if 'Puntos' in datos_clasif.columns else "-"   
                 
-                st.metric(label="Posición actual en Liga", value=f"{pos}º", delta=f"{pts} puntos", delta_color="off")
+                st.markdown(f"""
+                    <div class='tarjeta-dato' style='text-align: center; padding: 20px;'>
+                        <h1 style='margin:0; font-size: 40px;'>{pos}º</h1>
+                        <p style='margin:0; font-weight:bold; color: gray;'>Posición Actual</p>
+                        <h4 style='margin:10px 0 0 0; color: #E63946;'>{pts} Puntos</h4>
+                    </div>
+                """, unsafe_allow_html=True)
             else:
                 st.info("Datos de clasificación no disponibles.")
 
         with col3:
-            st.markdown("### Próximos Partidos")
+            st.markdown("<h3 style='color: white; text-shadow: 1px 1px 2px black;'>Próximos Partidos</h3>", unsafe_allow_html=True)
             if not partidos_proximos.empty:
                 for _, row in partidos_proximos.head(3).iterrows():
                     fecha_limpia = pd.to_datetime(row['date']).strftime('%d/%m')
-                    st.write(f"{fecha_limpia} | {row['home_team']} **vs** {row['away_team']}")
+                    st.markdown(f"""
+                        <div class='tarjeta-dato'>
+                            <small style='color: gray;'>{fecha_limpia}</small><br>
+                            {row['home_team']} <b>vs</b> {row['away_team']}
+                        </div>
+                    """, unsafe_allow_html=True)
         
 st.markdown("---")
 
@@ -198,9 +281,9 @@ else:
     ]
 
     h1, h2, h3 = st.columns(3)
-    h1.markdown("<h4 style='text-align:center; background-color:#f0f2f6; border-radius:5px;'>RESULTADOS</h4>", unsafe_allow_html=True)
-    h2.markdown("<h4 style='text-align:center; background-color:#f0f2f6; border-radius:5px;'>TOP 3</h4>", unsafe_allow_html=True)
-    h3.markdown("<h4 style='text-align:center; background-color:#f0f2f6; border-radius:5px;'>PRÓXIMOS</h4>", unsafe_allow_html=True)
+    h1.markdown("<h4 style='text-align:center; background-color:rgba(240, 242, 246, 0.85); color:#1f3b73; border-radius:5px; padding:5px;'>RESULTADOS</h4>", unsafe_allow_html=True)
+    h2.markdown("<h4 style='text-align:center; background-color:rgba(240, 242, 246, 0.85); color:#1f3b73; border-radius:5px; padding:5px;'>TOP 3</h4>", unsafe_allow_html=True)
+    h3.markdown("<h4 style='text-align:center; background-color:rgba(240, 242, 246, 0.85); color:#1f3b73; border-radius:5px; padding:5px;'>PRÓXIMOS</h4>", unsafe_allow_html=True)
 
     mask_jugado = pd.Series(False, index=df_partidos.index)
     if not df_partidos.empty:
@@ -217,19 +300,33 @@ else:
                 if not m_rec.empty:
                     for _, r in m_rec.head(2).iterrows():
                         f = r['date'].strftime('%d/%m') if pd.notna(r['date']) else "--"
-                        st.markdown(f"<small>{f}</small> | **{r['home_team']}** <span style='color:red;'>{r['score']}</span> **{r['away_team']}**", unsafe_allow_html=True)
+                        st.markdown(f"""
+                            <div class='tarjeta-dato'>
+                                <small style='color: gray;'>{f}</small><br>
+                                <b>{r['home_team']}</b> <span style='color:#E63946; font-weight:900;'>{r['score']}</span> <b>{r['away_team']}</b>
+                            </div>
+                        """, unsafe_allow_html=True)
                 else: st.caption("Sin datos")
 
             with c_cla:
                 top3 = df_clasif[df_clasif['Liga'] == liga['id']].head(3)
                 for i, row in enumerate(top3.itertuples(), 1):
-                    st.write(f"{i}. {row.Equipo} **{row.Puntos} pts**")
+                    st.markdown(f"""
+                        <div class='tarjeta-dato'>
+                            <b>{i}.</b> {row.Equipo} <span style='float:right;'><b>{row.Puntos} pts</b></span>
+                        </div>
+                    """, unsafe_allow_html=True)
 
             with c_pro:
                 m_pro = df_partidos[(df_partidos['home_team'].isin(equipos_liga)) & ~mask_jugado & (df_partidos['date'] >= hoy)].sort_values('date')
                 if not m_pro.empty:
                     for _, p in m_pro.head(2).iterrows():
                         f = p['date'].strftime('%d/%m') if pd.notna(p['date']) else "--"
-                        st.write(f"{f} - {p['home_team']} vs {p['away_team']}")
+                        st.markdown(f"""
+                            <div class='tarjeta-dato'>
+                                <small style='color: gray;'>{f}</small><br>
+                                {p['home_team']} <b>vs</b> {p['away_team']}
+                            </div>
+                        """, unsafe_allow_html=True)
                 else: st.caption("No hay próximos")
             st.markdown("<br>", unsafe_allow_html=True)
