@@ -11,7 +11,7 @@ st.set_page_config(page_title="Jugadores", layout="wide")
 
 def poner_fondo_futbol(nombre_archivo_fondo):
     directorio_actual = os.path.dirname(os.path.abspath(__file__))
-    ruta_fondo = os.path.join(directorio_actual, nombre_archivo_fondo)
+    ruta_fondo = os.path.join(directorio_actual, "..", nombre_archivo_fondo)
     
     try:
         with open(ruta_fondo, "rb") as image_file:
