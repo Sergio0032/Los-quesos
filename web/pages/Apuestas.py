@@ -16,12 +16,10 @@ def poner_fondo_futbol(nombre_archivo_fondo):
         st.markdown(
             f"""
             <style>
-            /* Quitamos el fondo al contenedor principal */
             .stApp {{
                 background-color: transparent;
             }}
             
-            /* Pasamos la imagen a esta capa fantasma y le damos transparencia */
             .stApp::before {{
                 content: "";
                 position: fixed;
@@ -33,14 +31,11 @@ def poner_fondo_futbol(nombre_archivo_fondo):
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
-                
-                /* Magia de la marca de agua */
                 opacity: 0.15; 
                 
                 z-index: -1;
             }}
             
-            /* Cabeceras transparentes */
             [data-testid="stHeader"], [data-testid="stToolbar"] {{
                 background-color: rgba(0,0,0,0) !important;
             }}
@@ -104,7 +99,6 @@ st.markdown("""
         border-bottom: 4px solid #E63946 !important;
     }
 
-    /* CAJITAS PARA LAS CUOTAS (1X2) */
     .odds-card {
         background-color: rgba(255, 255, 255, 0.85);
         padding: 30px 20px;
@@ -124,7 +118,6 @@ st.markdown("""
         text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     }
 
-    /* CAJITAS PARA LOS REPORTES Y TICKETS */
     .report-box, .tarjeta-ticket {
         background-color: rgba(255, 255, 255, 0.85);
         border-left: 6px solid #E63946;
@@ -139,7 +132,6 @@ st.markdown("""
         border-left: 5px solid #1D3557;
     }
 
-    /* ADAPTACIÓN AL MODO OSCURO */
     @media (prefers-color-scheme: dark) {
         .odds-card, .report-box, .tarjeta-ticket {
             background-color: rgba(30, 30, 30, 0.85);
@@ -186,7 +178,7 @@ datos_ligas = descargar_datos_en_vivo()
 
 #COMPROBACIÓN DE SEGURIDAD
 if not datos_ligas:
-    st.error("⚠️ No se ha encontrado el archivo 'clasificacion_2025.csv' o está vacío. Revisa la carpeta 'data_clasificaciones'.")
+    st.error("No se ha encontrado el archivo 'clasificacion_2025.csv' o está vacío. Revisa la carpeta 'data_clasificaciones'.")
 else:
     # Cálculo cuotas
     def calcular_cuotas_Champagne(sl, sv, n):
