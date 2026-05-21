@@ -1,10 +1,10 @@
-from duckduckgo_search import DDGS
 import streamlit as st
 import pandas as pd
 import os
 import plotly.graph_objects as go
 import base64
 import re
+import unicodedata
 
 # CONFIGURACIÓN DE PÁGINA 
 st.set_page_config(page_title="Jugadores", layout="wide")
@@ -133,7 +133,7 @@ else:
     sel_temporada = st.sidebar.selectbox(" Temporada", list_temp, index=temp_idx, format_func=mostrar_formato_temporada)
     
     df_temp = df[df['Temporada'] == sel_temporada]
-    sel_liga = st.sidebar.selectbox("🏆 Liga", sorted(df_temp['Liga'].unique().tolist()), index=liga_idx)
+    sel_liga = st.sidebar.selectbox("Liga", sorted(df_temp['Liga'].unique().tolist()), index=liga_idx)
     
     df_liga = df_temp[df_temp['Liga'] == sel_liga]
     equipos = ["Ver toda la Liga"] + sorted(df_liga['Equipo'].unique().tolist())
@@ -166,115 +166,164 @@ else:
             jugador_seleccionado = st.selectbox("Elige un jugador para ver su ficha:", jugadores_disponibles, index=idx_jug_final)
 
             if jugador_seleccionado and not df_fifa.empty:
-                # Búsqueda en el CSV de FIFA blindada contra acentos
-                # Búsqueda ultra rápida blindada contra acentos y segundos nombres
-                import unicodedata
+                # Búsqueda definitiva a prueba de segundos nombres
                 def limpiar_string(t):
                     return "".join(c for c in unicodedata.normalize('NFD', str(t)) if unicodedata.category(c) != 'Mn').lower().replace("-", " ").strip()
                 
                 nombre_buscado = limpiar_string(jugador_seleccionado)
+                palabras = nombre_buscado.split()
                 
-                # Creamos copias limpias de los nombres del FIFA en baja definición para comparar rápido
                 long_name_limpio = df_fifa['long_name'].astype(str).str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.lower().str.replace("-", " ")
                 short_name_limpio = df_fifa['short_name'].astype(str).str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.lower().str.replace("-", " ")
                 
-                # 1. Intentamos coincidencia exacta o contenida del nombre completo
-                match = df_fifa[long_name_limpio == nombre_buscado]
-                if match.empty: match = df_fifa[short_name_limpio == nombre_buscado]
-                if match.empty: match = df_fifa[long_name_limpio.str.contains(nombre_buscado, na=False)]
-                if match.empty: match = df_fifa[short_name_limpio.str.contains(nombre_buscado, na=False)]
+                # 1. Filtramos que el nombre contenga todas las palabras buscadas
+                match = df_fifa.copy()
+                for p in palabras:
+                    match = match[long_name_limpio.str.contains(p, na=False) | short_name_limpio.str.contains(p, na=False)]
                     
-                # 2. Si no lo encuentra (caso de Gyökeres que se llama 'Viktor Einar Gyökeres'), busca solo por el APELLIDO
-                if match.empty and len(nombre_buscado.split()) > 1:
-                    apellido = nombre_buscado.split()[-1]
+                # 2. Si falla por nombres muy raros, busca solo por el apellido
+                if match.empty and len(palabras) > 0:
+                    apellido = palabras[-1]
                     match = df_fifa[long_name_limpio.str.contains(apellido, na=False) | short_name_limpio.str.contains(apellido, na=False)]
+                    
+                # # 3. Sincronizamos con el equipo y cogemos el año correcto
+                fila_stats = df_mostrar[df_mostrar['Jugador'] == jugador_seleccionado]
+                equipo_forzado = None
+
+                if not match.empty:
+                    # Ordenamos para que la versión de FC 24 (más reciente) quede arriba por defecto
+                    if 'fifa_version' in match.columns:
+                        match = match.sort_values(by='fifa_version', ascending=False)
+                        
+                    if not fila_stats.empty:
+                        equipo_tabla_real = fila_stats['Equipo'].iloc[0]
+                        equipo_tabla_limpio = limpiar_string(equipo_tabla_real)
+                        
+                        match_filtrado = match[match['club_name'].astype(str).apply(limpiar_string).str.contains(equipo_tabla_limpio, na=False)]
+                        
+                        if not match_filtrado.empty:
+                            match = match_filtrado
+                        else:
+                            # Si no coincide (fichaje inventado), nos quedamos con el FC 24 pero forzamos vuestro equipo
+                            equipo_forzado = equipo_tabla_real
+
                 # Si encontramos al jugador, maquetamos la ficha
                 if not match.empty:
                     datos_fifa = match.iloc[0]
                     nombre_real = datos_fifa.get('short_name', jugador_seleccionado)
-                    equipo = datos_fifa.get('club_name', '')
-                    
-                    # Búsqueda de imagen
-                    url_foto = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+                    equipo = equipo_forzado if equipo_forzado else datos_fifa.get('club_name', '')
+                   
+                                            # --- DATOS LÓGICOS PREVIOS ---
+                    # 1. Banderas
+                    dicc_paises = {'Spain': ('es', 'España'), 'England': ('gb-eng', 'Inglaterra'), 'France': ('fr', 'Francia'), 'Germany': ('de', 'Alemania'), 'Italy': ('it', 'Italia'), 'Brazil': ('br', 'Brasil'), 'Argentina': ('ar', 'Argentina'), 'Portugal': ('pt', 'Portugal'), 'Netherlands': ('nl', 'Países Bajos'), 'Belgium': ('be', 'Bélgica'), 'Norway': ('no', 'Noruega')}
+                    nacionalidad_ingles = datos_fifa.get('nationality_name', 'Unknown')
+                    if nacionalidad_ingles in dicc_paises:
+                        iso, esp = dicc_paises[nacionalidad_ingles]
+                        html_pais = f'<img src="https://flagcdn.com/w20/{iso}.png" width="18" style="vertical-align:middle; border-radius:2px; margin-right:5px;"> {esp}'
+                    else: html_pais = f'🌍 {nacionalidad_ingles}'
+
+                    # 2. Datos dinámicos
                     try:
-                        busqueda_web = f"{nombre_real} {equipo} football player"
-                        with DDGS() as ddgs:
-                            resultados = list(ddgs.images(busqueda_web, max_results=1))
-                            if resultados:
-                                url_foto = resultados[0]['image']
-                    except Exception:
-                        pass 
+                        anyo_temporada = int(sel_temporada.split('-')[0]) 
+                        anyo_fifa = 1999 + int(datos_fifa.get('fifa_version', 24))
+                        edad_dinamica = int(datos_fifa.get('age', 0)) + (anyo_temporada - anyo_fifa)
+                    except: edad_dinamica = datos_fifa.get('age', '-')
 
-                    col_foto, col_datos = st.columns([1, 2])
+                    media = int(datos_fifa.get('overall', 0))
+                    color_media = "#ffd700" if media >= 75 else ("#c0c0c0" if media >= 65 else "#cd7f32")
+                    pie = "Zurdo" if str(datos_fifa.get('preferred_foot', '')) == "Left" else ("Diestro" if str(datos_fifa.get('preferred_foot', '')) == "Right" else "Ambidiestro")
                     
-                    with col_foto:
-                        st.markdown(f'''
-                            <div style="display: flex; flex-direction: column; align-items: center;">
-                                <img src="{url_foto}" 
-                                     onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png';"
-                                     style="border-radius: 50%; width: 180px; height: 180px; object-fit: cover; border: 4px solid #1f77b4; box-shadow: 0 4px 8px rgba(0,0,0,0.5); background-color: white;">
-                                <h4 style="margin-top: 15px; margin-bottom: 0; color: inherit; text-align: center;">{equipo}</h4>
-                                <p style="color: #1f77b4; font-weight: bold; font-size: 18px; margin-top: 5px;">{datos_fifa.get('player_positions', 'Posición')}</p>
+                    # 3. Foto y Precio
+                    sofifa_id_raw = datos_fifa.get('sofifa_id', 0)
+                    url_foto = f"https://cdn.sofifa.net/players/{str(int(sofifa_id_raw)).zfill(6)[:3]}/{str(int(sofifa_id_raw)).zfill(6)[3:]}/24_120.png"
+                    valor_mercado = datos_fifa.get('value_eur', 0)
+                    str_precio = f"€ {float(valor_mercado) / 1000000:.1f} M" if not pd.isna(valor_mercado) and valor_mercado > 0 else "Desconocido"
+
+                    # --- MAQUETACIÓN VISUAL ---
+                    col_ficha, col_grafico = st.columns([1.2, 1], gap="medium")
+
+                    with col_ficha:
+                        # TODO EL HTML EN UN SOLO BLOQUE (Caja negra al 85% de opacidad para que se lea perfecto)
+                        st.markdown(f"""
+                        <div style="background-color: rgba(15, 15, 15, 0.85); padding: 25px; border-radius: 15px; border: 1px solid #444; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                        
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <img src="{url_foto}" style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid {color_media}; background-color: transparent;" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'">
+                            <div>
+                                <h1 style="color: {color_media}; font-size: 55px; margin: 0; line-height: 1;">{media} <span style="font-size: 20px; color: white;">OVR</span></h1>
+                                <h2 style="color: white; margin: 0; font-size: 32px; padding-top: 5px;">{nombre_real}</h2>
+                                <p style="color: #1f77b4; font-weight: bold; font-size: 18px; margin: 5px 0;">{datos_fifa.get('player_positions', '')}</p>
+                                <p style="color: #ccc; margin: 0; font-size: 16px;">{html_pais} &nbsp;|&nbsp; 👟 {pie}</p>
                             </div>
-                        ''', unsafe_allow_html=True)
+                        </div>
+
+                        <hr style="border-top: 1px solid #444; margin: 25px 0;">
+
+                        <div style="display: flex; justify-content: space-between; text-align: center;">
+                            <div style="width: 30%;"><p style="color: #aaa; margin: 0; font-size: 14px;">Edad</p><p style="color: white; font-size: 20px; font-weight: bold; margin: 0;">{edad_dinamica} años</p></div>
+                            <div style="width: 30%;"><p style="color: #aaa; margin: 0; font-size: 14px;">Altura</p><p style="color: white; font-size: 20px; font-weight: bold; margin: 0;">{datos_fifa.get('height_cm', '-')} cm</p></div>
+                            <div style="width: 30%;"><p style="color: #aaa; margin: 0; font-size: 14px;">Peso</p><p style="color: white; font-size: 20px; font-weight: bold; margin: 0;">{datos_fifa.get('weight_kg', '-')} kg</p></div>
+                        </div>
+
+                        <hr style="border-top: 1px solid #444; margin: 25px 0;">
+
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <p style="color: #aaa; margin: 0; font-size: 14px;">Valor de Mercado</p>
+                                <p style="color: #1f77b4; font-size: 24px; font-weight: bold; margin: 0;">{str_precio}</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="color: #aaa; margin: 0; font-size: 14px;">Equipo Actual</p>
+                                <p style="color: white; font-size: 20px; font-weight: bold; margin: 0;">{equipo}</p>
+                            </div>
+                        </div>
+
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                    with col_grafico:
+                        # Título del radar en su propia cajita negra
+                        st.markdown("""
+                    <div style="background-color: rgba(15, 15, 15, 0.85); padding: 15px; border-radius: 15px; border: 1px solid #444; margin-bottom: 15px;">
+                        <h3 style="margin: 0; color: white; border-left: 5px solid #1f77b4; padding-left: 10px;">Rendimiento FIFA</h3>
+                    </div>
+                        """, unsafe_allow_html=True)
                         
-                    with col_datos:
-                        # 1. Datos físicos
-                        c1, c2, c3 = st.columns(3)
-                        c1.metric("Edad", f"{datos_fifa.get('age', '-')} años")
-                        c2.metric("Altura", f"{datos_fifa.get('height_cm', '-')} cm")
-                        c3.metric("Peso", f"{datos_fifa.get('weight_kg', '-')} kg")
+                        # --- AQUÍ DEBAJO TIENE QUE ESTAR TU CÓDIGO DEL RADAR ---                        # ...
+                                
+
+                        # Gráfico de Araña / Radar
+                        columnas_csv_lower = {c.lower(): c for c in df_fifa.columns}
+                        cats = ['Ritmo', 'Tiro', 'Pase', 'Regate', 'Defensa', 'Físico']
+                        stats_campo = ['pace', 'shooting', 'passing', 'dribbling', 'defending', 'physic']
                         
-                        st.divider()
-                        
-                        # 2. Precio de Mercado (Una única vez)
-                        valor_mercado = datos_fifa.get('value_eur', 0)
-                        if pd.isna(valor_mercado) or valor_mercado == 0:
-                            st.markdown("### Precio de Mercado:  Desconocido")
+                        valores = []
+                        for stat in stats_campo:
+                            nombre_col_real = columnas_csv_lower.get(stat)
+                            if nombre_col_real:
+                                val = datos_fifa.get(nombre_col_real, 0)
+                                try: valores.append(float(val) if pd.notnull(val) else 0.0)
+                                except: valores.append(0.0)
+                            else: 
+                                valores.append(0.0)
+
+                        if sum(valores) == 0:
+                            st.warning(f" **{nombre_real}** es portero o no tiene estadísticas de jugador de campo en FIFA.")
                         else:
-                            millones = float(valor_mercado) / 1000000
-                            st.markdown(f"### Precio de Mercado:  € {millones:,.1f} M")
-                            
-                        st.write("") # Un pequeño espacio en blanco para que respire
-                            
-                        # 3. Equipo Actual (Caja azul limpia, sin trayectorias)
-                        st.markdown("**Equipo Actual:**")
-                        st.info(f"➔ {equipo}")
-
-                    st.divider()
-
-                    # Gráfico de Araña / Radar
-                    columnas_csv_lower = {c.lower(): c for c in df_fifa.columns}
-                    cats = ['Ritmo', 'Tiro', 'Pase', 'Regate', 'Defensa', 'Físico']
-                    stats_campo = ['pace', 'shooting', 'passing', 'dribbling', 'defending', 'physic']
-                    
-                    valores = []
-                    for stat in stats_campo:
-                        nombre_col_real = columnas_csv_lower.get(stat)
-                        if nombre_col_real:
-                            val = datos_fifa.get(nombre_col_real, 0)
-                            try: valores.append(float(val) if pd.notnull(val) else 0.0)
-                            except: valores.append(0.0)
-                        else: 
-                            valores.append(0.0)
-
-                    if sum(valores) == 0:
-                        st.warning(f"⚠️ **{nombre_real}** es portero o no tiene estadísticas de jugador de campo en FIFA.")
-                    else:
-                        fig = go.Figure(go.Scatterpolar(
-                            r=valores + [valores[0]], 
-                            theta=cats + [cats[0]], 
-                            fill='toself', 
-                            line_color='#1f77b4', 
-                            name=nombre_real
-                        ))
-                        fig.update_layout(
-                            polar=dict(radialaxis=dict(visible=True, range=[0, 100])),
-                            showlegend=False, 
-                            height=450, 
-                            margin=dict(t=40, b=40)
-                        )
-                        st.plotly_chart(fig, use_container_width=True)
+                            fig = go.Figure(go.Scatterpolar(
+                                r=valores + [valores[0]], 
+                                theta=cats + [cats[0]], 
+                                fill='toself', 
+                                line_color='#1f77b4', 
+                                name=nombre_real
+                            ))
+                            fig.update_layout(
+                                polar=dict(radialaxis=dict(visible=True, range=[0, 100])),
+                                showlegend=False, 
+                                height=450, 
+                                margin=dict(t=40, b=40)
+                            )
+                            st.plotly_chart(fig, use_container_width=True)
                 else:
                     st.info(f"No se encontró la ficha detallada para '{jugador_seleccionado}' en la base de datos de FIFA.")
 
@@ -288,7 +337,7 @@ else:
                 if not top_3.empty:
                     fig_bar = go.Figure(go.Bar(
                         x=top_3['Jugador'], y=top_3['Goles'], text=top_3['Goles'],
-                        textposition='auto', marker_color=['#FFD700', '#C0C0C0', '#CD7F32'][:len(top_3)]
+                        textposition='auto', marker_color=['#FFD700', "#C0C0C0", '#CD7F32'][:len(top_3)]
                     ))
                     fig_bar.update_layout(xaxis_title="Jugador", yaxis_title="Goles", height=450, plot_bgcolor='rgba(0,0,0,0)')
                     st.plotly_chart(fig_bar, use_container_width=True)
