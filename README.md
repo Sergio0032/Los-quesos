@@ -30,16 +30,24 @@ Dado que la descarga de datos se ha delegado a la ejecución manual por parte de
 ## Instrucciones
 1. Abre la terminal en pyhton
 
-2. Instala las librerías necesarias ejecutando en la terminal: pip install -r requirements.txt
+2. Prepara el entorno virtual en la versión requerida con: 
+- py -3.11 -m venv env
+- .\env\Scripts\activate
+(Sabrá que el entorno está activo cuando vea el prefijo (env) al inicio de la línea en su terminal).
 
-3. Ejecuta los archivos de la carpeta src para tener los CSV. 
+2. Instala las librerías necesarias ejecutando en la terminal: python -m pip install -r requirements.txt
+
+3. Ejecuta los archivos de la carpeta src para tener los CSV, en este orden.
 python src/download_partidos.py
 python src/download_clasificaciones.py
 python src/download_jugadores.py
 python src/download_fifa.py
-    *Nota de actualización: Estos scripts extraen la información en tiempo real. Si deseas ver los datos de partidos o clasificaciones más recientes en el futuro, deberás volver a ejecutar estos comandos para sobreescribir los archivos locales. El script de FIFA (download_fifa.py) ya incluye credenciales de Kaggle configuradas internamente, por lo que se ejecutará de forma automática sin requerir la creación de cuentas ni tokens por parte del evaluador.
+python src/clean_fifa.py
+python src/añadir_jugadoresU18.py
 
-4. Para el download fifa en config hay unas claves de usuario que tendras que meter o crearte unas.
+    *Nota de actualización: Estos scripts extraen la información en tiempo real. Si deseas ver los datos de partidos o clasificaciones más recientes en el futuro, deberás volver a ejecutar estos comandos para sobreescribir los archivos locales.
+
+4. Para el download fifa en config.py hay unas claves de usuario que tendrás que meter o crearte unas.
 
 5. Haz funcionar los dockers, con los comandos en la terminal de: 
     - docker-compose build --no-cache
