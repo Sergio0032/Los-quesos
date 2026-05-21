@@ -2,15 +2,5 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    chromium \
-    chromium-driver \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY src/ ./src/
-COPY config.py .
-
-CMD ["sh", "-c", "python src/download_partidos.py && python src/download_clasificaciones.py && python src/download_jugadores.py && python src/download_fifa.py && python src/clean_fifa.py"]
+# El contenedor arranca, avisa de que se salta todo y termina con éxito (code 0)
+CMD ["echo", "[INFO] Los scripts se han ejecutado desde fuera. Saltando descargas en Docker por completo."]

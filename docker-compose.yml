@@ -1,18 +1,11 @@
 version: '3.8'
 
 services:
-  # --- CONTENEDOR 1: EL DESCARGADOR (EN VIVO CON PAUSAS) ---
   descargas:
     build:
       context: .
       dockerfile: Dockerfile.descargas
-    volumes:
-      - ./data_clasificaciones:/app/data_clasificaciones
-      - ./datos_resultados:/app/datos_resultados
-      - ./data_jugadores:/app/data_jugadores
-      - ./data_fifa:/app/data_fifa
 
-  # --- CONTENEDOR 2: LA WEB (STREAMLIT) ---
   web:
     build:
       context: .
