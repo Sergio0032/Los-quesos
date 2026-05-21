@@ -65,21 +65,12 @@ async def descargar_temporada(understat, temporada, es_ultima_temporada):
             os.remove(filename)
 
 async def main():
-    # ARREGLO 1: Creamos la carpeta CORRECTA por si el profesor no la tiene
     os.makedirs('data_clasificaciones', exist_ok=True)
     
     temporadas = range(2014, 2026) 
     ultima_temporada_del_rango = max(temporadas)
 
-    # ARREGLO 2: El disfraz anti-bots
-    cabeceras = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-        'Accept-Language': 'es-ES,es;q=0.9',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-    }
-
-    # ARREGLO 3: Le pasamos el disfraz a la sesión
-    async with aiohttp.ClientSession(headers=cabeceras) as session:
+    async with aiohttp.ClientSession() as session:
         understat = Understat(session)
         
         for año in temporadas:
@@ -87,8 +78,7 @@ async def main():
             
             await descargar_temporada(understat, año, es_ultima)
             
-            # ARREGLO 4: 3 segundos de pausa para que no sospechen
-            await asyncio.sleep(3)
+            await asyncio.sleep(1)
 
     print("\n--- Descarga finalizada ---")
 
