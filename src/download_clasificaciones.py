@@ -5,7 +5,6 @@ import os
 from understat import Understat
 
 async def descargar_temporada(understat, temporada, es_ultima_temporada):
-    # Nombres exactos que procesa correctamente la librería Understat
     ligas = {
         'epl': 'Premier League',
         'la liga': 'La Liga',
@@ -16,13 +15,11 @@ async def descargar_temporada(understat, temporada, es_ultima_temporada):
 
     filename = f"data_clasificaciones/clasificacion_{temporada}.csv"
 
-    # 1. COMPROBACIÓN: Si no es la última y el archivo ya está en el disco, lo saltamos
     if not es_ultima_temporada and os.path.exists(filename):
         print(f"Saltando {temporada}: El archivo ya existe.")
         return
         
     try:
-        # 2. RECOPILACIÓN SEGURA: Guardamos en memoria SIN tocar el disco duro todavía
         filas_a_guardar = []
         
         for id_liga, nombre_liga in ligas.items():
@@ -38,18 +35,15 @@ async def descargar_temporada(understat, temporada, es_ultima_temporada):
                     stats[5], stats[6], stats[7], stats[8]  
                 ])
                 
-        # 3. ESCRITURA: Solo si el bucle terminó al 100% sin errores, creamos el archivo
         with open(filename, mode='w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
             
-            # Cabecera
             writer.writerow([
                 'Temporada', 'Liga', 'Posicion', 'Equipo', 'Partidos_Jugados', 
                 'Ganados', 'Empatados', 'Perdidos', 'Goles_a_favor', 
                 'Goles_en_contra', 'Puntos', 'xG_Esperado'
             ])
             
-            # Escribimos todos los equipos de golpe
             writer.writerows(filas_a_guardar)
                     
         # 4. CONFIRMACIÓN FINAL
@@ -60,14 +54,13 @@ async def descargar_temporada(understat, temporada, es_ultima_temporada):
             
     except Exception as e:
         print(f"Error en temporada {temporada}: {e}")
-        # Seguro de vida: Si por un error extraño se llegó a crear un archivo a medias, lo destruimos
         if os.path.exists(filename):
             os.remove(filename)
 
 async def main():
     os.makedirs('data_clasificaciones', exist_ok=True)
     
-    temporadas = range(2014, 2026) 
+    temporadas = range(2015, 2026) 
     ultima_temporada_del_rango = max(temporadas)
 
     async with aiohttp.ClientSession() as session:
