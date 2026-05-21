@@ -65,10 +65,9 @@ async def descargar_temporada(understat, temporada, es_ultima_temporada):
             os.remove(filename)
 
 async def main():
-    os.makedirs('data', exist_ok=True)
+    os.makedirs('data_clasificaciones', exist_ok=True)
     
     temporadas = range(2014, 2026) 
-    
     ultima_temporada_del_rango = max(temporadas)
 
     async with aiohttp.ClientSession() as session:
@@ -78,6 +77,7 @@ async def main():
             es_ultima = (año == ultima_temporada_del_rango)
             
             await descargar_temporada(understat, año, es_ultima)
+            
             await asyncio.sleep(1)
 
     print("\n--- Descarga finalizada ---")
