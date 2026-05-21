@@ -1,5 +1,5 @@
 ### Proyecto estadísticas fútbol
-Análisis de las estadísticas generales de equipos y jugadores de las 5 grandes ligas europeas desde 2014 hasta la actualidad.
+Análisis de las estadísticas generales de equipos y jugadores de las 5 grandes ligas europeas desde 2015 hasta la actualidad.
 
 ### Integrantes
 - Sergio González Moya
@@ -20,18 +20,19 @@ Análisis de las estadísticas generales de equipos y jugadores de las 5 grandes
 
 - Contenedor App Web: Se encarga de levantar y servir la interfaz interactiva desarrollada en Streamlit (web/MENÚ.py), permitiendo al usuario navegar, filtrar y visualizar todas las estadísticas y clasificaciones.
 
-2. Compartición de Ficheros y Persistencia (Volúmenes)
-Dado que la descarga de datos se ha delegado a la ejecución manual por parte del usuario, el flujo de información ya no ocurre entre contenedores, sino entre el sistema anfitrión y la aplicación web mediante el uso de volúmenes de Docker.
-
-3. Al ejecutar los scripts localmente, los datos se almacenan en las carpetas físicas del proyecto (data_clasificaciones, data_jugadores, datos_resultados y data_fifa). Estas carpetas físicas están "conectadas" como volúmenes directamente al Contenedor App Web.
-
-4. De esta forma, la interfaz de Streamlit lee en tiempo real los archivos .csv alojados en el ordenador del usuario. Esto garantiza una persistencia total de la información: aunque los contenedores se detengan o se destruyan, los datos recopilados permanecen seguros y disponibles en el disco duro local.
+2. Al ejecutar los scripts localmente, los datos se almacenan en las carpetas físicas del proyecto. Estas carpetas están conectadas como volúmenes directamente al Contenedor App Web. De esta forma, la interfaz lee en tiempo real los archivos .csv alojados en el ordenador del usuario. Esto garantiza una persistencia total: aunque los contenedores se detengan, los datos recopilados permanecen seguros y disponibles.
 
 ### Instrucciones
-ALERTA: RECOMENDAMOS NO ELIMINAR LOS CSV DE CLASIFICACIÓN YA QUE LA API PUEDE DETECTARTE COMO BOT Y NO DEJARTE DESCARGARLO, 
-ES PROBABLE Q LA PRIMERA VEZ DEJE PERO NO ES SEGURO, RECOMENDAMOS POR SI ACASO NO ELIMINAR LOS CSV, Y SI SE QUIERRE COMPROBAR 
-PROBARLO PERO TENERLOS GUARDADOS POR SI DIERA FALLO PARA Q LA WEB CONTINUE FUNCIONANDO
+ALERTA: RECOMENDAMOS NO ELIMINAR LOS CSV (PRINCIPALMENTE EL DE CLASIFICACIÓN) YA QUE LA API PUEDE DETECTARTE COMO BOT Y NO DEJARTE DESCARGARLO ES PROBABLE Q LA PRIMERA VEZ DEJE PERO NO ES SEGURO, RECOMENDAMOS POR SI ACASO NO ELIMINAR LOS CSV. Si desea probar los scripts, le aconsejamos hacer una copia de seguridad de los archivos .csv actuales para garantizar que la plataforma web siga funcionando en caso de bloqueo.
 
+⚠️ Requisito Previo Obligatorio: Instalar Python 3.11
+
+    Para garantizar la correcta ejecución de los scripts de recolección de datos y evitar conflictos de compilación de C++ con las librerías, es estrictamente necesario utilizar Python 3.11. Versiones superiores (como 3.12 o 3.13) generarán errores con las librerías
+
+    Si no tiene esta versión instalada, siga estos pasos:
+    - Vaya a la página oficial y descargue el instalador de Python 3.11: [Descargar Python 3.11.9](https://www.python.org/downloads/release/python-3119/)
+    - Instalación: Al ejecutar el instalador en Windows, asegúrese de marcar la casilla **Add python.exe to PATH**
+    
 1. Abre la terminal en pyhton
 
 2. Prepara el entorno virtual en la versión requerida con: 
@@ -39,13 +40,6 @@ PROBARLO PERO TENERLOS GUARDADOS POR SI DIERA FALLO PARA Q LA WEB CONTINUE FUNCI
 - .\env\Scripts\activate
 (Sabrá que el entorno está activo cuando vea el prefijo (env) al inicio de la línea en su terminal).
 
-    ⚠️ Requisito Previo Obligatorio: Instalar Python 3.11
-
-    Para garantizar la correcta ejecución de los scripts de recolección de datos y evitar conflictos de compilación de C++ con las librerías, es estrictamente necesario utilizar Python 3.11. Versiones superiores (como 3.12 o 3.13) generarán errores con las librerías
-
-    Si no tiene esta versión instalada, siga estos pasos:
-    - Vaya a la página oficial y descargue el instalador de Python 3.11: [Descargar Python 3.11.9](https://www.python.org/downloads/release/python-3119/)
-    - Instalación: Al ejecutar el instalador en Windows, asegúrese de marcar la casilla **Add python.exe to PATH**
 
 2. Instala las librerías necesarias ejecutando en la terminal: python -m pip install -r requirements.txt
 
