@@ -121,29 +121,29 @@ LOGOS_COMPETICIONES = {
 
 
 def obtener_reglas_automaticas(liga, año_inicio):
-    # Diccionario manual con la clasificación europea real año por año (2015 - 2024)
+   
     excepciones = {
 # === LA LIGA ===
-        ("La Liga", 2015): {"UCL": 4, "UEL": 2, "UECL": 0, "Descenso": 3, "Playoff_Descenso": 0}, # 1-4 UCL, 5-6 UEL (Sevilla fue a UCL como 7º por ganar UEL)
+        ("La Liga", 2015): {"UCL": 4, "UEL": 2, "UECL": 0, "Descenso": 3, "Playoff_Descenso": 0}, 
         ("La Liga", 2016): {"UCL": 4, "UEL": 3, "UECL": 0, "Descenso": 3, "Playoff_Descenso": 0},
         ("La Liga", 2017): {"UCL": 4, "UEL": 3, "UECL": 0, "Descenso": 3, "Playoff_Descenso": 0},
         ("La Liga", 2018): {"UCL": 4, "UEL": 3, "UECL": 0, "Descenso": 3, "Playoff_Descenso": 0},
         ("La Liga", 2019): {"UCL": 4, "UEL": 3, "UECL": 0, "Descenso": 3, "Playoff_Descenso": 0},
-        ("La Liga", 2020): {"UCL": 4, "UEL": 2, "UECL": 0, "Descenso": 3, "Playoff_Descenso": 0}, # 1-4 UCL, 5-6 UEL (Villarreal fue a UCL como 7º por ganar UEL)
+        ("La Liga", 2020): {"UCL": 4, "UEL": 2, "UECL": 0, "Descenso": 3, "Playoff_Descenso": 0}, 
         ("La Liga", 2021): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0},
-        ("La Liga", 2022): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0}, # ¡CORREGIDO! 1-4 UCL, 5-6 UEL, 7º Osasuna UECL. El 8º (Athletic) queda libre.
-        ("La Liga", 2023): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0}, # 1-4 UCL, 5-6 UEL, 7º Betis UECL
-        ("La Liga", 2024): {"UCL": 5, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0}, # Tu temporada con el Villarreal en UCL y Rayo en UECL
+        ("La Liga", 2022): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0}, 
+        ("La Liga", 2023): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0}, 
+        ("La Liga", 2024): {"UCL": 5, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0},
 
         # === PREMIER LEAGUE ===
         ("Premier League", 2015): {"UCL": 4, "UEL": 3, "UECL": 0, "Descenso": 3, "Playoff_Descenso": 0},
-        ("Premier League", 2016): {"UCL": 4, "UEL": 1, "UECL": 0, "Descenso": 3, "Playoff_Descenso": 0}, # Man Utd campeón UEL
+        ("Premier League", 2016): {"UCL": 4, "UEL": 1, "UECL": 0, "Descenso": 3, "Playoff_Descenso": 0}, 
         ("Premier League", 2017): {"UCL": 4, "UEL": 3, "UECL": 0, "Descenso": 3, "Playoff_Descenso": 0},
         ("Premier League", 2018): {"UCL": 4, "UEL": 3, "UECL": 0, "Descenso": 3, "Playoff_Descenso": 0},
         ("Premier League", 2019): {"UCL": 4, "UEL": 2, "UECL": 0, "Descenso": 3, "Playoff_Descenso": 0},
         ("Premier League", 2020): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0},
         ("Premier League", 2021): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0},
-        ("Premier League", 2022): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0}, # West Ham campeón UECL
+        ("Premier League", 2022): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0}, 
         ("Premier League", 2023): {"UCL": 4, "UEL": 1, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0},
         ("Premier League", 2024): {"UCL": 5, "UEL": 2, "UECL": 0, "Descenso": 3, "Playoff_Descenso": 0},
 
@@ -156,7 +156,7 @@ def obtener_reglas_automaticas(liga, año_inicio):
         ("Serie A", 2020): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0},
         ("Serie A", 2021): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0},
         ("Serie A", 2022): {"UCL": 4, "UEL": 2, "UECL": 0, "Descenso": 4, "Playoff_Descenso": 0},
-        ("Serie A", 2023): {"UCL": 5, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0}, # Plaza extra rendimiento
+        ("Serie A", 2023): {"UCL": 5, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0}, 
         ("Serie A", 2024): {"UCL": 4, "UEL": 1, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0},
 
         # === BUNDESLIGA === (Siempre 18 equipos: 2 descensos directos, 1 playoff)
@@ -166,10 +166,9 @@ def obtener_reglas_automaticas(liga, año_inicio):
         ("Bundesliga", 2018): {"UCL": 4, "UEL": 3, "UECL": 0, "Descenso": 2, "Playoff_Descenso": 1},
         ("Bundesliga", 2019): {"UCL": 4, "UEL": 3, "UECL": 0, "Descenso": 2, "Playoff_Descenso": 1},
         ("Bundesliga", 2020): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 2, "Playoff_Descenso": 1},
-        ("Bundesliga", 2021): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 2, "Playoff_Descenso": 1}, # Eintracht campeón UEL
+        ("Bundesliga", 2021): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 2, "Playoff_Descenso": 1}, 
         ("Bundesliga", 2022): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 2, "Playoff_Descenso": 1},
-        ("Bundesliga", 2023): {"UCL": 5, "UEL": 2, "UECL": 1, "Descenso": 2, "Playoff_Descenso": 1}, # Plaza extra rendimiento
-        ("Bundesliga", 2024): {"UCL": 4, "UEL": 1, "UECL": 0, "Descenso": 2, "Playoff_Descenso": 1},
+        ("Bundesliga", 2023): {"UCL": 5, "UEL": 2, "UECL": 1, "Descenso": 2, "Playoff_Descenso": 1},
 
 # === LIGUE 1 ===
         ("Ligue 1", 2015): {"UCL": 3, "UEL": 3, "UECL": 0, "Descenso": 3, "Playoff_Descenso": 0},
@@ -179,12 +178,12 @@ def obtener_reglas_automaticas(liga, año_inicio):
         ("Ligue 1", 2019): {"UCL": 3, "UEL": 3, "UECL": 0, "Descenso": 2, "Playoff_Descenso": 0},
         ("Ligue 1", 2020): {"UCL": 3, "UEL": 2, "UECL": 1, "Descenso": 2, "Playoff_Descenso": 1},
         ("Ligue 1", 2021): {"UCL": 3, "UEL": 1, "UECL": 1, "Descenso": 2, "Playoff_Descenso": 1},
-        ("Ligue 1", 2022): {"UCL": 3, "UEL": 1, "UECL": 1, "Descenso": 4, "Playoff_Descenso": 0}, # El año de la purga (4 descensos directos)
-        ("Ligue 1", 2023): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 2, "Playoff_Descenso": 1}, # Ya con 18 equipos
+        ("Ligue 1", 2022): {"UCL": 3, "UEL": 1, "UECL": 1, "Descenso": 4, "Playoff_Descenso": 0}, 
+        ("Ligue 1", 2023): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 2, "Playoff_Descenso": 1}, 
         ("Ligue 1", 2024): {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 2, "Playoff_Descenso": 1}
     }
 
-    # Si el año y la liga existen en nuestro mapa manual, devolvemos la regla exacta
+   
     return excepciones.get((liga, año_inicio), {"UCL": 4, "UEL": 2, "UECL": 1, "Descenso": 3, "Playoff_Descenso": 0})
 
 def asignar_estatus(pos, reglas, total_equipos):
@@ -198,9 +197,7 @@ def asignar_estatus(pos, reglas, total_equipos):
 def normalizar(txt):
     return ''.join((c for c in unicodedata.normalize('NFD', str(txt).lower().strip()) if unicodedata.category(c) != 'Mn'))
 
-# =========================================================================
-# 4. INTERFAZ DE USUARIO (SIDEBAR)
-# =========================================================================
+
 with st.sidebar:
     st.title("🏆 Selecciona tu Liga")
     st.caption("Fútbol Estadísticas Históricas")
@@ -214,13 +211,10 @@ with st.sidebar:
     b_uel = st.number_input("Añadir UEL Extra", 0, 2, 0)
     b_uecl = st.number_input("Añadir UECL Extra", 0, 2, 0)
 
-# =========================================================================
-# 5. CARGA Y PROCESAMIENTO DE DATOS
-# =========================================================================
 try:
     año_inicio = int(temporada.split("/")[0])
     
-    # --- ESTAS SON LAS LÍNEAS QUE TE FALTABAN ---
+  
     from pathlib import Path
     ruta_csv = Path(__file__).resolve().parent.parent.parent / "data_clasificaciones" / f"clasificacion_{año_inicio}.csv"
     
@@ -231,27 +225,25 @@ try:
     
     total_equipos = len(df)
 
-    # 1. El motor calcula las plazas reales de la historia
     reglas = obtener_reglas_automaticas(liga_sel, año_inicio)
-    # 1. El motor calcula las plazas reales de la historia
+
     reglas = obtener_reglas_automaticas(liga_sel, año_inicio)
     
-    # 2. Se suman los ajustes manuales de tu barra lateral (por defecto son 0)
-    # (Asegúrate de tener b_uecl en tu st.sidebar también)
+ 
+  
     reglas["UCL"] += b_ucl
     reglas["UEL"] += b_uel
-    reglas["UECL"] += b_uecl  # <-- Añade este input en la sidebar si quieres
+    reglas["UECL"] += b_uecl  
 
   
     df["Estatus"] = df["Posicion"].apply(lambda x: asignar_estatus(x, reglas, total_equipos))
     df["Plaza"] = df["Estatus"].map(LOGOS_COMPETICIONES)
 
-    # --- PARCHE DIRECTO PARA EL SEVILLA (22/23) ---
     if liga_sel == "La Liga" and año_inicio == 2022:
         df.loc[df["Posicion"] == 11, "Estatus"] = "UCL"
         df.loc[df["Posicion"] == 11, "Plaza"] = LOGOS_COMPETICIONES["UCL"]
 
-    # --- PARCHE DIRECTO PARA EL VILLARREAL (20/21) ---
+ 
     if liga_sel == "La Liga" and año_inicio == 2020:
         df.loc[df["Posicion"] == 7, "Estatus"] = "UCL"
         df.loc[df["Posicion"] == 7, "Plaza"] = LOGOS_COMPETICIONES["UCL"]
@@ -344,7 +336,7 @@ try:
 
     url_logo = LOGOS_LIGAS.get(liga_sel, "")
     
-    # Creamos dos columnas: una muy estrecha para el escudo y otra ancha para el nombre
+
     col_logo, col_titulo = st.columns([1, 12])
     
     with col_logo:
@@ -352,7 +344,7 @@ try:
             st.image(url_logo, width=80)
             
     with col_titulo:
-        # st.title tiene mucho margen por defecto, usamos st.header para que quede mejor alineado con la foto
+       
         st.header(liga_sel)
     
     st.caption(f"Temporada {temporada} • {reglas['UCL']} Plazas UCL • {reglas['UEL']} Plazas UEL • {reglas['UECL']} Plazas UECL")
