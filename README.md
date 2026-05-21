@@ -39,7 +39,7 @@ python src/download_jugadores.py
 python src/download_fifa.py
     *Nota de actualización: Estos scripts extraen la información en tiempo real. Si deseas ver los datos de partidos o clasificaciones más recientes en el futuro, deberás volver a ejecutar estos comandos para sobreescribir los archivos locales. El script de FIFA (download_fifa.py) ya incluye credenciales de Kaggle configuradas internamente, por lo que se ejecutará de forma automática sin requerir la creación de cuentas ni tokens por parte del evaluador.
 
-4. Para el download fifa en config hay unas claves de usuario, no debes hacer nada porque ya se usan solas si tienes el archivo.
+4. Para el download fifa en config hay unas claves de usuario que tendras que meter o crearte unas.
 
 5. Haz funcionar los dockers, con los comandos en la terminal de: 
     - docker-compose build --no-cache
