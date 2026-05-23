@@ -23,7 +23,7 @@ Análisis de las estadísticas generales de equipos y jugadores de las 5 grandes
 2. Al ejecutar los scripts localmente, los datos se almacenan en las carpetas físicas del proyecto. Estas carpetas están conectadas como volúmenes directamente al Contenedor App Web. De esta forma, la interfaz lee en tiempo real los archivos .csv alojados en el ordenador del usuario. Esto garantiza una persistencia total: aunque los contenedores se detengan, los datos recopilados permanecen seguros y disponibles.
 
 ### Instrucciones
-ALERTA: RECOMENDAMOS NO ELIMINAR LOS CSV (PRINCIPALMENTE EL DE CLASIFICACIÓN) YA QUE LA API PUEDE DETECTARTE COMO BOT Y NO DEJARTE DESCARGARLO ES PROBABLE Q LA PRIMERA VEZ DEJE PERO NO ES SEGURO, RECOMENDAMOS POR SI ACASO NO ELIMINAR LOS CSV. Si desea probar los scripts, le aconsejamos hacer una copia de seguridad de los archivos .csv actuales para garantizar que la plataforma web siga funcionando en caso de bloqueo.
+ALERTA: RECOMENDAMOS NO ELIMINAR LOS CSV (PRINCIPALMENTE EL DE CLASIFICACIÓN) YA QUE LA API PUEDE DETECTARTE COMO BOT Y NO DEJARTE DESCARGARLO ES PROBABLE QUE LA PRIMERA VEZ DEJE PERO NO ES SEGURO, RECOMENDAMOS POR SI ACASO NO ELIMINAR LOS CSV. Si desea probar los scripts, le aconsejamos hacer una copia de seguridad de los archivos .csv actuales para garantizar que la plataforma web siga funcionando en caso de bloqueo.
 
 ⚠️ Requisito Previo Obligatorio: Instalar Python 3.11
 
@@ -40,10 +40,17 @@ ALERTA: RECOMENDAMOS NO ELIMINAR LOS CSV (PRINCIPALMENTE EL DE CLASIFICACIÓN) Y
 - .\env\Scripts\activate
 (Sabrá que el entorno está activo cuando vea el prefijo (env) al inicio de la línea en su terminal).
 
+3. (DESCARGA OPCIONAL SI SE QUIERE UTILIZAR EL "download_clasificaciones")
+Es necesario tener instaladas las "Visual Studio Build Tools" en Windows.
+   - Descarga el instalador de Visual Studio desde la web oficial de Microsoft.
+   - Al abrirlo, busca y marca unicamente la casilla que dice "Desarrollo para el escritorio con C++".
+   - Dale a instalar.
+   - Cuando termine, es obligatorio reiniciar Visual Studio Code por completo para que detecte el compilador.
+   - Esto es necesario para evitar un error en el paso 4.
 
-2. Instala las librerías necesarias ejecutando en la terminal: python -m pip install -r requirements.txt
+4. Instala las librerías necesarias ejecutando en la terminal: python -m pip install -r requirements.txt
 
-3. Ejecuta los archivos de la carpeta src para tener los CSV, en este orden(pudes hacerlo copiando estos códgios en la termianl o dandole al play en cada archivo)
+5. Ejecuta los archivos de la carpeta src para tener los CSV, en este orden(pudes hacerlo copiando estos códgios en la termianl o dandole al play en cada archivo)
 python src/download_partidos.py
 python src/download_clasificaciones.py
 python src/download_jugadores.py
@@ -53,11 +60,11 @@ python src/añadir_jugadoresU18.py
 
     *Nota de actualización: Estos scripts extraen la información en tiempo real. Si deseas ver los datos de partidos o clasificaciones más recientes en el futuro, deberás volver a ejecutar estos comandos para sobreescribir los archivos locales.
 
-4. Para el download fifa en el archivo config.py hay unas claves de usuario que tendrás que meter o sino te puedes crear unas en KAGGLE
+6. Para el download_fifa, en el archivo config.py hay unas claves de usuario que tendrás que meter o sino te puedes crear unas en KAGGLE
 
-5. Haz funcionar los dockers, con los comandos en la terminal de: 
+7. Haz funcionar los dockers, con los comandos en la terminal de: 
     - docker-compose build --no-cache
     - docker-compose up
     *Es necesario tener instalado y abierto docker desktop para este paso.
 
-6. Cuando la terminal te indique que streamlit ya fuinciona puedes ejecutar http://localhost:8501 para ver la web
+8. Cuando la terminal te indique que streamlit ya fuinciona puedes ejecutar http://localhost:8501 para ver la web
