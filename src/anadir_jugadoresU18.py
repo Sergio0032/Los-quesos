@@ -6,9 +6,8 @@ archivo_csv = os.path.join(directorio_actual, '..', 'data_fifa', 'fifa_top5_liga
 print("Abriendo base de datos masiva para inyectar a las promesas...")
 df_existente = pd.read_csv(archivo_csv, low_memory=False)
 
-# MEGA-LISTA DE JUGADORES (Puedes añadir los que te dé la gana copiando el formato)
 nuevos_jugadores = [
-    # 🇪🇸 LALIGA EA SPORTS
+    #LALIGA EA SPORTS
     {"sofifa_id": 999001, "short_name": "Lamine Yamal", "long_name": "Lamine Yamal Nasraoui Ebana", "age": 16, "club_name": "FC Barcelona", "league_name": "LaLiga EA SPORTS", "nationality_name": "Spain", "player_positions": "RW", "height_cm": 178, "weight_kg": 66, "overall": 83, "value_eur": 120000000, "pace": 83, "shooting": 76, "passing": 80, "dribbling": 86, "defending": 32, "physic": 54, "fifa_version": 24},
     {"sofifa_id": 999002, "short_name": "P. Cubarsí", "long_name": "Pau Cubarsí Paredes", "age": 17, "club_name": "FC Barcelona", "league_name": "LaLiga EA SPORTS", "nationality_name": "Spain", "player_positions": "CB", "height_cm": 184, "weight_kg": 72, "overall": 80, "value_eur": 50000000, "pace": 70, "shooting": 35, "passing": 75, "dribbling": 70, "defending": 82, "physic": 76, "fifa_version": 24},
     {"sofifa_id": 999003, "short_name": "Endrick", "long_name": "Endrick Felipe Moreira de Sousa", "age": 18, "club_name": "Real Madrid", "league_name": "LaLiga EA SPORTS", "nationality_name": "Brazil", "player_positions": "ST, CF", "height_cm": 173, "weight_kg": 72, "overall": 80, "value_eur": 60000000, "pace": 88, "shooting": 82, "passing": 70, "dribbling": 83, "defending": 35, "physic": 78, "fifa_version": 24},
@@ -20,7 +19,7 @@ nuevos_jugadores = [
     {"sofifa_id": 999009, "short_name": "C. Mosquera", "long_name": "Cristhian Mosquera", "age": 19, "club_name": "Valencia CF", "league_name": "LaLiga EA SPORTS", "nationality_name": "Spain", "player_positions": "CB", "height_cm": 191, "weight_kg": 82, "overall": 78, "value_eur": 18000000, "pace": 76, "shooting": 30, "passing": 58, "dribbling": 60, "defending": 79, "physic": 82, "fifa_version": 24},
     {"sofifa_id": 999010, "short_name": "Isaac Romero", "long_name": "Isaac Romero Bernal", "age": 24, "club_name": "Sevilla FC", "league_name": "LaLiga EA SPORTS", "nationality_name": "Spain", "player_positions": "ST", "height_cm": 184, "weight_kg": 78, "overall": 78, "value_eur": 18000000, "pace": 82, "shooting": 79, "passing": 65, "dribbling": 76, "defending": 40, "physic": 78, "fifa_version": 24},
 
-    # 🏴󠁧󠁢󠁥󠁮󠁧󠁿 PREMIER LEAGUE
+    #PREMIER LEAGUE
     {"sofifa_id": 999011, "short_name": "K. Mainoo", "long_name": "Kobbie Mainoo", "age": 19, "club_name": "Manchester United", "league_name": "Premier League", "nationality_name": "England", "player_positions": "CM, CDM", "height_cm": 175, "weight_kg": 70, "overall": 80, "value_eur": 45000000, "pace": 74, "shooting": 68, "passing": 80, "dribbling": 84, "defending": 72, "physic": 70, "fifa_version": 24},
     {"sofifa_id": 999012, "short_name": "E. Nwaneri", "long_name": "Ethan Nwaneri", "age": 17, "club_name": "Arsenal", "league_name": "Premier League", "nationality_name": "England", "player_positions": "CAM, CM, RW", "height_cm": 176, "weight_kg": 67, "overall": 74, "value_eur": 15000000, "pace": 78, "shooting": 68, "passing": 72, "dribbling": 79, "defending": 45, "physic": 60, "fifa_version": 24},
     {"sofifa_id": 999013, "short_name": "C. Bradley", "long_name": "Conor Bradley", "age": 20, "club_name": "Liverpool", "league_name": "Premier League", "nationality_name": "Northern Ireland", "player_positions": "RB, RWB", "height_cm": 181, "weight_kg": 72, "overall": 77, "value_eur": 18000000, "pace": 85, "shooting": 60, "passing": 73, "dribbling": 75, "defending": 72, "physic": 74, "fifa_version": 24},
@@ -32,7 +31,7 @@ nuevos_jugadores = [
     {"sofifa_id": 999019, "short_name": "M. Lewis-Skelly", "long_name": "Myles Lewis-Skelly", "age": 17, "club_name": "Arsenal", "league_name": "Premier League", "nationality_name": "England", "player_positions": "CM, CDM", "height_cm": 178, "weight_kg": 70, "overall": 68, "value_eur": 3000000, "pace": 72, "shooting": 60, "passing": 70, "dribbling": 72, "defending": 65, "physic": 68, "fifa_version": 24},
     {"sofifa_id": 999020, "short_name": "L. Miley", "long_name": "Lewis Miley", "age": 18, "club_name": "Newcastle United", "league_name": "Premier League", "nationality_name": "England", "player_positions": "CM", "height_cm": 185, "weight_kg": 74, "overall": 75, "value_eur": 12000000, "pace": 68, "shooting": 65, "passing": 77, "dribbling": 74, "defending": 66, "physic": 70, "fifa_version": 24},
 
-    # 🇮🇹 SERIE A TIM
+    #SERIE A
     {"sofifa_id": 999021, "short_name": "F. Camarda", "long_name": "Francesco Camarda", "age": 16, "club_name": "AC Milan", "league_name": "Serie A TIM", "nationality_name": "Italy", "player_positions": "ST", "height_cm": 184, "weight_kg": 75, "overall": 70, "value_eur": 5000000, "pace": 78, "shooting": 74, "passing": 55, "dribbling": 72, "defending": 30, "physic": 65, "fifa_version": 24},
     {"sofifa_id": 999022, "short_name": "K. Yildiz", "long_name": "Kenan Yildiz", "age": 19, "club_name": "Juventus", "league_name": "Serie A TIM", "nationality_name": "Turkey", "player_positions": "ST, CF", "height_cm": 185, "weight_kg": 78, "overall": 77, "value_eur": 18000000, "pace": 82, "shooting": 76, "passing": 72, "dribbling": 83, "defending": 35, "physic": 70, "fifa_version": 24},
     {"sofifa_id": 999023, "short_name": "M. Soulé", "long_name": "Matías Soulé", "age": 21, "club_name": "Roma", "league_name": "Serie A TIM", "nationality_name": "Argentina", "player_positions": "RW, CAM", "height_cm": 176, "weight_kg": 69, "overall": 80, "value_eur": 35000000, "pace": 82, "shooting": 77, "passing": 78, "dribbling": 85, "defending": 45, "physic": 60, "fifa_version": 24},
@@ -44,7 +43,7 @@ nuevos_jugadores = [
     {"sofifa_id": 999029, "short_name": "E. Bove", "long_name": "Edoardo Bove", "age": 22, "club_name": "Roma", "league_name": "Serie A TIM", "nationality_name": "Italy", "player_positions": "CM, CDM", "height_cm": 178, "weight_kg": 73, "overall": 78, "value_eur": 18000000, "pace": 74, "shooting": 68, "passing": 76, "dribbling": 77, "defending": 75, "physic": 76, "fifa_version": 24},
     {"sofifa_id": 999030, "short_name": "S. Pafundi", "long_name": "Simone Pafundi", "age": 18, "club_name": "Udinese", "league_name": "Serie A TIM", "nationality_name": "Italy", "player_positions": "CAM", "height_cm": 166, "weight_kg": 60, "overall": 72, "value_eur": 6000000, "pace": 78, "shooting": 68, "passing": 74, "dribbling": 82, "defending": 35, "physic": 45, "fifa_version": 24},
 
-    # 🇩🇪 BUNDESLIGA
+    #BUNDESLIGA
     {"sofifa_id": 999031, "short_name": "A. Pavlović", "long_name": "Aleksandar Pavlović", "age": 20, "club_name": "Bayern Munich", "league_name": "Bundesliga", "nationality_name": "Germany", "player_positions": "CDM, CM", "height_cm": 186, "weight_kg": 76, "overall": 79, "value_eur": 25000000, "pace": 70, "shooting": 62, "passing": 80, "dribbling": 76, "defending": 75, "physic": 74, "fifa_version": 24},
     {"sofifa_id": 999032, "short_name": "M. Tel", "long_name": "Mathys Tel", "age": 19, "club_name": "Bayern Munich", "league_name": "Bundesliga", "nationality_name": "France", "player_positions": "ST, LM, RM", "height_cm": 183, "weight_kg": 77, "overall": 79, "value_eur": 28000000, "pace": 86, "shooting": 80, "passing": 68, "dribbling": 82, "defending": 35, "physic": 72, "fifa_version": 24},
     {"sofifa_id": 999033, "short_name": "J. Bynoe-Gittens", "long_name": "Jamie Bynoe-Gittens", "age": 19, "club_name": "Borussia Dortmund", "league_name": "Bundesliga", "nationality_name": "England", "player_positions": "LM, RM", "height_cm": 175, "weight_kg": 70, "overall": 78, "value_eur": 22000000, "pace": 88, "shooting": 72, "passing": 70, "dribbling": 84, "defending": 40, "physic": 58, "fifa_version": 24},
@@ -56,7 +55,7 @@ nuevos_jugadores = [
     {"sofifa_id": 999039, "short_name": "M. Finkgräfe", "long_name": "Max Finkgräfe", "age": 20, "club_name": "FC Köln", "league_name": "Bundesliga", "nationality_name": "Germany", "player_positions": "LB, LM", "height_cm": 180, "weight_kg": 74, "overall": 72, "value_eur": 4000000, "pace": 82, "shooting": 55, "passing": 68, "dribbling": 72, "defending": 68, "physic": 70, "fifa_version": 24},
     {"sofifa_id": 999040, "short_name": "K. Topp", "long_name": "Keke Topp", "age": 20, "club_name": "Werder Bremen", "league_name": "Bundesliga", "nationality_name": "Germany", "player_positions": "ST", "height_cm": 192, "weight_kg": 85, "overall": 71, "value_eur": 3500000, "pace": 74, "shooting": 72, "passing": 58, "dribbling": 68, "defending": 35, "physic": 80, "fifa_version": 24},
 
-    # 🇫🇷 LIGUE 1 UBER EATS
+    #LIGUE 1
     {"sofifa_id": 999041, "short_name": "W. Zaïre-Emery", "long_name": "Warren Zaïre-Emery", "age": 18, "club_name": "Paris SG", "league_name": "Ligue 1 Uber Eats", "nationality_name": "France", "player_positions": "CM, CDM", "height_cm": 178, "weight_kg": 68, "overall": 82, "value_eur": 50000000, "pace": 78, "shooting": 72, "passing": 82, "dribbling": 83, "defending": 75, "physic": 78, "fifa_version": 24},
     {"sofifa_id": 999042, "short_name": "B. Barcola", "long_name": "Bradley Barcola", "age": 21, "club_name": "Paris SG", "league_name": "Ligue 1 Uber Eats", "nationality_name": "France", "player_positions": "LW, RW", "height_cm": 182, "weight_kg": 70, "overall": 80, "value_eur": 35000000, "pace": 88, "shooting": 75, "passing": 76, "dribbling": 84, "defending": 40, "physic": 65, "fifa_version": 24},
     {"sofifa_id": 999043, "short_name": "D. Doué", "long_name": "Désiré Doué", "age": 19, "club_name": "Rennes", "league_name": "Ligue 1 Uber Eats", "nationality_name": "France", "player_positions": "CAM, LW", "height_cm": 181, "weight_kg": 73, "overall": 78, "value_eur": 22000000, "pace": 80, "shooting": 74, "passing": 77, "dribbling": 84, "defending": 55, "physic": 70, "fifa_version": 24},
@@ -71,17 +70,14 @@ nuevos_jugadores = [
 
 df_nuevos = pd.DataFrame(nuevos_jugadores)
 
-# Borramos si ya existen para no duplicar
 ids_nuevos = df_nuevos['sofifa_id'].tolist()
 df_existente = df_existente[~df_existente['sofifa_id'].isin(ids_nuevos)]
 
-# Rellenar columnas vacías para que cuadre con las 100 columnas de tu CSV
 for col in df_existente.columns:
     if col not in df_nuevos.columns:
         df_nuevos[col] = None
 
-# Juntamos los 50 chavales con tu base de datos
 df_final = pd.concat([df_existente, df_nuevos], ignore_index=True)
 
 df_final.to_csv(archivo_csv, index=False)
-print(f"✅ ¡{len(df_nuevos)} promesas añadidas con éxito! Ya puedes buscarlos en la web.")
+print(f"¡{len(df_nuevos)} promesas añadidas con éxito! Ya puedes buscarlos en la web.")
