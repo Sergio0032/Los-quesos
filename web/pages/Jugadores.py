@@ -6,7 +6,7 @@ import base64
 import re
 import unicodedata
 
-# CONFIGURACIÓN DE PÁGINA 
+# CONFIGURACIÓN DE LA PÁGINA 
 st.set_page_config(page_title="Jugadores", layout="wide")
 
 def poner_fondo_futbol(nombre_archivo_fondo):
@@ -59,7 +59,6 @@ poner_fondo_futbol("temaa.jpg")
 jugador_enviado = st.session_state.get('jugador_enviado', None)
 temporada_enviada = st.session_state.get('temporada_enviada', None)
 
-# --- BANNER CON LOGO ---
 directorio_actual = os.path.dirname(os.path.abspath(__file__))
 ruta_logo = os.path.join(directorio_actual, "..", "logo.png")
 
@@ -76,7 +75,6 @@ try:
 except FileNotFoundError:
     pass 
 
-# --- CARGA DE DATOS ---
 @st.cache_data
 def load_all_data():
     path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data_jugadores'))
@@ -128,7 +126,6 @@ else:
             list_equi = ["Ver toda la Liga"] + sorted(df[(df['Temporada'] == p_temp) & (df['Liga'] == p_liga)]['Equipo'].unique().tolist())
             if p_equipo in list_equi: equipo_idx = list_equi.index(p_equipo)
 
-    # --- SIDEBAR ---
     st.sidebar.header("Configuración")
     sel_temporada = st.sidebar.selectbox(" Temporada", list_temp, index=temp_idx, format_func=mostrar_formato_temporada)
     
@@ -145,10 +142,8 @@ else:
         tab1, tab2, tab3 = st.tabs(["Ficha de Jugador", "Máximos Goleadores", "Comparador de Jugadores"])
 
         with tab1:
-            # --- TABLA DINÁMICA CON BARRAS DE PROGRESO VISUALES ---
             df_mostrar = df_final.sort_values(by="Goles", ascending=False) if 'Goles' in df_final.columns else df_final
             
-            # Pasamos a números para poder dibujar las barras y datos
             df_mostrar['Goles'] = pd.to_numeric(df_mostrar['Goles'], errors='coerce').fillna(0)
             if 'Asistencias' in df_mostrar.columns:
                 df_mostrar['Asistencias'] = pd.to_numeric(df_mostrar['Asistencias'], errors='coerce').fillna(0)
@@ -159,11 +154,9 @@ else:
             
             cols_mostrar = [c for c in ['Jugador', 'Equipo', 'Posicion', 'Goles', 'Asistencias', 'Tarjetas_Amarillas', 'Tarjetas_Rojas'] if c in df_mostrar.columns]
             
-            # Maximos para calibrar las barras
             max_goles = int(df_mostrar['Goles'].max()) if not df_mostrar.empty and df_mostrar['Goles'].max() > 0 else 30
             max_asist = int(df_mostrar['Asistencias'].max()) if not df_mostrar.empty and 'Asistencias' in df_mostrar.columns and df_mostrar['Asistencias'].max() > 0 else 15
 
-            # ESTILO CSS PARA HACER LA TABLA OSCURA Y TRANSPARENTE
             st.markdown("""
                 <style>
                 [data-testid="stDataFrame"] {
@@ -207,7 +200,6 @@ else:
             jugador_seleccionado = st.selectbox("Elige un jugador para ver su ficha:", jugadores_disponibles, index=idx_jug_final)
 
             if jugador_seleccionado and not df_fifa.empty:
-                # --- 1. FUNCIÓN DE LIMPIEZA EXTREMA ANTI-LETRAS RARAS ---
                 def limpiar_nombre(texto):
                     texto = str(texto).lower()
                     texto = texto.replace('ø', 'o').replace('æ', 'ae').replace('ß', 'ss').replace('đ', 'd').replace('œ', 'oe')
@@ -218,22 +210,17 @@ else:
                 palabras = nombre_buscado.split()
                 apellido = palabras[-1] if palabras else ""
                 
-                # Limpiamos las columnas del FIFA
                 long_name_limpio = df_fifa['long_name'].apply(limpiar_nombre)
                 short_name_limpio = df_fifa['short_name'].apply(limpiar_nombre)
                 
-                # --- 2. BÚSQUEDA MÁS INTELIGENTE ---
-                # Buscamos primero que el apellido coincida (ej: Sørloth -> sorloth)
                 match = df_fifa[short_name_limpio.str.contains(apellido, na=False) | long_name_limpio.str.contains(apellido, na=False)]
                 
-                # Si hay varios con el mismo apellido (ej: los Williams), filtramos por la inicial del nombre
                 if len(match) > 1 and len(palabras) > 1:
                     inicial = palabras[0][0]
                     match_filtrado = match[short_name_limpio.str.startswith(inicial, na=False) | long_name_limpio.str.startswith(inicial, na=False)]
                     if not match_filtrado.empty:
                         match = match_filtrado
 
-                # 3. Sincronizamos con el equipo y cogemos el año correcto
                 fila_stats = df_mostrar[df_mostrar['Jugador'] == jugador_seleccionado]
                 equipo_forzado = None
 
@@ -252,15 +239,11 @@ else:
                         else:
                             equipo_forzado = equipo_tabla_real
 
-                # Si encontramos al jugador, maquetamos la ficha
-
                 if not match.empty:
                     datos_fifa = match.iloc[0]
                     nombre_real = datos_fifa.get('short_name', jugador_seleccionado)
                     equipo = equipo_forzado if equipo_forzado else datos_fifa.get('club_name', '')
                    
-                                            # --- DATOS LÓGICOS PREVIOS ---
-                    # 1. Banderas
                     dicc_paises = {'Spain': ('es', 'España'), 'England': ('gb-eng', 'Inglaterra'), 'France': ('fr', 'Francia'), 'Germany': ('de', 'Alemania'), 'Italy': ('it', 'Italia'), 'Brazil': ('br', 'Brasil'), 'Argentina': ('ar', 'Argentina'), 'Portugal': ('pt', 'Portugal'), 'Netherlands': ('nl', 'Países Bajos'), 'Belgium': ('be', 'Bélgica'), 'Norway': ('no', 'Noruega')}
                     nacionalidad_ingles = datos_fifa.get('nationality_name', 'Unknown')
                     if nacionalidad_ingles in dicc_paises:
@@ -268,7 +251,6 @@ else:
                         html_pais = f'<img src="https://flagcdn.com/w20/{iso}.png" width="18" style="vertical-align:middle; border-radius:2px; margin-right:5px;"> {esp}'
                     else: html_pais = f'🌍 {nacionalidad_ingles}'
 
-                    # 2. Datos dinámicos
                     try:
                         anyo_temporada = int(sel_temporada.split('-')[0]) 
                         anyo_fifa = 1999 + int(datos_fifa.get('fifa_version', 24))
@@ -279,26 +261,20 @@ else:
                     color_media = "#ffd700" if media >= 75 else ("#c0c0c0" if media >= 65 else "#cd7f32")
                     pie = "Zurdo" if str(datos_fifa.get('preferred_foot', '')) == "Left" else ("Diestro" if str(datos_fifa.get('preferred_foot', '')) == "Right" else "Ambidiestro")
                     
-                    # 3. Foto y Precio
-                    # 3. Foto y Precio (Búsqueda dinámica en Google Imágenes)
                     @st.cache_data
                     def buscar_foto_google(nombre_busqueda):
                         try:
                             import requests
                             from bs4 import BeautifulSoup
                             
-                            # Buscamos el nombre del jugador + equipo para mayor precisión
                             url = f"https://www.google.com/search?q={nombre_busqueda.replace(' ', '+')}+football+player&tbm=isch"
-                            # Nos hacemos pasar por un navegador normal para que Google no nos bloquee
                             headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
                             
                             respuesta = requests.get(url, headers=headers, timeout=5)
                             soup = BeautifulSoup(respuesta.text, 'html.parser')
                             
-                            # Pillamos todas las etiquetas de imagen de la página
                             imagenes = soup.find_all('img')
                             
-                            # La primera imagen siempre es el logo de Google, así que cogemos la segunda que empiece por http
                             for img in imagenes[1:]:
                                 src = img.get('src')
                                 if src and src.startswith('http'):
@@ -308,21 +284,17 @@ else:
                         except:
                             return 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
 
-                    # Ejecutamos la búsqueda con el nombre del jugador
                     url_foto = buscar_foto_google(f"{nombre_real} {equipo}")
                     
                     valor_mercado = datos_fifa.get('value_eur', 0)
                     str_precio = f"€ {float(valor_mercado) / 1000000:.1f} M" if not pd.isna(valor_mercado) and valor_mercado > 0 else "Desconocido"
 
-                    # --- MAQUETACIÓN VISUAL ---
                     col_ficha, col_grafico = st.columns([1.2, 1], gap="medium")
 
                     with col_ficha:
-                        # Extraemos los goles y asistencias reales para lucirlos en la ficha
                         goles_f = int(fila_stats['Goles'].iloc[0]) if not fila_stats.empty and pd.notnull(fila_stats['Goles'].iloc[0]) else 0
                         asist_f = int(fila_stats['Asistencias'].iloc[0]) if not fila_stats.empty and 'Asistencias' in fila_stats.columns and pd.notnull(fila_stats['Asistencias'].iloc[0]) else 0
 
-                        # TODO EL HTML EN UN SOLO BLOQUE
                         st.markdown(f"""
                         <div style="background-color: rgba(15, 15, 15, 0.85); padding: 25px; border-radius: 15px; border: 1px solid #444; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
                         
@@ -361,14 +333,12 @@ else:
                         """, unsafe_allow_html=True)
 
                     with col_grafico:
-                        # Título del radar en su propia cajita negra
                         st.markdown("""
                     <div style="background-color: rgba(15, 15, 15, 0.85); padding: 15px; border-radius: 15px; border: 1px solid #444; margin-bottom: 15px;">
                         <h3 style="margin: 0; color: white; border-left: 5px solid #1f77b4; padding-left: 10px;">Rendimiento FIFA</h3>
                     </div>
                         """, unsafe_allow_html=True)
                         
-                        # Gráfico de Araña / Radar
                         columnas_csv_lower = {c.lower(): c for c in df_fifa.columns}
                         cats = ['Ritmo', 'Tiro', 'Pase', 'Regate', 'Defensa', 'Físico']
                         stats_campo = ['pace', 'shooting', 'passing', 'dribbling', 'defending', 'physic']
@@ -394,7 +364,6 @@ else:
                                 name=nombre_real
                             ))
                             
-                            # Fondo transparente también para el radar
                             fig.update_layout(
                                 paper_bgcolor='rgba(0,0,0,0)', 
                                 polar=dict(bgcolor='rgba(0,0,0,0)', radialaxis=dict(visible=True, range=[0, 100], gridcolor='#444')),
@@ -408,12 +377,9 @@ else:
                     st.info(f"No se encontró la ficha detallada para '{jugador_seleccionado}' en la base de datos de FIFA.")
 
         with tab2:
-            # Dividimos en dos columnas para Goles y Asistencias
             col_goles, col_asist = st.columns(2, gap="large")
 
-            # --- GRÁFICO 1: GOLES (Dentro de su caja negra) ---
             with col_goles:
-                # Abrimos la caja negra y metemos el título
                 st.markdown("""
                 <div style="background-color: rgba(15,15,15,0.85); padding:25px; border-radius:15px; border:1px solid #444; margin-top:20px;">
                     <h3 style="color: white; border-left: 5px solid #ff4b4b; padding-left: 10px; margin-bottom: 20px;">Top 5 Goleadores</h3>
@@ -430,12 +396,12 @@ else:
                             y=top_goles['Goles'], 
                             text=top_goles['Goles'],
                             textposition='auto',
-                            marker_color='#ff4b4b' # BARRAS ROJAS
+                            marker_color='#ff4b4b'
                         ))
                         
                         fig_g.update_layout(
                             paper_bgcolor='rgba(0,0,0,0)', 
-                            plot_bgcolor='rgba(0,0,0,0)', # Fondos transparentes para que se vea la caja negra
+                            plot_bgcolor='rgba(0,0,0,0)',
                             font=dict(color='white'),
                             yaxis=dict(visible=False), 
                             xaxis=dict(showgrid=False, tickangle=-45), 
@@ -446,12 +412,9 @@ else:
                     else:
                         st.info("Aún no hay goles registrados en esta liga.")
                 
-                # Cerramos la caja negra
                 st.markdown('</div>', unsafe_allow_html=True)
 
-            # --- GRÁFICO 2: ASISTENCIAS (Dentro de su caja negra) ---
             with col_asist:
-                # Abrimos la caja negra y metemos el título
                 st.markdown("""
                 <div style="background-color: rgba(15,15,15,0.85); padding:25px; border-radius:15px; border:1px solid #444; margin-top:20px;">
                     <h3 style="color: white; border-left: 5px solid #ff4b4b; padding-left: 10px; margin-bottom: 20px;">Top 5 Asistentes</h3>
@@ -468,7 +431,7 @@ else:
                             y=top_asist['Asistencias'], 
                             text=top_asist['Asistencias'],
                             textposition='auto',
-                            marker_color='#ff4b4b' # BARRAS ROJAS
+                            marker_color='#ff4b4b' 
                         ))
                         
                         fig_a.update_layout(
@@ -484,14 +447,11 @@ else:
                     else:
                         st.info("Aún no hay asistencias registradas en esta liga.")
                 
-                # Cerramos la caja negra
                 st.markdown('</div>', unsafe_allow_html=True)
 
         with tab3:
-            # 1. TÍTULO EN CAJA NEGRA (Sin saltos de línea para que no se rompa)
             st.markdown('<div style="background-color: rgba(15,15,15,0.85); padding:15px; border-radius:15px; border:1px solid #444; margin-top:20px; margin-bottom:20px;"><h3 style="color: white; border-left: 5px solid #ff4b4b; padding-left: 10px; margin: 0;">Comparador de Jugadores</h3></div>', unsafe_allow_html=True)
             
-            # 2. SELECTORES DOBLES CON FILTRO DE LIGA
             ligas_disponibles = sorted(df['Liga'].unique().tolist())
             idx_liga_base = ligas_disponibles.index(sel_liga) if sel_liga in ligas_disponibles else 0
             
@@ -500,7 +460,6 @@ else:
             with col_l1:
                 liga_1 = st.selectbox("🟦 Liga del Jugador 1:", ligas_disponibles, index=idx_liga_base, key="liga1")
                 
-                # ORDENAMOS POR GOLES EN LUGAR DE ALFABÉTICAMENTE
                 df_l1 = df[df['Liga'] == liga_1].copy()
                 df_l1['Goles'] = pd.to_numeric(df_l1['Goles'], errors='coerce').fillna(0)
                 jugadores_liga1 = df_l1.sort_values(by='Goles', ascending=False)['Jugador'].unique().tolist()
@@ -511,7 +470,6 @@ else:
             with col_l2:
                 liga_2 = st.selectbox("🟥 Liga del Jugador 2:", ligas_disponibles, index=0, key="liga2")
                 
-                # ORDENAMOS POR GOLES EN LUGAR DE ALFABÉTICAMENTE
                 df_l2 = df[df['Liga'] == liga_2].copy()
                 df_l2['Goles'] = pd.to_numeric(df_l2['Goles'], errors='coerce').fillna(0)
                 jugadores_liga2 = df_l2.sort_values(by='Goles', ascending=False)['Jugador'].unique().tolist()
@@ -520,7 +478,6 @@ else:
             
             st.divider()
 
-            # 3. EL TOGGLE REAL vs FIFA
             modo_comparacion = st.radio(
                 "Selecciona el modo de comparación:",
                 ["Estadísticas Reales", "Estadísticas EA FC"],
@@ -531,11 +488,8 @@ else:
             datos_reales_j2 = df[(df['Jugador'] == j2_nombre) & (df['Temporada'] == sel_temporada)]
 
             if modo_comparacion == "Estadísticas Reales":
-                # --- MODO REALES: DOS FICHAS CARA A CARA ---
                 col_r1, col_r2 = st.columns(2, gap="large")
                 
-                # Función blindada en 1 sola línea para que Streamlit no lo convierta en texto
-                # Función blindada en 1 sola línea para que Streamlit no lo convierta en texto
                 def pintar_ficha_real(datos, color_borde):
                     if datos.empty:
                         return f"<div style='padding:20px; color:#aaa; border:1px solid #444; border-radius:15px;'>Sin datos reales esta temporada.</div>"
@@ -554,7 +508,6 @@ else:
                     st.markdown(pintar_ficha_real(datos_reales_j2, "#ff4b4b"), unsafe_allow_html=True)
 
             else:
-                # --- MODO FIFA: EL RADAR ---
                 if 'df_fifa' in locals() and not df_fifa.empty:
                     def limpiar_nombre_fifa(texto):
                         texto = str(texto).lower()
@@ -565,7 +518,6 @@ else:
                     long_name_limpio = df_fifa['long_name'].apply(limpiar_nombre_fifa)
                     short_name_limpio = df_fifa['short_name'].apply(limpiar_nombre_fifa)
                     
-                    # Función interna para buscar un jugador
                     def encontrar_jugador_fifa(nombre):
                         pal = limpiar_nombre_fifa(nombre).split()
                         if not pal: return pd.DataFrame()
@@ -577,7 +529,6 @@ else:
                             if not m_fil.empty: m = m_fil
                         return m
                     
-                    # Buscamos a J1 y J2 con el nuevo algoritmo
                     m1 = encontrar_jugador_fifa(j1_nombre)
                     m2 = encontrar_jugador_fifa(j2_nombre)
                 
@@ -606,6 +557,6 @@ else:
                         st.plotly_chart(fig_comp, use_container_width=True)
                     else:
                         st.warning("No se encontraron los datos de EA FC para uno de los jugadores.")
-# Limpieza de memoria
+                        
 if 'jugador_enviado' in st.session_state: del st.session_state['jugador_enviado']
 if 'temporada_enviada' in st.session_state: del st.session_state['temporada_enviada']

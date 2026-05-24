@@ -60,7 +60,7 @@ python src/añadir_jugadoresU18.py
 
     *Nota de actualización: Estos scripts extraen la información en tiempo real. Si deseas ver los datos de partidos o clasificaciones más recientes en el futuro, deberás volver a ejecutar estos comandos para sobreescribir los archivos locales.
 
-6. Para el download_fifa, en el archivo config.py hay unas claves de usuario que tendrás que meter o sino te puedes crear unas en KAGGLE
+6. Para el download_fifa, en el archivo config.py hay unas claves de usuario que tendrás que meter o sino te puedes crear unas en KAGGLE. Además, este código descargará varios csv, de los cuales solo se necesitará el male_players.csv.
 
 7. Haz funcionar los dockers, con los comandos en la terminal de: 
     - docker-compose build --no-cache
