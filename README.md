@@ -27,7 +27,7 @@ ALERTA: RECOMENDAMOS NO ELIMINAR LOS CSV (PRINCIPALMENTE EL DE CLASIFICACIÓN) Y
 
 ⚠️ Requisito Previo Obligatorio: Instalar Python 3.11
 
-    Para garantizar la correcta ejecución de los scripts de recolección de datos y evitar conflictos de compilación de C++ con las librerías, es estrictamente necesario utilizar Python 3.11. Versiones superiores (como 3.12 o 3.13) generarán errores con las librerías
+    Para garantizar la correcta ejecución de los scripts de recolección de datos y evitar conflictos de compilación de C++ con las librerías, es estrictamente necesario utilizar Python 3.11. Versiones superiores (como 3.12 o 3.13) generarán errores con algunas librerías
 
     Si no tiene esta versión instalada, siga estos pasos:
     - Vaya a la página oficial y descargue el instalador de Python 3.11: [Descargar Python 3.11.9](https://www.python.org/downloads/release/python-3119/)
@@ -40,17 +40,17 @@ ALERTA: RECOMENDAMOS NO ELIMINAR LOS CSV (PRINCIPALMENTE EL DE CLASIFICACIÓN) Y
 - .\env\Scripts\activate
 (Sabrá que el entorno está activo cuando vea el prefijo (env) al inicio de la línea en su terminal).
 
-3. (DESCARGA OPCIONAL SI SE QUIERE UTILIZAR EL "download_clasificaciones")
+3. (DESCARGA OPCIONAL SI SE QUIERE UTILIZAR EL "download_clasificaciones", aún así depende de la IP a veces dará error la Api de "Nonetype" al descargar por uso de bots, por eso la recomendación de no eliminar csv definitivamente)
 Es necesario tener instaladas las "Visual Studio Build Tools" en Windows.
    - Descarga el instalador de Visual Studio desde la web oficial de Microsoft.
    - Al abrirlo, busca y marca unicamente la casilla que dice "Desarrollo para el escritorio con C++".
    - Dale a instalar.
    - Cuando termine, es obligatorio reiniciar Visual Studio Code por completo para que detecte el compilador.
-   - Esto es necesario para evitar un error en el paso 4.
+   - Esto es necesario para evitar un error en el paso 5.
 
 4. Instala las librerías necesarias ejecutando en la terminal: python -m pip install -r requirements.txt
 
-5. Ejecuta los archivos de la carpeta src para tener los CSV, en este orden(pudes hacerlo copiando estos códgios en la termianl o dandole al play en cada archivo)
+5. Ejecuta los archivos de la carpeta src para tener los CSV, en este orden(puedes hacerlo copiando estos códgios en la termianl o dandole al play en cada archivo)
 python src/download_partidos.py
 python src/download_clasificaciones.py
 python src/download_jugadores.py

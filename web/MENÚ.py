@@ -295,7 +295,7 @@ else:
         if equipos_liga:
             st.markdown(f"<div class='liga-header'>{liga['icon']} {liga['name']}</div>", unsafe_allow_html=True)
             c_rec, c_cla, c_pro = st.columns(3)
-
+        
             with c_rec:
                 m_rec = df_partidos[(df_partidos['home_team'].isin(equipos_liga)) & mask_jugado].sort_values(['date'], ascending=False)
                 if not m_rec.empty:
